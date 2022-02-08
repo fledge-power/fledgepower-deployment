@@ -15,6 +15,8 @@ COPY fledge_build.sh /tmp/
 
 RUN chmod +x /tmp/fledge_build.sh && \
     /tmp/fledge_build.sh && \
+    yum clean all && \
+    rm -fr /var/cache/yum && \
     echo '=============================================='
 
 RUN wget ${FLEDGELINK}/fledge-${FLEDGEVERSION}-1.${ARCHITECTURE}.rpm && \
