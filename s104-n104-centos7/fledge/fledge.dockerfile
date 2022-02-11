@@ -41,7 +41,6 @@ RUN echo "systemctl start rsyslog" > start.sh && \
     echo "/usr/local/fledge/bin/fledge start" >> start.sh && \
     echo "sleep 30" >> start.sh && \
     echo "curl -sX POST http://localhost:8081/fledge/service -d '{\"name\":\"${IEC104_SOUTH_SERVICE_NAME}\",\"type\":\"south\",\"plugin\":\"iec104\",\"enabled\":false}'" >> start.sh && \
-    echo "sleep 10" >> start.sh && \
     echo "curl -sX POST http://localhost:8081/fledge/service -d '{\"name\":\"${IEC104_NORTH_SERVICE_NAME}\",\"type\":\"north\",\"plugin\":\"iec104\",\"enabled\":false}'" >> start.sh && \
     echo "tail -f /dev/null" >> start.sh && \
     chmod +x start.sh

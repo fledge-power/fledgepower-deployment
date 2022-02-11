@@ -32,14 +32,15 @@ cmake -DBUILD_TESTS=NO -DBUILD_EXAMPLES=NO ..
 make
 sudo make install
 cd ../../..
-git clone https://github.com/fledge-iot/fledge-south-iec104.git
-cd fledge-south-iec104
+git clone https://github.com/fledge-power/fledge-north-iec104.git
+cd fledge-north-iec104
+chmod +x mkversion
 mkdir build
 cd build
-cmake -DFLEDGE_INCLUDE=/usr/local/fledge/include/ -DFLEDGE_LIB=/usr/local/fledge/lib/ ..
+cmake -DCMAKE_BUILD_TYPE=Release -DFLEDGE_INCLUDE=/usr/local/fledge/include/ -DFLEDGE_LIB=/usr/local/fledge/lib/ ..
 make
-if [ ! -d "${FLEDGE_ROOT}/plugins/south/iec104" ] 
+if [ ! -d "${FLEDGE_ROOT}/plugins/north/iec104" ] 
 then
-    sudo mkdir -p $FLEDGE_ROOT/plugins/south/iec104
+    sudo mkdir -p $FLEDGE_ROOT/plugins/north/iec104
 fi
-sudo cp libiec104.so $FLEDGE_ROOT/plugins/south/iec104
+sudo cp libiec104.so $FLEDGE_ROOT/plugins/north/iec104
