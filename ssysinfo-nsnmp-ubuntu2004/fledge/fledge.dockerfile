@@ -24,6 +24,7 @@ RUN apt-get update && apt-get dist-upgrade -y && apt-get install --no-install-re
     sed \
     wget \
     snmp \
+    sysstat \
     cmake g++ make build-essential autoconf automake uuid-dev && \
     echo '=============================================='
     
