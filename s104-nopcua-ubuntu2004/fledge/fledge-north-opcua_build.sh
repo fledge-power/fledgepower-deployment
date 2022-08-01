@@ -26,7 +26,7 @@ chmod +x mkversion
 mkdir build
 ./requirements.sh
 cd build
-cmake ..
+cmake -DFLEDGE_INCLUDE=/usr/local/fledge/include/ -DFLEDGE_LIB=/usr/local/fledge/lib/ ..
 make
 if [ ! -d "${FLEDGE_ROOT}/plugins/north/opcua" ] 
 then
