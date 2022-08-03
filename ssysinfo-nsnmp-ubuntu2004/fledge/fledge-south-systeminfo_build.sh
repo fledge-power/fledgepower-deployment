@@ -23,7 +23,7 @@
 git clone https://github.com/fledge-iot/fledge-south-systeminfo.git
 cd fledge-south-systeminfo/python/fledge/plugins/south
 
-if [ ! -d "${FLEDGE_ROOT}python/fledge/plugins/south/systeminfo" ] 
+if [ ! -d "${FLEDGE_ROOT}/python/fledge/plugins/south/systeminfo" ] 
 then
     sudo mkdir -p $FLEDGE_ROOT/python/fledge/plugins/south/systeminfo
 fi

@@ -80,6 +80,12 @@ RUN chmod +x /tmp/fledge-south-systeminfo_build.sh && \
     /tmp/fledge-south-systeminfo_build.sh && \
     echo '=============================================='
 
+COPY fledge-filter-iec104todp_build.sh /tmp/
+
+RUN chmod +x /tmp/fledge-filter-iec104todp_build.sh && \
+    /tmp/fledge-filter-iec104todp_build.sh && \
+    echo '=============================================='
+
 WORKDIR /usr/local/fledge
 COPY start.sh start.sh
 

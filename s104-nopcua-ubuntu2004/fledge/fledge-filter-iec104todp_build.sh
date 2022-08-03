@@ -20,11 +20,12 @@
 ## Author: Jade Archer
 ##
 
-git clone https://github.com/fledge-iot/fledge-south-systeminfo.git
-cd fledge-south-systeminfo/python/fledge/plugins/south
+git clone https://github.com/aklira/fledgepower-filter-104todp.git
+cd fledgepower-filter-104todp/python/fledge/plugins/filter/
 
-if [ ! -d "${FLEDGE_ROOT}/python/fledge/plugins/south/systeminfo" ] 
+
+if [ ! -d "${FLEDGE_ROOT}/python/fledge/plugins/filter/104todp" ] 
 then
-    sudo mkdir -p $FLEDGE_ROOT/python/fledge/plugins/south/systeminfo
+    sudo mkdir -p $FLEDGE_ROOT/python/fledge/plugins/filter/104todp
 fi
-sudo cp -r systeminfo/ $FLEDGE_ROOT/python/fledge/plugins/south
+sudo cp -r systeminfo/ $FLEDGE_ROOT/python/fledge/plugins/filter
