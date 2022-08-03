@@ -17,7 +17,7 @@
 ##--------------------------------------------------------------------
 
 ##
-## Author: Jade Archer
+## Author: Akli Rahmoun
 ##
 
 git clone https://github.com/aklira/fledgepower-filter-104todp.git
@@ -28,4 +28,4 @@ if [ ! -d "${FLEDGE_ROOT}/python/fledge/plugins/filter/104todp" ]
 then
     sudo mkdir -p $FLEDGE_ROOT/python/fledge/plugins/filter/104todp
 fi
-sudo cp -r systeminfo/ $FLEDGE_ROOT/python/fledge/plugins/filter
+sudo cp -r 104todp/ $FLEDGE_ROOT/python/fledge/plugins/filter
