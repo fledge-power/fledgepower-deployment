@@ -9,6 +9,7 @@ ARG ARCHITECTURE=x86_64
 ARG FLEDGELINK="http://archives.fledge-iot.org/${FLEDGEVERSION}/${OPERATINGSYSTEM}/${ARCHITECTURE}"
 ARG IEC104_SOUTH_SERVICE_NAME=iec104south_t1
 ARG OPCUA_NORTH_SERVICE_NAME=opcuanorth_t1
+ARG SYSTEMINFO_SOUTH_SERVICE_NAME=systeminfosouth_t1
 
 ENV FLEDGE_ROOT=/usr/local/fledge
 
@@ -23,6 +24,7 @@ RUN apt-get update && apt-get dist-upgrade -y && apt-get install --no-install-re
     rsyslog \
     sed \
     wget \
+    sysstat \
     cmake g++ make build-essential autoconf automake uuid-dev && \
     echo '=============================================='
     
@@ -72,10 +74,17 @@ RUN chmod +x /tmp/fledge-north-opcua_build.sh && \
     /tmp/fledge-north-opcua_build.sh && \
     echo '=============================================='
 
+COPY fledge-south-systeminfo_build.sh /tmp/
+
+RUN chmod +x /tmp/fledge-south-systeminfo_build.sh && \
+    /tmp/fledge-south-systeminfo_build.sh && \
+    echo '=============================================='
+
 WORKDIR /usr/local/fledge
 COPY start.sh start.sh
 
 RUN echo "sleep 30" >> start.sh && \
+    echo "curl -sX POST http://localhost:8081/fledge/service -d '{\"name\":\"${SYSTEMINFO_SOUTH_SERVICE_NAME}\",\"type\":\"south\",\"plugin\":\"systeminfo\",\"enabled\":false}'" >> start.sh && \
     echo "curl -sX POST http://localhost:8081/fledge/service -d '{\"name\":\"${IEC104_SOUTH_SERVICE_NAME}\",\"type\":\"south\",\"plugin\":\"iec104\",\"enabled\":false}'" >> start.sh && \
     echo "curl -sX POST http://localhost:8081/fledge/service -d '{\"name\":\"${OPCUA_NORTH_SERVICE_NAME}\",\"type\":\"north\",\"plugin\":\"opcua\",\"enabled\":false}'" >> start.sh && \
     echo "tail -f /var/log/syslog" >> start.sh && \
