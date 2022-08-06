@@ -22,9 +22,9 @@
 
 git clone https://github.com/fledge-iot/fledge.git
 cd fledge
+sudo mkdir -p /usr/local/fledge/include/rapidjson/
 find C/common/ -name '*.h' -exec sudo cp -prv '{}' '/usr/local/fledge/include' ';'
 find C/plugins/ -name '*.h' -exec sudo cp -prv '{}' '/usr/local/fledge/include' ';'
 find C/services/ -name '*.h' -exec sudo cp -prv '{}' '/usr/local/fledge/include' ';'
 find C/tasks/ -name '*.h' -exec sudo cp -prv '{}' '/usr/local/fledge/include' ';'
-sudo mkdir -p /usr/local/fledge/include/rapidjson/
 sudo cp -prv C/thirdparty/rapidjson/include/rapidjson/* /usr/local/fledge/include/rapidjson/
