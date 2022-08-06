@@ -60,8 +60,12 @@ RUN mkdir ./fledge && \
     apt-get clean -y && \
     rm -rf /var/lib/apt-get/lists/ && \
     echo '=============================================='
-    
-COPY include /usr/local/fledge/include
+
+COPY fledge-install-include.sh /tmp/
+
+RUN chmod +x /tmp/fledge-install-include.sh && \
+    /tmp/fledge-install-include.sh && \
+    echo '=============================================='
 
 COPY fledge-south-iec104_build.sh /tmp/
 
