@@ -1,4 +1,4 @@
-FROM nginx:latest
+FROM arm64v8/nginx:latest
 
 LABEL author="Akli Rahmoun"
 
