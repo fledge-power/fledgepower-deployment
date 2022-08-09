@@ -1,4 +1,4 @@
-FROM arm64v8/ubuntu:latest
+FROM debian:bullseye-slim
 
 LABEL author="Akli Rahmoun"
 
