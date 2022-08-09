@@ -61,7 +61,12 @@ jobs:
 
       # Build image
       - name: Build images
-        run: |
+        uses: pguyot/arm-runner-action@v2
+        with:
+         base_image: raspios_lite:latest
+         cpu: cortex-a7
+         cpu_info: raspberrypi_4b
+         commands: |
           cd ./fledgepower-deployment/s104-nopcua-bullseye/fledge/
           sudo -E docker build -f fledge.dockerfile -t ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_IMAGE_NAME }}:${{ env.IMAGE_TAG }} . --label ${{ github.ref }}
           cd ../fledge-gui
