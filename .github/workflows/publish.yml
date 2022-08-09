@@ -13,8 +13,8 @@ env:
   IMAGE_REGISTRY: ghcr.io
   REGISTRY_USER: ${{ github.actor }}
   REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
-  FLEDGE_IMAGE_NAME: 'fledgepower/fledge-104-opcua-arm64v8'
-  FLEDGE_GUI_IMAGE_NAME: 'fledgepower/fledge-gui-arm64v8'
+  FLEDGE_IMAGE_NAME: 'fledgepower/fledge-104-opcua-armv7l'
+  FLEDGE_GUI_IMAGE_NAME: 'fledgepower/fledge-gui-armv7l'
   IMAGE_TAG: 'latest'
 
 jobs:
