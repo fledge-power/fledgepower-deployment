@@ -1,4 +1,4 @@
-FROM debian:buster-slim
+FROM arm32v7/ubuntu:20.04
 
 LABEL author="Akli Rahmoun"
 
