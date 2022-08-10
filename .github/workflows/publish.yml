@@ -70,6 +70,7 @@ jobs:
           export DOCKER_BUILDKIT=1
           sudo -E docker buildx create --name mybuilder
           sudo -E docker buildx use mybuilder
+          sudo -E docker buildx inspect --bootstrap
           cd ./fledgepower-deployment/s104-nopcua-bullseye/fledge/
           sudo -E docker buildx build --platform linux/arm/v7 -f fledge.dockerfile -t ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_IMAGE_NAME }}:${{ env.IMAGE_TAG }} . --label ${{ github.ref }}
           cd ../fledge-gui
