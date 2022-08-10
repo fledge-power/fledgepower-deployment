@@ -1,11 +1,11 @@
-FROM debian:bullseye-slim
+FROM debian:buster-slim
 
 LABEL author="Akli Rahmoun"
 
 # Set FLEDGE version, distribution, and platform
-ARG FLEDGEVERSION=1.9.2-915
-ARG RELEASE=nightly 
-ARG OPERATINGSYSTEM=bullseye
+ARG FLEDGEVERSION=1.9.2
+ARG RELEASE=1.9.2 
+ARG OPERATINGSYSTEM=buster
 ARG ARCHITECTURE=armv7l
 ARG FLEDGELINK="http://archives.fledge-iot.org/${RELEASE}/${OPERATINGSYSTEM}/${ARCHITECTURE}"
 ARG IEC104_SOUTH_SERVICE_NAME=iec104south_t1
@@ -30,7 +30,7 @@ RUN apt-get update && apt-get dist-upgrade -y && apt-get install --no-install-re
     echo '=============================================='
     
 RUN mkdir ./fledge && \
-    wget -O ./fledge/fledge-${FLEDGEVERSION}-${ARCHITECTURE}.deb --no-check-certificate ${FLEDGELINK}/fledge_${FLEDGEVERSION}_${ARCHITECTURE}.deb && \
+    wget -O ./fledge/fledge-${FLEDGEVERSION}-${ARCHITECTURE}.deb --no-check-certificate ${FLEDGELINK}/fledge-${FLEDGEVERSION}-${ARCHITECTURE}.deb && \
     #
     # The postinstall script of the .deb package enables and starts the fledge service. Since services are not supported in docker
     # containers, we must modify the postinstall script to remove these lines so that the package will install without errors.
