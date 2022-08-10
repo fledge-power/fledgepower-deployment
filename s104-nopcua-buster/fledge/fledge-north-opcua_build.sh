@@ -20,7 +20,7 @@
 ## Author: Mark Riddoch, Akli Rahmoun
 ##
 
-git clone https://github.com/aklira/fledge-north-opcua.git
+git clone https://github.com/fledge-iot/fledge-north-opcua.git
 cd fledge-north-opcua
 chmod +x mkversion
 mkdir build
