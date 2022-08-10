@@ -62,7 +62,7 @@ jobs:
       # Download and install qemu packages
       - name: Install qemu packages
         run: |
-          sudo -E docker run -it --rm --privileged tonistiigi/binfmt --install all
+          sudo -E apt-get install -y qemu-user-static
       
       # Build image
       - name: Build images
