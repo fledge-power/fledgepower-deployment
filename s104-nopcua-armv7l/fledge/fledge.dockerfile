@@ -31,17 +31,16 @@ RUN apt-get update && apt-get dist-upgrade -y && apt-get install --no-install-re
     wget \
     sysstat \
     g++ make build-essential autoconf automake uuid-dev && \
+    software-properties-common lsb-release && \
     echo '=============================================='
 
-RUN mkdir cmake && \
-    cd ./cmake && \
-    wget ${CMAKELINK} && \
-    tar -xzvf cmake-${CMAKEVERSION}.tar.gz && \
-    cd ./cmake-${CMAKEVERSION} && \
-    sudo ./bootstrap && \
-    sudo make && \
-    sudo make install && \
-    echo '=============================================='
+RUN wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | sudo tee /etc/apt/trusted.gpg.d/kitware.gpg >/dev/null && \
+    apt-add-repository "deb https://apt.kitware.com/ubuntu/ $(lsb_release -cs) main" && \
+    sudo apt update && \
+    apt install kitware-archive-keyring && \
+    rm /etc/apt/trusted.gpg.d/kitware.gpg && \
+    apt install cmake --yes && \
+    echo '==============================================' 
 
     
 RUN mkdir ./fledge && \
