@@ -1,4 +1,4 @@
-FROM arm32v7/ubuntu:20.04
+FROM arm32v7/debian:bullseye-slim
 
 LABEL author="Akli Rahmoun"
 
@@ -11,10 +11,6 @@ ARG FLEDGELINK="http://archives.fledge-iot.org/${RELEASE}/${OPERATINGSYSTEM}/${A
 ARG IEC104_SOUTH_SERVICE_NAME=iec104south_t1
 ARG OPCUA_NORTH_SERVICE_NAME=opcuanorth_t1
 ARG SYSTEMINFO_SOUTH_SERVICE_NAME=systeminfosouth_t1
-
-# Set CMake download source
-ARG CMAKEVERSION=3.24.0 
-ARG CMAKELINK="https://github.com/Kitware/CMake/releases/download/v${CMAKEVERSION}/cmake-${CMAKEVERSION}.tar.gz"
 
 ENV FLEDGE_ROOT=/usr/local/fledge
 
@@ -30,17 +26,9 @@ RUN apt-get update && apt-get dist-upgrade -y && apt-get install --no-install-re
     sed \
     wget \
     sysstat \
-    g++ make build-essential autoconf automake uuid-dev \
+    cmake g++ make build-essential autoconf automake uuid-dev \
     software-properties-common lsb-release && \
     echo '=============================================='
-
-RUN wget ${CMAKELINK} --no-check-certificate && \
-    tar -xzvf cmake-${CMAKEVERSION}.tar.gz && \
-    cd ./cmake-${CMAKEVERSION} && \
-    ./bootstrap && \
-    make && \
-    make install && \
-    echo '==============================================' 
 
     
 RUN mkdir ./fledge && \
