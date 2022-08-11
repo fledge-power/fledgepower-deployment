@@ -1,4 +1,4 @@
-FROM arm32v7/debian:bullseye-slim
+FROM arm32v7/debian:buster-slim
 
 LABEL author="Akli Rahmoun"
 
