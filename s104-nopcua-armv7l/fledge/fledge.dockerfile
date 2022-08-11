@@ -12,6 +12,10 @@ ARG IEC104_SOUTH_SERVICE_NAME=iec104south_t1
 ARG OPCUA_NORTH_SERVICE_NAME=opcuanorth_t1
 ARG SYSTEMINFO_SOUTH_SERVICE_NAME=systeminfosouth_t1
 
+# Set CMake download source
+ARG CMAKEVERSION=3.24.0 
+ARG CMAKELINK="https://github.com/Kitware/CMake/releases/download/v${CMAKEVERSION}/cmake-${CMAKEVERSION}.tar.gz"
+
 ENV FLEDGE_ROOT=/usr/local/fledge
 
 # Avoid interactive questions when installing Kerberos
@@ -26,8 +30,19 @@ RUN apt-get update && apt-get dist-upgrade -y && apt-get install --no-install-re
     sed \
     wget \
     sysstat \
-    cmake g++ make build-essential autoconf automake uuid-dev && \
+    g++ make build-essential autoconf automake uuid-dev && \
     echo '=============================================='
+
+RUN mkdir cmake && \
+    cd ./cmake && \
+    wget ${CMAKELINK} && \
+    tar -xzvf cmake-${CMAKEVERSION}.tar.gz && \
+    cd ./cmake-${CMAKEVERSION} && \
+    sudo ./bootstrap && \
+    sudo make && \
+    sudo make install && \
+    echo '=============================================='
+
     
 RUN mkdir ./fledge && \
     wget -O ./fledge/fledge-${FLEDGEVERSION}-${ARCHITECTURE}.deb --no-check-certificate ${FLEDGELINK}/fledge-${FLEDGEVERSION}-${ARCHITECTURE}.deb && \
