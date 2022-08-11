@@ -64,8 +64,8 @@ jobs:
         run: |
           sudo -E apt-get install -y qemu-user-static
       
-      # Build  and push images
-      - name: Build images
+      # Build and push images
+      - name: Build and push images
         run: |
           export DOCKER_BUILDKIT=1
           sudo -E docker buildx create --name mybuilder
