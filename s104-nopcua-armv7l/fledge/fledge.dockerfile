@@ -37,7 +37,7 @@ RUN apt-get update && apt-get dist-upgrade -y && apt-get install --no-install-re
 RUN wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null --no-check-certificate | gpg --dearmor - | tee /etc/apt/trusted.gpg.d/kitware.gpg >/dev/null && \
     apt-add-repository "deb https://apt.kitware.com/ubuntu/ $(lsb_release -cs) main" && \
     apt update && \
-    apt install cmake --yes && \
+    apt install cmake-data cmake --yes && \
     echo '==============================================' 
 
     
