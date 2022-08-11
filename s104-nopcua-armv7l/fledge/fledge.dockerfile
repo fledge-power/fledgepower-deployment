@@ -67,11 +67,11 @@ RUN chmod +x /tmp/fledge-install-include.sh && \
     /tmp/fledge-install-include.sh && \
     echo '=============================================='
 
-#COPY fledge-south-iec104_build.sh /tmp/
+COPY fledge-south-iec104_build.sh /tmp/
 
-#RUN chmod +x /tmp/fledge-south-iec104_build.sh && \
-#    /tmp/fledge-south-iec104_build.sh && \
-#    echo '=============================================='
+RUN chmod +x /tmp/fledge-south-iec104_build.sh && \
+    /tmp/fledge-south-iec104_build.sh && \
+    echo '=============================================='
 
 COPY fledge-north-opcua_build.sh /tmp/
 
