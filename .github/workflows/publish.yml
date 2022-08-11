@@ -64,7 +64,7 @@ jobs:
         run: |
           sudo -E apt-get install -y qemu-user-static
       
-      # Build image
+      # Build  and push images
       - name: Build images
         run: |
           export DOCKER_BUILDKIT=1
@@ -72,13 +72,6 @@ jobs:
           sudo -E docker buildx use mybuilder
           sudo -E docker buildx inspect --bootstrap
           cd ./fledgepower-deployment/s104-nopcua-armv7l/fledge/
-          #sudo -E docker buildx build --platform linux/arm/v7 -f fledge.dockerfile -t ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_IMAGE_NAME }}:${{ env.IMAGE_TAG }} --push .
+          sudo -E docker buildx build --platform linux/arm/v7 -f fledge.dockerfile -t ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_IMAGE_NAME }}:${{ env.IMAGE_TAG }} --push .
           cd ../fledge-gui
           sudo -E docker buildx build --platform linux/arm/v7 -f fledge-gui.dockerfile -t ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_GUI_IMAGE_NAME }}:${{ env.IMAGE_TAG }} --push .
-          sudo -E docker images
-  
-      # Push to ghcr.io (Github Image Registry)
-      #- name: Push images
-      #  run: |
-      #    sudo -E docker push ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_IMAGE_NAME }}:${{ env.IMAGE_TAG }}
-      #    sudo -E docker push ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_GUI_IMAGE_NAME }}:${{ env.IMAGE_TAG }}
