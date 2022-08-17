@@ -67,6 +67,12 @@ RUN chmod +x /tmp/fledge-install-include.sh && \
     /tmp/fledge-install-include.sh && \
     echo '=============================================='
 
+COPY fledge-install-dispatcher.sh /tmp/
+
+RUN chmod +x /tmp/fledge-install-dispatcher.sh && \
+    /tmp/fledge-install-dispatcher.sh && \
+    echo '=============================================='
+
 COPY fledge-south-iec104_build.sh /tmp/
 
 RUN chmod +x /tmp/fledge-south-iec104_build.sh && \
