@@ -3,8 +3,8 @@ FROM arm32v7/debian:buster-slim
 LABEL author="Akli Rahmoun"
 
 # Set FLEDGE version, distribution, and platform
-ARG FLEDGEVERSION=1.9.2
-ARG RELEASE=1.9.2 
+ARG FLEDGEVERSION=1.9.2-946
+ARG RELEASE=nightly
 ARG OPERATINGSYSTEM=buster
 ARG ARCHITECTURE=armv7l
 ARG FLEDGELINK="http://archives.fledge-iot.org/${RELEASE}/${OPERATINGSYSTEM}/${ARCHITECTURE}"
@@ -32,7 +32,7 @@ RUN apt-get update && apt-get dist-upgrade -y && apt-get install --no-install-re
 
     
 RUN mkdir ./fledge && \
-    wget -O ./fledge/fledge-${FLEDGEVERSION}-${ARCHITECTURE}.deb --no-check-certificate ${FLEDGELINK}/fledge-${FLEDGEVERSION}-${ARCHITECTURE}.deb && \
+    wget -O ./fledge/fledge-${FLEDGEVERSION}-${ARCHITECTURE}.deb --no-check-certificate ${FLEDGELINK}/fledge_${FLEDGEVERSION}_${ARCHITECTURE}.deb && \
     #
     # The postinstall script of the .deb package enables and starts the fledge service. Since services are not supported in docker
     # containers, we must modify the postinstall script to remove these lines so that the package will install without errors.
@@ -67,6 +67,12 @@ COPY fledge-install-include.sh /tmp/
 
 RUN chmod +x /tmp/fledge-install-include.sh && \
     /tmp/fledge-install-include.sh && \
+    echo '=============================================='
+
+COPY fledge-install-dispatcher.sh /tmp/
+
+RUN chmod +x /tmp/fledge-install-dispatcher.sh && \
+    /tmp/fledge-install-dispatcher.sh && \
     echo '=============================================='
 
 COPY fledge-south-iec104_build.sh /tmp/

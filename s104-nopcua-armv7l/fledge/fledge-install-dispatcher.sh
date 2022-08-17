@@ -20,26 +20,10 @@
 ## Author: Mark Riddoch, Akli Rahmoun
 ##
 
-git clone https://github.com/mz-automation/lib60870.git
-cd lib60870/lib60870-C
-cd dependencies
-wget https://github.com/ARMmbed/mbedtls/archive/refs/tags/v2.16.12.tar.gz
-tar xf v2.16.12.tar.gz
-cd ..
+git clone https://github.com/fledge-iot/fledge-service-dispatcher.git
+cd fledge-service-dispatcher
 mkdir build
 cd build
-cmake -DBUILD_TESTS=NO -DBUILD_EXAMPLES=NO ..
+cmake -DFLEDGE_INCLUDE=/usr/local/fledge/include/ -DFLEDGE_LIB=/usr/local/fledge/lib/ ..
 make
-sudo make install
-cd ../../..
-git clone https://github.com/aklira/fledge-south-iec104.git
-cd fledge-south-iec104
-mkdir build
-cd build
-cmake -DCMAKE_BUILD_TYPE=Release -DFLEDGE_INCLUDE=/usr/local/fledge/include/ -DFLEDGE_LIB=/usr/local/fledge/lib/ ..
-make
-if [ ! -d "${FLEDGE_ROOT}/plugins/south/iec104" ] 
-then
-    sudo mkdir -p $FLEDGE_ROOT/plugins/south/iec104
-fi
-sudo cp libiec104.so $FLEDGE_ROOT/plugins/south/iec104
+sudo cp ./C/services/dispatcher/fledge.services.dispatcher $FLEDGE_ROOT/services

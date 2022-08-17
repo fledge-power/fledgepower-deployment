@@ -27,4 +27,5 @@ find C/common/ -name '*.h' -exec sudo cp -prv '{}' '/usr/local/fledge/include' '
 find C/plugins/ -name '*.h' -exec sudo cp -prv '{}' '/usr/local/fledge/include' ';'
 find C/services/ -name '*.h' -exec sudo cp -prv '{}' '/usr/local/fledge/include' ';'
 find C/tasks/ -name '*.h' -exec sudo cp -prv '{}' '/usr/local/fledge/include' ';'
+find C/thirdparty/Simple-Web-Server/ -name '*.hpp' -exec sudo cp -prv '{}' '/usr/local/fledge/include' ';'
 sudo cp -prv C/thirdparty/rapidjson/include/rapidjson/* /usr/local/fledge/include/rapidjson/
