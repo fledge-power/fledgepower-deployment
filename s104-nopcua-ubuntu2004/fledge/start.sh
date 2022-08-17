@@ -5,4 +5,3 @@ sed -i '/imklog/s/^/#/' /etc/rsyslog.conf
 
 service rsyslog start
 /usr/local/fledge/bin/fledge start
-/usr/local/fledge/bin/fledge/scripts/services/dispatcher_c.sh
