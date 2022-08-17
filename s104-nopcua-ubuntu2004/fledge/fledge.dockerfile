@@ -3,8 +3,8 @@ FROM ubuntu:20.04
 LABEL author="Akli Rahmoun"
 
 # Set FLEDGE version, distribution, and platform
-ARG FLEDGEVERSION=1.9.2
-ARG RELEASE=1.9.2 
+ARG FLEDGEVERSION=1.9.2-946
+ARG RELEASE=nightly 
 ARG OPERATINGSYSTEM=ubuntu2004
 ARG ARCHITECTURE=x86_64
 ARG FLEDGELINK="http://archives.fledge-iot.org/${RELEASE}/${OPERATINGSYSTEM}/${ARCHITECTURE}"
@@ -30,7 +30,7 @@ RUN apt-get update && apt-get dist-upgrade -y && apt-get install --no-install-re
     echo '=============================================='
     
 RUN mkdir ./fledge && \
-    wget -O ./fledge/fledge-${FLEDGEVERSION}-${ARCHITECTURE}.deb --no-check-certificate ${FLEDGELINK}/fledge-${FLEDGEVERSION}-${ARCHITECTURE}.deb && \
+    wget -O ./fledge/fledge-${FLEDGEVERSION}-${ARCHITECTURE}.deb --no-check-certificate ${FLEDGELINK}/fledge_${FLEDGEVERSION}_${ARCHITECTURE}.deb && \
     #
     # The postinstall script of the .deb package enables and starts the fledge service. Since services are not supported in docker
     # containers, we must modify the postinstall script to remove these lines so that the package will install without errors.
