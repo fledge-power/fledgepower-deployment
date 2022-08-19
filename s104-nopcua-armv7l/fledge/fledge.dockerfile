@@ -1,11 +1,11 @@
-FROM arm32v7/debian:buster-slim
+FROM arm32v7/ubuntu:latest
 
 LABEL author="Akli Rahmoun"
 
 # Set FLEDGE version, distribution, and platform
 ARG FLEDGEVERSION=1.9.2-946
 ARG RELEASE=nightly
-ARG OPERATINGSYSTEM=buster
+ARG OPERATINGSYSTEM=bullseye
 ARG ARCHITECTURE=armv7l
 ARG FLEDGELINK="http://archives.fledge-iot.org/${RELEASE}/${OPERATINGSYSTEM}/${ARCHITECTURE}"
 ARG IEC104_SOUTH_SERVICE_NAME=iec104south_t1
