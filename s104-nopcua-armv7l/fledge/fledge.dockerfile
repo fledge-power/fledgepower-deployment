@@ -1,4 +1,4 @@
-FROM arm32v7/ubuntu:latest
+FROM arm32v7/debian:bullseye
 
 LABEL author="Akli Rahmoun"
 
