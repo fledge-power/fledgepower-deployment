@@ -3,7 +3,7 @@ FROM arm32v7/debian:bullseye
 LABEL author="Akli Rahmoun"
 
 # Set FLEDGE version, distribution, and platform
-ARG FLEDGEVERSION=1.9.2-946
+ARG FLEDGEVERSION=1.9.2-947
 ARG RELEASE=nightly
 ARG OPERATINGSYSTEM=bullseye
 ARG ARCHITECTURE=armv7l
