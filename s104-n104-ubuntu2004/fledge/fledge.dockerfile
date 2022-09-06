@@ -3,10 +3,11 @@ FROM ubuntu:20.04
 LABEL author="Akli Rahmoun"
 
 # Set FLEDGE version, distribution, and platform
-ARG FLEDGEVERSION=1.9.2
+ARG FLEDGEVERSION=1.9.2-1000
+ARG RELEASE=nightly 
 ARG OPERATINGSYSTEM=ubuntu2004
 ARG ARCHITECTURE=x86_64
-ARG FLEDGELINK="http://archives.fledge-iot.org/${FLEDGEVERSION}/${OPERATINGSYSTEM}/${ARCHITECTURE}"
+ARG FLEDGELINK="http://archives.fledge-iot.org/${RELEASE}/${OPERATINGSYSTEM}/${ARCHITECTURE}"
 ARG IEC104_SOUTH_SERVICE_NAME=iec104south_t1
 ARG IEC104_NORTH_SERVICE_NAME=iec104north_t1
 
@@ -27,7 +28,7 @@ RUN apt-get update && apt-get dist-upgrade -y && apt-get install --no-install-re
     echo '=============================================='
     
 RUN mkdir ./fledge && \
-    wget -O ./fledge/fledge-${FLEDGEVERSION}-${ARCHITECTURE}.deb --no-check-certificate ${FLEDGELINK}/fledge-${FLEDGEVERSION}-${ARCHITECTURE}.deb && \
+    wget -O ./fledge/fledge-${FLEDGEVERSION}-${ARCHITECTURE}.deb --no-check-certificate ${FLEDGELINK}/fledge_${FLEDGEVERSION}_${ARCHITECTURE}.deb && \
     #
     # The postinstall script of the .deb package enables and starts the fledge service. Since services are not supported in docker
     # containers, we must modify the postinstall script to remove these lines so that the package will install without errors.
@@ -62,6 +63,12 @@ COPY fledge-install-include.sh /tmp/
 
 RUN chmod +x /tmp/fledge-install-include.sh && \
     /tmp/fledge-install-include.sh && \
+    echo '=============================================='
+
+COPY fledge-install-dispatcher.sh /tmp/
+
+RUN chmod +x /tmp/fledge-install-dispatcher.sh && \
+    /tmp/fledge-install-dispatcher.sh && \
     echo '=============================================='
 
 COPY fledge-south-iec104_build.sh /tmp/

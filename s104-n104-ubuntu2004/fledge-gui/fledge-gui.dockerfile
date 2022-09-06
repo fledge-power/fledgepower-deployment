@@ -2,15 +2,16 @@ FROM nginx:latest
 
 LABEL author="Akli Rahmoun"
 
-ENV ARCHITECTURE="x86_64"
-ENV FLEDGEVERSION="1.9.1"
-ENV OPERATINGSYSTEM="ubuntu2004"
-ENV FLEDGELINK="http://archives.fledge-iot.org/${FLEDGEVERSION}/${OPERATINGSYSTEM}/${ARCHITECTURE}"
+ARG FLEDGEVERSION=1.9.2next-439
+ARG RELEASE=nightly 
+ARG OPERATINGSYSTEM=ubuntu2004
+ARG ARCHITECTURE=x86_64
+ARG FLEDGELINK="http://archives.fledge-iot.org/${RELEASE}/${OPERATINGSYSTEM}/${ARCHITECTURE}"
 
 RUN apt-get update
 
 RUN apt-get install -y wget && \ 
-    wget --no-check-certificate ${FLEDGELINK}/fledge-gui-${FLEDGEVERSION}.deb && \
+    wget --no-check-certificate ${FLEDGELINK}/fledge-gui_${FLEDGEVERSION}.deb && \
     dpkg --unpack fledge-gui-${FLEDGEVERSION}.deb && \
     rm -r /usr/share/nginx/html && \
     mv /var/www/html /usr/share/nginx && \
