@@ -3,7 +3,7 @@ FROM ubuntu:20.04
 LABEL author="Akli Rahmoun"
 
 # Set FLEDGE version, distribution, and platform
-ARG FLEDGEVERSION=1.9.2-964
+ARG FLEDGEVERSION=1.9.2-1000
 ARG RELEASE=nightly 
 ARG OPERATINGSYSTEM=ubuntu2004
 ARG ARCHITECTURE=x86_64
@@ -79,6 +79,12 @@ RUN chmod +x /tmp/fledge-south-iec104_build.sh && \
     /tmp/fledge-south-iec104_build.sh && \
     echo '=============================================='
 
+COPY fledge-north-iec104_build.sh /tmp/
+
+RUN chmod +x /tmp/fledge-north-iec104_build.sh && \
+    /tmp/fledge-north-iec104_build.sh && \
+    echo '=============================================='
+
 COPY fledge-north-opcua_build.sh /tmp/
 
 RUN chmod +x /tmp/fledge-north-opcua_build.sh && \
@@ -103,6 +109,7 @@ COPY start.sh start.sh
 RUN echo "sleep 30" >> start.sh && \
     echo "curl -sX POST http://localhost:8081/fledge/service -d '{\"name\":\"${SYSTEMINFO_SOUTH_SERVICE_NAME}\",\"type\":\"south\",\"plugin\":\"systeminfo\",\"enabled\":false}'" >> start.sh && \
     echo "curl -sX POST http://localhost:8081/fledge/service -d '{\"name\":\"${IEC104_SOUTH_SERVICE_NAME}\",\"type\":\"south\",\"plugin\":\"iec104\",\"enabled\":false}'" >> start.sh && \
+    echo "curl -sX POST http://localhost:8081/fledge/service -d '{\"name\":\"${IEC104_NORTH_SERVICE_NAME}\",\"type\":\"north\",\"plugin\":\"iec104\",\"enabled\":false}'" >> start.sh && \
     echo "curl -sX POST http://localhost:8081/fledge/service -d '{\"name\":\"${OPCUA_NORTH_SERVICE_NAME}\",\"type\":\"north\",\"plugin\":\"opcua\",\"enabled\":false}'" >> start.sh && \
     echo "tail -f /var/log/syslog" >> start.sh && \
     chmod +x start.sh
@@ -110,7 +117,7 @@ RUN echo "sleep 30" >> start.sh && \
 VOLUME /usr/local/fledge 
 
 # Fledge API port for FELDGE API http and https and Code Server
-EXPOSE 8081 1995 8080 4840
+EXPOSE 8081 1995 8080 4840 2404
 
 # start rsyslog, FLEDGE, and tail syslog
 CMD ["/bin/bash","/usr/local/fledge/start.sh"]
