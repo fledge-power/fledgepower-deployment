@@ -12,7 +12,7 @@ RUN apt-get update
 
 RUN apt-get install -y wget && \ 
     wget --no-check-certificate ${FLEDGELINK}/fledge-gui_${FLEDGEVERSION}.deb && \
-    dpkg --unpack fledge-gui-${FLEDGEVERSION}.deb && \
+    dpkg --unpack fledge-gui_${FLEDGEVERSION}.deb && \
     rm -r /usr/share/nginx/html && \
     mv /var/www/html /usr/share/nginx && \
     mv /usr/share/nginx/html/fledge.html /usr/share/nginx/html/index.html && \
