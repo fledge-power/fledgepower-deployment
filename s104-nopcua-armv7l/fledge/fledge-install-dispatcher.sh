@@ -20,10 +20,7 @@
 ## Author: Mark Riddoch, Akli Rahmoun
 ##
 
-git clone https://github.com/fledge-iot/fledge-service-dispatcher.git
-cd fledge-service-dispatcher
-mkdir build
-cd build
-cmake -DFLEDGE_INCLUDE=/usr/local/fledge/include/ -DFLEDGE_LIB=/usr/local/fledge/lib/ ..
-make
-sudo cp ./C/services/dispatcher/fledge.services.dispatcher $FLEDGE_ROOT/services
+wget --no-check-certificate http://archives.fledge-iot.org/2.0.0/bullseye/armv7l/fledge-service-dispatcher_2.0.0_armv7l.deb
+dpkg --unpack ./fledge-service-dispatcher_2.0.0_armv7l.deb
+apt-get install -yf
+apt-get clean -y

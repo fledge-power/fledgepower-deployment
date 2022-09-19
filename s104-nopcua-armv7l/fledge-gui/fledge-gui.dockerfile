@@ -2,17 +2,17 @@ FROM arm32v7/nginx:latest
 
 LABEL author="Akli Rahmoun"
 
-ARG FLEDGEVERSION=1.9.2
-ARG RELEASE=1.9.2 
-ARG OPERATINGSYSTEM=buster
+ARG FLEDGEVERSION=2.0.0
+ARG RELEASE=2.0.0 
+ARG OPERATINGSYSTEM=bullseye
 ARG ARCHITECTURE=armv7l
 ARG FLEDGELINK="http://archives.fledge-iot.org/${RELEASE}/${OPERATINGSYSTEM}/${ARCHITECTURE}"
 
 RUN apt-get update
 
 RUN apt-get install -y wget && \ 
-    wget --no-check-certificate ${FLEDGELINK}/fledge-gui-${FLEDGEVERSION}.deb && \
-    dpkg --unpack fledge-gui-${FLEDGEVERSION}.deb && \
+    wget --no-check-certificate ${FLEDGELINK}/fledge-gui_${FLEDGEVERSION}.deb && \
+    dpkg --unpack fledge-gui_${FLEDGEVERSION}.deb && \
     rm -r /usr/share/nginx/html && \
     mv /var/www/html /usr/share/nginx && \
     mv /usr/share/nginx/html/fledge.html /usr/share/nginx/html/index.html && \
