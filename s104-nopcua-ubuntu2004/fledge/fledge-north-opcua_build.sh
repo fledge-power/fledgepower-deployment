@@ -34,7 +34,7 @@
 #fi
 #sudo cp libopcua.so $FLEDGE_ROOT/plugins/north/opcua
 
-wget --no-check-certificate http://archives.fledge-iot.org/nightly/ubuntu2004/x86_64/fledge-north-opcua_1.9.2-3_x86_64.deb
-dpkg --unpack ./fledge-north-opcua_1.9.2-3_x86_64.deb
+wget --no-check-certificate http://archives.fledge-iot.org/2.0.0/ubuntu2004/x86_64/fledge-north-opcua_2.0.0_x86_64.deb
+dpkg --unpack ./fledge-north-opcua_2.0.0_x86_64.deb
 apt-get install -yf
 apt-get clean -y

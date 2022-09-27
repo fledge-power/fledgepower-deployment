@@ -79,22 +79,10 @@ RUN chmod +x /tmp/fledge-south-iec104_build.sh && \
     /tmp/fledge-south-iec104_build.sh && \
     echo '=============================================='
 
-COPY fledge-north-iec104_build.sh /tmp/
-
-RUN chmod +x /tmp/fledge-north-iec104_build.sh && \
-    /tmp/fledge-north-iec104_build.sh && \
-    echo '=============================================='
-
 COPY fledge-north-opcua_build.sh /tmp/
 
 RUN chmod +x /tmp/fledge-north-opcua_build.sh && \
     /tmp/fledge-north-opcua_build.sh && \
-    echo '=============================================='
-
-COPY fledge-south-systeminfo_build.sh /tmp/
-
-RUN chmod +x /tmp/fledge-south-systeminfo_build.sh && \
-    /tmp/fledge-south-systeminfo_build.sh && \
     echo '=============================================='
 
 COPY fledgepower-filter-iec104todp_build.sh /tmp/
