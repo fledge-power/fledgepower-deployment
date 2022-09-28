@@ -20,19 +20,6 @@ services:
     networks:
       - fledge-power
 
-  fledge-gui:
-    container_name: fledge-gui
-    image: fledgepower/fledge-gui
-    build:
-      context: fledge-gui/
-      dockerfile: fledge-gui.dockerfile
-    ports:
-      - "8080:80"
-      # - "443:443"
-
-    networks:
-      - fledge-power
-
 networks:
   fledge-power:
     driver: bridge
