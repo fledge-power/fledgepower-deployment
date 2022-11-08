@@ -20,23 +20,7 @@
 ## Author: Mark Riddoch, Akli Rahmoun
 ##
 
-#git clone https://github.com/fledge-iot/fledge-north-opcua.git
-#cd fledge-north-opcua
-#chmod +x mkversion
-#mkdir build
-#./requirements.sh
-#cd build
-#cmake -DFLEDGE_INCLUDE=/usr/local/fledge/include/ -DFLEDGE_LIB=/usr/local/fledge/lib/ ..
-#make
-#if [ ! -d "${FLEDGE_ROOT}/plugins/north/opcua" ] 
-#then
-#    sudo mkdir -p $FLEDGE_ROOT/plugins/north/opcua
-#fi
-#sudo cp libopcua.so $FLEDGE_ROOT/plugins/north/opcua
-
-#wget --no-check-certificate http://archives.fledge-iot.org/1.9.2/buster/armv7l/fledge-north-opcua-1.9.2-armv7l.deb
-
-wget --no-check-certificate  http://archives.fledge-iot.org/nightly/buster/armv7l/fledge-north-opcua_1.9.2-3_armv7l.deb
-dpkg --unpack ./fledge-north-opcua_1.9.2-3_armv7l.deb
+wget --no-check-certificate  http://archives.fledge-iot.org/2.0.1/bullseye/armv7l/fledge-s2opcua_2.0.1_armv7l.deb
+dpkg --unpack ./fledge-s2opcua_2.0.1_armv7l.deb
 apt-get install -yf
 apt-get clean -y
