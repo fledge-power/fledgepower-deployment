@@ -3,8 +3,8 @@ FROM arm32v7/debian:bullseye
 LABEL author="Akli Rahmoun"
 
 # Set FLEDGE version, distribution, and platform
-ARG FLEDGEVERSION=2.0.0
-ARG RELEASE=2.0.0
+ARG FLEDGEVERSION=2.0.1
+ARG RELEASE=2.0.1
 ARG OPERATINGSYSTEM=bullseye
 ARG ARCHITECTURE=armv7l
 ARG FLEDGELINK="http://archives.fledge-iot.org/${RELEASE}/${OPERATINGSYSTEM}/${ARCHITECTURE}"
