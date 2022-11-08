@@ -20,7 +20,7 @@
 ## Author: Mark Riddoch, Akli Rahmoun
 ##
 
-wget --no-check-certificate http://archives.fledge-iot.org/2.0.0/bullseye/armv7l/fledge-service-dispatcher_2.0.0_armv7l.deb
-dpkg --unpack ./fledge-service-dispatcher_2.0.0_armv7l.deb
+wget --no-check-certificate http://archives.fledge-iot.org/2.0.1/bullseye/armv7l/fledge-service-dispatcher_2.0.1_armv7l.deb
+dpkg --unpack ./fledge-service-dispatcher_2.0.1_armv7l.deb
 apt-get install -yf
 apt-get clean -y
