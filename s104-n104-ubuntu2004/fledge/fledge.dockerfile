@@ -89,6 +89,7 @@ COPY start.sh start.sh
 RUN echo "sleep 30" >> start.sh && \
     echo "curl -sX POST http://localhost:8081/fledge/service -d '{\"name\":\"${IEC104_SOUTH_SERVICE_NAME}\",\"type\":\"south\",\"plugin\":\"iec104\",\"enabled\":false}'" >> start.sh && \
     echo "curl -sX POST http://localhost:8081/fledge/service -d '{\"name\":\"${IEC104_NORTH_SERVICE_NAME}\",\"type\":\"north\",\"plugin\":\"iec104\",\"enabled\":false}'" >> start.sh && \
+    echo "curl -sX PUT http://localhost:8081/fledge/category/${IEC104_SOUTH_SERVICE_NAME}Advanced -d'{\"maxSendLatency\":\"100\"}'" >> start.sh && \
     echo "tail -f /var/log/syslog" >> start.sh && \
     chmod +x start.sh
 
