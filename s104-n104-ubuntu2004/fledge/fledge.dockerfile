@@ -8,8 +8,10 @@ ARG RELEASE=2.0.1
 ARG OPERATINGSYSTEM=ubuntu2004
 ARG ARCHITECTURE=x86_64
 ARG FLEDGELINK="http://archives.fledge-iot.org/${RELEASE}/${OPERATINGSYSTEM}/${ARCHITECTURE}"
-ARG IEC104_SOUTH_SERVICE_NAME=iec104south_t1
-ARG IEC104_NORTH_SERVICE_NAME=iec104north_t1
+ARG IEC104_SOUTH_SERVICE_NAME_S1=iec104south_s1
+ARG IEC104_SOUTH_SERVICE_NAME_S2=iec104south_s2
+ARG IEC104_NORTH_SERVICE_NAME_N1=iec104north_c1
+ARG IEC104_NORTH_SERVICE_NAME_N2=iec104north_c2
 
 ENV FLEDGE_ROOT=/usr/local/fledge
 
@@ -87,9 +89,12 @@ WORKDIR /usr/local/fledge
 COPY start.sh start.sh
 
 RUN echo "sleep 30" >> start.sh && \
-    echo "curl -sX POST http://localhost:8081/fledge/service -d '{\"name\":\"${IEC104_SOUTH_SERVICE_NAME}\",\"type\":\"south\",\"plugin\":\"iec104\",\"enabled\":false}'" >> start.sh && \
-    echo "curl -sX POST http://localhost:8081/fledge/service -d '{\"name\":\"${IEC104_NORTH_SERVICE_NAME}\",\"type\":\"north\",\"plugin\":\"iec104\",\"enabled\":false}'" >> start.sh && \
-    echo "curl -sX PUT http://localhost:8081/fledge/category/${IEC104_SOUTH_SERVICE_NAME}Advanced -d'{\"maxSendLatency\":\"100\"}'" >> start.sh && \
+    echo "curl -sX POST http://localhost:8081/fledge/service -d '{\"name\":\"${IEC104_SOUTH_SERVICE_NAME_S1}\",\"type\":\"south\",\"plugin\":\"iec104\",\"enabled\":false}'" >> start.sh && \
+    echo "curl -sX POST http://localhost:8081/fledge/service -d '{\"name\":\"${IEC104_SOUTH_SERVICE_NAME_S2}\",\"type\":\"south\",\"plugin\":\"iec104\",\"enabled\":false}'" >> start.sh && \
+    echo "curl -sX POST http://localhost:8081/fledge/service -d '{\"name\":\"${IEC104_NORTH_SERVICE_NAME_N1}\",\"type\":\"north\",\"plugin\":\"iec104\",\"enabled\":false}'" >> start.sh && \
+    echo "curl -sX POST http://localhost:8081/fledge/service -d '{\"name\":\"${IEC104_NORTH_SERVICE_NAME_N2}\",\"type\":\"north\",\"plugin\":\"iec104\",\"enabled\":false}'" >> start.sh && \
+    echo "curl -sX PUT http://localhost:8081/fledge/category/${IEC104_SOUTH_SERVICE_NAME_S1}Advanced -d'{\"maxSendLatency\":\"100\"}'" >> start.sh && \
+    echo "curl -sX PUT http://localhost:8081/fledge/category/${IEC104_SOUTH_SERVICE_NAME_S2}Advanced -d'{\"maxSendLatency\":\"100\"}'" >> start.sh && \
     echo "tail -f /var/log/syslog" >> start.sh && \
     chmod +x start.sh
 
