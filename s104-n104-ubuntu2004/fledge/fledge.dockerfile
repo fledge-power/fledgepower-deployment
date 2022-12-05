@@ -96,7 +96,7 @@ RUN echo "sleep 30" >> start.sh && \
 VOLUME /usr/local/fledge 
 
 # Fledge API port for FELDGE API http and https and Code Server
-EXPOSE 8081 1995 8080 2404
+EXPOSE 8081 1995 8080 2404 2405
 
 # start rsyslog, FLEDGE, and tail syslog
 CMD ["/bin/bash","/usr/local/fledge/start.sh"]
