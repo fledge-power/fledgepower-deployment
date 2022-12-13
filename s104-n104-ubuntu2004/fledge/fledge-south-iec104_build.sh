@@ -32,7 +32,9 @@ cmake -DBUILD_TESTS=NO -DBUILD_EXAMPLES=NO ..
 make
 sudo make install
 cd ../../..
-git clone https://github.com/fledge-power/fledge-south-iec104.git
+wget -O ./fledge-south-iec104.tar.gz https://github.com/fledge-power/fledge-south-iec104/archive/refs/tags/v1.0.0-rc3.tar.gz
+tar -xf fledge-south-iec104.tar.gz
+mv fledge-south-iec104-* fledge-south-iec104
 cd fledge-south-iec104
 mkdir build
 cd build
