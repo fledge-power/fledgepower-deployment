@@ -5,3 +5,7 @@ sed -i '/imklog/s/^/#/' /etc/rsyslog.conf
 
 service rsyslog start
 /usr/local/fledge/bin/fledge start
+
+sleep 10
+sh importModules.sh
+tail -f /var/log/syslog
