@@ -28,9 +28,13 @@ curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$plugin_2'", "pl
 curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$plugin_3'", "plugin": "'$plugin_3'"}'
 curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$plugin_4'", "plugin": "'$plugin_4'"}'
 
-# Création des pipelines
+# Create of south pipelines
 curl -X PUT http://localhost:8081/fledge/filter/$nom_service_south_s1/pipeline -d  '{"pipeline": ["'$plugin_1'", "'$plugin_2'", "'$plugin_3'", "'$plugin_4'"]}'
 curl -X PUT http://localhost:8081/fledge/filter/$nom_service_south_s2/pipeline -d  '{"pipeline": ["'$plugin_1'", "'$plugin_2'", "'$plugin_3'", "'$plugin_4'"]}'
+
+# Create of north pipelines
+curl -X PUT http://localhost:8081/fledge/filter/$nom_service_north_n1/pipeline -d  '{"pipeline": ["'$plugin_1'"]}'
+curl -X PUT http://localhost:8081/fledge/filter/$nom_service_north_n2/pipeline -d  '{"pipeline": ["'$plugin_1'"]}'
 
 # Param advanced south
 sleep 5
