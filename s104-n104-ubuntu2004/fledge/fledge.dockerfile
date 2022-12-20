@@ -98,6 +98,12 @@ COPY fledgepower-filter-stamp_build.sh /tmp/
 RUN chmod +x /tmp/fledgepower-filter-stamp_build.sh && \
     /tmp/fledgepower-filter-stamp_build.sh && \
     echo '=============================================='
+	
+COPY fledgepower-filter-mvcyclingcheck_build.sh /tmp/
+
+RUN chmod +x /tmp/fledgepower-filter-mvcyclingcheck_build.sh && \
+    /tmp/fledgepower-filter-mvcyclingcheck_build.sh && \
+    echo '=============================================='
 
 COPY fledgepower-filter-iec104topivot_build.sh /tmp/
 

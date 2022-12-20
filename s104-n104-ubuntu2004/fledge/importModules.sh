@@ -13,6 +13,7 @@ plugin_1="iec104_pivot_filter"
 plugin_2="status-points-timestamping"
 plugin_3="transientsp"
 plugin_4="mvscale"
+plugin_5="mvcyclingcheck"
 
 # Create service south
 curl -sX POST http://localhost:8081/fledge/service -d '{"name":"'$nom_service_south_s1'","type":"south","plugin":"iec104","enabled":false}'
@@ -27,10 +28,11 @@ curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$plugin_1'", "pl
 curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$plugin_2'", "plugin": "'$plugin_2'"}'
 curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$plugin_3'", "plugin": "'$plugin_3'"}'
 curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$plugin_4'", "plugin": "'$plugin_4'"}'
+curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$plugin_5'", "plugin": "'$plugin_5'"}'
 
 # Create of south pipelines
-curl -X PUT http://localhost:8081/fledge/filter/$nom_service_south_s1/pipeline -d  '{"pipeline": ["'$plugin_1'", "'$plugin_2'", "'$plugin_3'", "'$plugin_4'"]}'
-curl -X PUT http://localhost:8081/fledge/filter/$nom_service_south_s2/pipeline -d  '{"pipeline": ["'$plugin_1'", "'$plugin_2'", "'$plugin_3'", "'$plugin_4'"]}'
+curl -X PUT http://localhost:8081/fledge/filter/$nom_service_south_s1/pipeline -d  '{"pipeline": ["'$plugin_1'", "'$plugin_2'", "'$plugin_3'", "'$plugin_4'", "'$plugin_5'"]}'
+curl -X PUT http://localhost:8081/fledge/filter/$nom_service_south_s2/pipeline -d  '{"pipeline": ["'$plugin_1'", "'$plugin_2'", "'$plugin_3'", "'$plugin_4'", "'$plugin_5'"]}'
 
 # Create of north pipelines
 curl -X PUT http://localhost:8081/fledge/filter/$nom_service_north_n1/pipeline -d  '{"pipeline": ["'$plugin_1'"]}'
