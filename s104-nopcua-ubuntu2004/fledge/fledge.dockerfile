@@ -8,9 +8,10 @@ ARG RELEASE=2.0.1
 ARG OPERATINGSYSTEM=ubuntu2004
 ARG ARCHITECTURE=x86_64
 ARG FLEDGELINK="http://archives.fledge-iot.org/${RELEASE}/${OPERATINGSYSTEM}/${ARCHITECTURE}"
-ARG IEC104_SOUTH_SERVICE_NAME=iec104south_t1
-ARG OPCUA_NORTH_SERVICE_NAME=opcuanorth_t1
-ARG SYSTEMINFO_SOUTH_SERVICE_NAME=systeminfosouth_t1
+ARG IEC104_SOUTH_SERVICE_NAME=iec104south_s1
+ARG OPCUA_NORTH_SERVICE_NAME=opcuanorth_c1
+ARG IEC104TOPIVOT_FILTER_NAME=iec104topivot_filter
+ARG PIVOTTOOPCUA_FILTER_NAME=pivottoopcua_filter
 
 ENV FLEDGE_ROOT=/usr/local/fledge
 
@@ -71,8 +72,14 @@ RUN chmod +x /tmp/fledge-north-opcua_build.sh && \
 
 COPY fledgepower-filter-iec104todp_build.sh /tmp/
 
-RUN chmod +x /tmp/fledgepower-filter-iec104todp_build.sh && \
-    /tmp/fledgepower-filter-iec104todp_build.sh && \
+RUN chmod +x /tmp/fledgepower-filter-iec104topivot_build.sh && \
+    /tmp/fledgepower-filter-iec104topivot_build.sh && \
+    echo '=============================================='
+
+COPY fledgepower-filter-pivottoopcua_build.sh /tmp/
+
+RUN chmod +x /tmp/fledgepower-filter-pivottoopcua_build.sh && \
+    /tmp/fledgepower-filter-pivottoopcua_build.sh && \
     echo '=============================================='
 
 WORKDIR /usr/local/fledge
@@ -81,13 +88,17 @@ COPY start.sh start.sh
 RUN echo "sleep 30" >> start.sh && \
     echo "curl -sX POST http://localhost:8081/fledge/service -d '{\"name\":\"${IEC104_SOUTH_SERVICE_NAME}\",\"type\":\"south\",\"plugin\":\"iec104\",\"enabled\":false}'" >> start.sh && \
     echo "curl -sX POST http://localhost:8081/fledge/service -d '{\"name\":\"${OPCUA_NORTH_SERVICE_NAME}\",\"type\":\"north\",\"plugin\":\"opcua\",\"enabled\":false}'" >> start.sh && \
+    echo "curl -sX POST http://localhost:8081/fledge/filter -d '{\"name\":\"${IEC104TOPIVOT_FILTER_NAME}\",\"plugin\":\"iec104_pivot_filter\"}'" && \
+    echo "curl -sX POST http://localhost:8081/fledge/filter -d '{\"name\":\"${PIVOTTOOPCUA_FILTER_NAME}\",\"plugin\":\"pivottoopcua\"}'" && \
+    echo "curl -sX PUT http://localhost:8081/fledge/filter/${IEC104_SOUTH_SERVICE_NAME}/pipeline -d  '{"pipeline": ["${IEC104TOPIVOT_FILTER_NAME}"]}'" && \
+    echo "curl -sX PUT http://localhost:8081/fledge/filter/${OPCUA_NORTH_SERVICE_NAME}/pipeline -d  '{"pipeline": ["${PIVOTTOOPCUA_FILTER_NAME}"]}'" && \
     echo "tail -f /var/log/syslog" >> start.sh && \
     chmod +x start.sh
 
 VOLUME /usr/local/fledge 
 
 # Fledge API port for FELDGE API http and https and Code Server
-EXPOSE 8081 1995 8080 4840 2404
+EXPOSE 8081 1995 8080 4840
 
 # start rsyslog, FLEDGE, and tail syslog
 CMD ["/bin/bash","/usr/local/fledge/start.sh"]

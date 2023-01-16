@@ -17,26 +17,21 @@
 ##--------------------------------------------------------------------
 
 ##
-## Author: Mark Riddoch, Akli Rahmoun
+## Author: Akli Rahmoun
 ##
-
 cd /tmp
-git clone https://gitlab.com/systerel/S2OPC.git --branch S2OPC_Toolkit_1.2.0
-cd S2OPC
-./build.sh
-
-wget -O ./fledge-north-s2opcua.tar.gz https://github.com/fledge-power/fledge-north-s2opcua/archive/refs/heads/main.tar.gz
-tar -xf fledge-north-s2opcua.tar.gz
-mv fledge-north-s2opcua-* fledge-north-s2opcua
-cd fledge-north-s2opcua
+wget -O ./fledgepower-filter-pivottoopcua.tar.gz https://github.com/fledge-power/fledgepower-filter-pivottoopcua/archive/refs/heads/main.tar.gz
+tar -xf fledgepower-filter-pivottoopcua.tar.gz
+mv fledgepower-filter-pivottoopcua-* fledgepower-filter-pivottoopcua
+cd fledgepower-filter-pivottoopcua
 chmod +x mkversion
 
 mkdir build
 cd build
 cmake -DCMAKE_BUILD_TYPE=Release -DFLEDGE_INCLUDE=/usr/local/fledge/include/ -DFLEDGE_LIB=/usr/local/fledge/lib/ ..
 make
-if [ ! -d "${FLEDGE_ROOT}/plugins/north/iec104" ] 
+if [ ! -d "${FLEDGE_ROOT}/plugins/filter/pivottoopcua" ]
 then
-    sudo mkdir -p $FLEDGE_ROOT/plugins/north/iec104
+    sudo mkdir -p ${FLEDGE_ROOT}/plugins/filter/pivottoopcua
 fi
-sudo cp libiec104.so $FLEDGE_ROOT/plugins/north/iec104
+sudo cp libpivottoopcua.so ${FLEDGE_ROOT}/plugins/filter/pivottoopcua
