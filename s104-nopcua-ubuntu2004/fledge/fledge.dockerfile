@@ -88,10 +88,10 @@ COPY start.sh start.sh
 RUN echo "sleep 30" >> start.sh && \
     echo "curl -sX POST http://localhost:8081/fledge/service -d '{\"name\":\"${IEC104_SOUTH_SERVICE_NAME}\",\"type\":\"south\",\"plugin\":\"iec104\",\"enabled\":false}'" >> start.sh && \
     echo "curl -sX POST http://localhost:8081/fledge/service -d '{\"name\":\"${OPCUA_NORTH_SERVICE_NAME}\",\"type\":\"north\",\"plugin\":\"opcua\",\"enabled\":false}'" >> start.sh && \
-    echo "curl -sX POST http://localhost:8081/fledge/filter -d '{\"name\":\"${IEC104TOPIVOT_FILTER_NAME}\",\"plugin\":\"iec104_pivot_filter\"}'" && \
-    echo "curl -sX POST http://localhost:8081/fledge/filter -d '{\"name\":\"${PIVOTTOOPCUA_FILTER_NAME}\",\"plugin\":\"pivottoopcua\"}'" && \
-    echo "curl -sX PUT http://localhost:8081/fledge/filter/${IEC104_SOUTH_SERVICE_NAME}/pipeline -d  '{\"pipeline\":[\"${IEC104TOPIVOT_FILTER_NAME}\"]}'" && \
-    echo "curl -sX PUT http://localhost:8081/fledge/filter/${OPCUA_NORTH_SERVICE_NAME}/pipeline -d  '{\"pipeline\":[\"${PIVOTTOOPCUA_FILTER_NAME}\"]}'" && \
+    echo "curl -sX POST http://localhost:8081/fledge/filter -d '{\"name\":\"${IEC104TOPIVOT_FILTER_NAME}\",\"plugin\":\"iec104_pivot_filter\"}'" >> start.sh && \
+    echo "curl -sX POST http://localhost:8081/fledge/filter -d '{\"name\":\"${PIVOTTOOPCUA_FILTER_NAME}\",\"plugin\":\"pivottoopcua\"}'" >> start.sh && \
+    echo "curl -sX PUT http://localhost:8081/fledge/filter/${IEC104_SOUTH_SERVICE_NAME}/pipeline -d  '{\"pipeline\":[\"${IEC104TOPIVOT_FILTER_NAME}\"]}'" >> start.sh && \
+    echo "curl -sX PUT http://localhost:8081/fledge/filter/${OPCUA_NORTH_SERVICE_NAME}/pipeline -d  '{\"pipeline\":[\"${PIVOTTOOPCUA_FILTER_NAME}\"]}'" >> start.sh && \
     echo "tail -f /var/log/syslog" >> start.sh && \
     chmod +x start.sh
 
