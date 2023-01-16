@@ -17,15 +17,21 @@
 ##--------------------------------------------------------------------
 
 ##
-## Author: Akli Rahmoun
+## Author: Yannick Marchetaux
 ##
+cd /tmp
+wget -O ./fledgepower-filter-iec104topivot.tar.gz https://github.com/fledge-power/fledgepower-filter-iec104topivot/archive/refs/heads/main.tar.gz
+tar -xf fledgepower-filter-iec104topivot.tar.gz
+mv fledgepower-filter-iec104topivot-* fledgepower-filter-iec104topivot
+cd fledgepower-filter-iec104topivot
+chmod +x mkversion
 
-git clone https://github.com/aklira/fledgepower-filter-104todp.git
-cd fledgepower-filter-104todp/python/fledge/plugins/filter/
-
-
-if [ ! -d "${FLEDGE_ROOT}/python/fledge/plugins/filter/104todp" ] 
+mkdir build
+cd build
+cmake -DCMAKE_BUILD_TYPE=Release -DFLEDGE_INCLUDE=/usr/local/fledge/include/ -DFLEDGE_LIB=/usr/local/fledge/lib/ ..
+make
+if [ ! -d "${FLEDGE_ROOT}/plugins/filter/iec104_pivot_filter" ] 
 then
-    sudo mkdir -p $FLEDGE_ROOT/python/fledge/plugins/filter/104todp
+    sudo mkdir -p ${FLEDGE_ROOT}/plugins/filter/iec104_pivot_filter
 fi
-sudo cp -r 104todp/ $FLEDGE_ROOT/python/fledge/plugins/filter
+sudo cp libiec104_pivot_filter.so ${FLEDGE_ROOT}/plugins/filter/iec104_pivot_filter
