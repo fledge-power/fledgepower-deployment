@@ -30,32 +30,16 @@ RUN apt-get update && apt-get dist-upgrade -y && apt-get install --no-install-re
     echo '=============================================='
     
 RUN mkdir ./fledge && \
-    wget -O ./fledge/fledge-${FLEDGEVERSION}-${ARCHITECTURE}.deb --no-check-certificate ${FLEDGELINK}/fledge_${FLEDGEVERSION}_${ARCHITECTURE}.deb && \
-    #
-    # The postinstall script of the .deb package enables and starts the fledge service. Since services are not supported in docker
-    # containers, we must modify the postinstall script to remove these lines so that the package will install without errors.
-    # We will manually unpack the file, use sed to remove the offending lines, and then run 'apt-get install -yf' to install the 
-    # package and the dependancies. Once the package is successfully installed, all of the service and plugin package
-    # will install normally.
-    #
-    # Unpack .deb package    
+    wget -O ./fledge/fledge-${FLEDGEVERSION}-${ARCHITECTURE}.deb --no-check-certificate ${FLEDGELINK}/fledge_${FLEDGEVERSION}_${ARCHITECTURE}.deb && \   
     dpkg --unpack ./fledge/fledge-${FLEDGEVERSION}-${ARCHITECTURE}.deb && \
-    # Remove lines that enable and start the service. They call enable_FLEDGE_service() and start_FLEDGE_service()
-    # Save to /fledge.postinst. We'll run that after we install the dependencies.
     sed '/^.*_fledge_service$/d' /var/lib/dpkg/info/fledge.postinst > /fledge.postinst && \
-    # Rename the original file so that it doesn't get run in next step.
     mv /var/lib/dpkg/info/fledge.postinst /var/lib/dpkg/info/fledge.postinst.save && \
-    # Configure the package and install dependencies.
     apt-get install -yf && \
-    # Manually run the post install script - creates certificates, installs python dependencies etc.
     mkdir -p /usr/local/fledge/data/extras/fogbench && \
     chmod +x /fledge.postinst && \
     /fledge.postinst && \
-    # Cleanup fledge installation packages
     rm -f /*.tgz && \ 
-    # You may choose to leave the installation packages in the directory in case you need to troubleshoot
     rm -rf -r /fledge && \
-    # General cleanup after using apt-get
     apt-get autoremove -y && \
     apt-get clean -y && \
     rm -rf /var/lib/apt-get/lists/ && \
