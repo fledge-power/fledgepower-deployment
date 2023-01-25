@@ -23,8 +23,8 @@
 git clone https://github.com/mz-automation/lib60870.git
 cd lib60870/lib60870-C
 cd dependencies
-wget https://github.com/ARMmbed/mbedtls/archive/refs/tags/v2.16.12.tar.gz
-tar xf v2.16.12.tar.gz
+wget https://github.com/ARMmbed/mbedtls/archive/refs/tags/v2.28.1.tar.gz
+tar xf v2.28.1.tar.gz
 cd ..
 mkdir build
 cd build
