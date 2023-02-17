@@ -71,7 +71,7 @@ RUN chmod +x /tmp/fledge-north-opcua_build.sh && \
     /tmp/fledge-north-opcua_build.sh && \
     echo '=============================================='
 
-COPY fledgepower-filter-iec104todp_build.sh /tmp/
+COPY fledgepower-filter-iec104topivot_build.sh /tmp/
 
 RUN chmod +x /tmp/fledgepower-filter-iec104topivot_build.sh && \
     /tmp/fledgepower-filter-iec104topivot_build.sh && \
