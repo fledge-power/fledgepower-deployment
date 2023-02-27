@@ -3,8 +3,8 @@ FROM ubuntu:20.04
 LABEL author="Akli Rahmoun"
 
 # Set FLEDGE version, distribution, and platform
-ARG FLEDGEVERSION=2.1.0
-ARG RELEASE=2.1.0
+ARG FLEDGEVERSION=2.0.1
+ARG RELEASE=2.0.1
 ARG OPERATINGSYSTEM=ubuntu2004
 ARG ARCHITECTURE=x86_64
 ARG FLEDGELINK="http://archives.fledge-iot.org/${RELEASE}/${OPERATINGSYSTEM}/${ARCHITECTURE}"
@@ -81,6 +81,36 @@ RUN chmod +x /tmp/fledge-north-iec104_build.sh && \
     /tmp/fledge-north-iec104_build.sh && \
     echo '=============================================='
 
+COPY fledgepower-filter-mvscale_build.sh /tmp/
+
+RUN chmod +x /tmp/fledgepower-filter-mvscale_build.sh && \
+    /tmp/fledgepower-filter-mvscale_build.sh && \
+    echo '=============================================='
+
+COPY fledgepower-filter-transientsp_build.sh /tmp/
+
+RUN chmod +x /tmp/fledgepower-filter-transientsp_build.sh && \
+    /tmp/fledgepower-filter-transientsp_build.sh && \
+    echo '=============================================='
+
+COPY fledgepower-filter-stamp_build.sh /tmp/
+
+RUN chmod +x /tmp/fledgepower-filter-stamp_build.sh && \
+    /tmp/fledgepower-filter-stamp_build.sh && \
+    echo '=============================================='
+	
+COPY fledgepower-filter-mvcyclingcheck_build.sh /tmp/
+
+RUN chmod +x /tmp/fledgepower-filter-mvcyclingcheck_build.sh && \
+    /tmp/fledgepower-filter-mvcyclingcheck_build.sh && \
+    echo '=============================================='
+
+COPY fledgepower-filter-iec104topivot_build.sh /tmp/
+
+RUN chmod +x /tmp/fledgepower-filter-iec104topivot_build.sh && \
+    /tmp/fledgepower-filter-iec104topivot_build.sh && \
+    echo '=============================================='
+
 WORKDIR /usr/local/fledge
 
 COPY importModules.sh importModules.sh
@@ -90,7 +120,7 @@ RUN chmod +x start.sh
 VOLUME /usr/local/fledge 
 
 # Fledge API port for FELDGE API http and https and Code Server
-EXPOSE 8081 8090 1995 8080 2404 2405
+EXPOSE 8081 1995 8080 2404 2405
 
 # start rsyslog, FLEDGE, and tail syslog
 CMD ["/bin/bash","/usr/local/fledge/start.sh"]
