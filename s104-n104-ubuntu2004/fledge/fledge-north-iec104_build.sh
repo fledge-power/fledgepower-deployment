@@ -33,7 +33,7 @@ cmake -DBUILD_TESTS=NO -DBUILD_EXAMPLES=NO ..
 make
 sudo make install
 cd ../../..
-wget -O ./fledge-north-iec104.tar.gz https://github.com/fledge-power/fledge-north-iec104/archive/refs/tags/v1.0.0-rc3.tar.gz
+wget -O ./fledge-north-iec104.tar.gz https://github.com/fledge-power/fledge-south-iec104/archive/refs/tags/v1.0.0.tar.gz
 tar -xf fledge-north-iec104.tar.gz
 mv fledge-north-iec104-* fledge-north-iec104
 cd fledge-north-iec104
