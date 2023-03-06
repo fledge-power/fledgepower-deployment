@@ -42,3 +42,7 @@ curl -X PUT http://localhost:8081/fledge/filter/$n2_north_service_name/pipeline 
 sleep 5
 curl -X PUT --data '{"maxSendLatency":"100"}' http://localhost:8081/fledge/category/$s1_south_service_name_advanced
 curl -X PUT --data '{"maxSendLatency":"100"}' http://localhost:8081/fledge/category/$s2_south_service_name_advanced
+
+# Param purge
+curl -X PUT --data '{"value":"1"}' http://localhost:8081/fledge/category/PURGE_READ/age
+curl -X PUT --data '{"value":"100000"}' http://localhost:8081/fledge/category/PURGE_READ/size
