@@ -21,3 +21,7 @@ curl -sX POST http://localhost:8081/fledge/service -d '{"name":"'$n2_north_servi
 sleep 5
 curl -X PUT --data '{"maxSendLatency":"100"}' http://localhost:8081/fledge/category/$s1_south_service_name_advanced
 curl -X PUT --data '{"maxSendLatency":"100"}' http://localhost:8081/fledge/category/$s2_south_service_name_advanced
+
+# Param purge
+curl -X PUT --data '{"value":"1"}' http://localhost:8081/fledge/category/PURGE_READ/age
+curl -X PUT --data '{"value":"100000"}' http://localhost:8081/fledge/category/PURGE_READ/size
