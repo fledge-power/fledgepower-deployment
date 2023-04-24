@@ -69,6 +69,12 @@ RUN chmod +x /tmp/fledge-install-dispatcher.sh && \
     /tmp/fledge-install-dispatcher.sh && \
     echo '=============================================='
 
+COPY fledge-install-notification.sh /tmp/
+
+RUN chmod +x /tmp/fledge-install-notification.sh && \
+    /tmp/fledge-install-notification.sh && \
+    echo '=============================================='
+
 COPY fledge-install-rule-watchdog.sh /tmp/
 
 RUN chmod +x /tmp/fledge-install-rule-watchdog.sh && \
