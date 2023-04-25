@@ -80,6 +80,12 @@ COPY fledge-install-rule-watchdog.sh /tmp/
 RUN chmod +x /tmp/fledge-install-rule-watchdog.sh && \
     /tmp/fledge-install-rule-watchdog.sh && \
     echo '=============================================='
+    
+COPY fledge-install-notify-customasset.sh /tmp/
+
+RUN chmod +x /tmp/fledge-install-notify-customasset.sh && \
+    /tmp/fledge-install-notify-customasset.sh && \
+    echo '=============================================='
 
 COPY fledge-south-iec104_build.sh /tmp/
 
