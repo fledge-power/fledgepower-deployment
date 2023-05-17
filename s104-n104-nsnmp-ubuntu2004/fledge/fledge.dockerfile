@@ -22,6 +22,7 @@ RUN apt-get update && apt-get dist-upgrade -y && apt-get install --no-install-re
     rsyslog \
     sed \
     wget \
+    snmp \
     cmake g++ make build-essential autoconf automake uuid-dev && \
     echo '=============================================='
     
