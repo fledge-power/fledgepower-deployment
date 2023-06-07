@@ -96,7 +96,7 @@ RUN chmod +x start.sh
 VOLUME /usr/local/fledge 
 
 # Fledge API port for FELDGE API http and https and Code Server
-EXPOSE 8081 1995 8080 2404 2405
+EXPOSE 8081 1995 8080 6001 6002
 
 # start rsyslog, FLEDGE, and tail syslog
 CMD ["/bin/bash","/usr/local/fledge/start.sh"]

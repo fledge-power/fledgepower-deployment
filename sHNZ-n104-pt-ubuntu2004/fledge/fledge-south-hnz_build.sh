@@ -27,11 +27,13 @@ VERSION_SOUTH_HNZ=v1.0.0-rc1
 wget -O ./libhnz.tar.gz https://github.com/fledge-power/libhnz/archive/refs/tags/$VERSION_LIBHNZ.tar.gz
 tar -xf libhnz.tar.gz
 mv libhnz-* libhnz
-cd libhnz/src/hnz
+cd libhnz
+export LIB_HNZ=`pwd`
+cd src/hnz
 ./compilation.sh
 
 # Compilation of fledge-south-hnz
-wget -O ./fledge-south-hnz.tar.gz https://github.com/fledge-power/libhnz/archive/refs/tags/$VERSION_SOUTH_HNZ.tar.gz
+wget -O ./fledge-south-hnz.tar.gz https://github.com/fledge-power/fledge-south-hnz/archive/refs/tags/$VERSION_SOUTH_HNZ.tar.gz
 tar -xf fledge-south-hnz.tar.gz
 mv fledge-south-hnz-* fledge-south-hnz
 cd fledge-south-hnz
