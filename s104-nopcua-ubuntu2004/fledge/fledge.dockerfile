@@ -66,7 +66,7 @@ RUN chmod +x /tmp/fledge-south-iec104_build.sh && \
 
 COPY fledge-north-opcua_build.sh /tmp/
 
-ENV FLEDGE_N_S2OPCUA_BRANCH=development
+ENV FLEDGE_N_S2OPCUA_BRANCH=main
 RUN chmod +x /tmp/fledge-north-opcua_build.sh && \
     /tmp/fledge-north-opcua_build.sh && \
     echo '=============================================='

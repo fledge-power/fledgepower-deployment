@@ -22,6 +22,7 @@ RUN apt-get update && apt-get dist-upgrade -y && apt-get install --no-install-re
     rsyslog \
     sed \
     wget \
+    snmp \
     cmake g++ make build-essential autoconf automake uuid-dev && \
     echo '=============================================='
     
@@ -69,6 +70,24 @@ RUN chmod +x /tmp/fledge-install-dispatcher.sh && \
     /tmp/fledge-install-dispatcher.sh && \
     echo '=============================================='
 
+COPY fledge-install-notification.sh /tmp/
+
+RUN chmod +x /tmp/fledge-install-notification.sh && \
+    /tmp/fledge-install-notification.sh && \
+    echo '=============================================='
+
+COPY fledge-install-rule-watchdog.sh /tmp/
+
+RUN chmod +x /tmp/fledge-install-rule-watchdog.sh && \
+    /tmp/fledge-install-rule-watchdog.sh && \
+    echo '=============================================='
+    
+COPY fledge-install-notify-customasset.sh /tmp/
+
+RUN chmod +x /tmp/fledge-install-notify-customasset.sh && \
+    /tmp/fledge-install-notify-customasset.sh && \
+    echo '=============================================='
+
 COPY fledge-south-iec104_build.sh /tmp/
 
 RUN chmod +x /tmp/fledge-south-iec104_build.sh && \
@@ -81,34 +100,10 @@ RUN chmod +x /tmp/fledge-north-iec104_build.sh && \
     /tmp/fledge-north-iec104_build.sh && \
     echo '=============================================='
 
-COPY fledgepower-filter-mvscale_build.sh /tmp/
+COPY fledge-north-auditsnmp_build.sh /tmp/
 
-RUN chmod +x /tmp/fledgepower-filter-mvscale_build.sh && \
-    /tmp/fledgepower-filter-mvscale_build.sh && \
-    echo '=============================================='
-
-COPY fledgepower-filter-transientsp_build.sh /tmp/
-
-RUN chmod +x /tmp/fledgepower-filter-transientsp_build.sh && \
-    /tmp/fledgepower-filter-transientsp_build.sh && \
-    echo '=============================================='
-
-COPY fledgepower-filter-stamp_build.sh /tmp/
-
-RUN chmod +x /tmp/fledgepower-filter-stamp_build.sh && \
-    /tmp/fledgepower-filter-stamp_build.sh && \
-    echo '=============================================='
-	
-COPY fledgepower-filter-mvcyclingcheck_build.sh /tmp/
-
-RUN chmod +x /tmp/fledgepower-filter-mvcyclingcheck_build.sh && \
-    /tmp/fledgepower-filter-mvcyclingcheck_build.sh && \
-    echo '=============================================='
-
-COPY fledgepower-filter-iec104topivot_build.sh /tmp/
-
-RUN chmod +x /tmp/fledgepower-filter-iec104topivot_build.sh && \
-    /tmp/fledgepower-filter-iec104topivot_build.sh && \
+RUN chmod +x /tmp/fledge-north-auditsnmp_build.sh && \
+    /tmp/fledge-north-auditsnmp_build.sh && \
     echo '=============================================='
 
 WORKDIR /usr/local/fledge
@@ -120,7 +115,7 @@ RUN chmod +x start.sh
 VOLUME /usr/local/fledge 
 
 # Fledge API port for FELDGE API http and https and Code Server
-EXPOSE 8081 1995 8080 2404 2405
+EXPOSE 8081 8090 1995 8080 2404 2405
 
 # start rsyslog, FLEDGE, and tail syslog
 CMD ["/bin/bash","/usr/local/fledge/start.sh"]
