@@ -9,6 +9,8 @@ s2_south_service_name_advanced="${s2_south_service_name}Advanced"
 n1_north_service_name="iec104north_c1"
 n2_north_service_name="iec104north_c2"
 
+snmp_north_service_name="auditsnmpnorth"
+
 # Create service south
 curl -sX POST http://localhost:8081/fledge/service -d '{"name":"'$s1_south_service_name'","type":"south","plugin":"iec104","enabled":false}'
 curl -sX POST http://localhost:8081/fledge/service -d '{"name":"'$s2_south_service_name'","type":"south","plugin":"iec104","enabled":false}'
@@ -16,6 +18,7 @@ curl -sX POST http://localhost:8081/fledge/service -d '{"name":"'$s2_south_servi
 # Create service north
 curl -sX POST http://localhost:8081/fledge/service -d '{"name":"'$n1_north_service_name'","type":"north","plugin":"iec104","enabled":false}'
 curl -sX POST http://localhost:8081/fledge/service -d '{"name":"'$n2_north_service_name'","type":"north","plugin":"iec104","enabled":false}'
+curl -sX POST http://localhost:8081/fledge/service -d '{"name":"'$snmp_north_service_name'","type":"north","plugin":"auditsnmp","enabled":false}'
 
 # Param advanced south
 sleep 5
