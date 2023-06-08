@@ -80,6 +80,12 @@ COPY fledge-north-iec104_build.sh /tmp/
 RUN chmod +x /tmp/fledge-north-iec104_build.sh && \
     /tmp/fledge-north-iec104_build.sh && \
     echo '=============================================='
+    
+COPY fledge-north-auditsnmp_build.sh /tmp/
+
+RUN chmod +x /tmp/fledge-north-auditsnmp_build.sh && \
+    /tmp/fledge-north-auditsnmp_build.sh && \
+    echo '=============================================='
 
 WORKDIR /usr/local/fledge
 
