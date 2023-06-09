@@ -87,6 +87,18 @@ RUN chmod +x /tmp/fledge-north-auditsnmp_build.sh && \
     /tmp/fledge-north-auditsnmp_build.sh && \
     echo '=============================================='
 
+COPY fledgepower-filter-iec104topivot_build.sh /tmp/
+
+RUN chmod +x /tmp/fledgepower-filter-iec104topivot_build.sh && \
+    /tmp/fledgepower-filter-iec104topivot_build.sh && \
+    echo '=============================================='
+
+COPY fledgepower-filter-transientsp_build.sh /tmp/
+
+RUN chmod +x /tmp/fledgepower-filter-transientsp_build.sh && \
+    /tmp/fledgepower-filter-transientsp_build.sh && \
+    echo '=============================================='
+
 WORKDIR /usr/local/fledge
 
 COPY importModules.sh importModules.sh
