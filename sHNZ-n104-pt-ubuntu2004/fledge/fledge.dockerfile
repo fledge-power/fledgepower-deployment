@@ -87,6 +87,12 @@ RUN chmod +x /tmp/fledgepower-filter-iec104topivot_build.sh && \
     /tmp/fledgepower-filter-iec104topivot_build.sh && \
     echo '=============================================='
 
+COPY fledgepower-filter-hnztopivot_build.sh /tmp/
+
+RUN chmod +x /tmp/fledgepower-filter-hnztopivot_build.sh && \
+    /tmp/fledgepower-filter-hnztopivot_build.sh && \
+    echo '=============================================='
+
 WORKDIR /usr/local/fledge
 
 COPY importModules.sh importModules.sh
@@ -96,7 +102,7 @@ RUN chmod +x start.sh
 VOLUME /usr/local/fledge 
 
 # Fledge API port for FELDGE API http and https and Code Server
-EXPOSE 8081 1995 8080 6001 6002
+EXPOSE 8081 8090 1995 8080 6001 6002
 
 # start rsyslog, FLEDGE, and tail syslog
 CMD ["/bin/bash","/usr/local/fledge/start.sh"]
