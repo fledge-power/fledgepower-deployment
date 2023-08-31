@@ -17,10 +17,21 @@
 ##--------------------------------------------------------------------
 
 ##
-## Author: Mark Riddoch, Akli Rahmoun
+## Author: Yannick Marchetaux
 ##
+cd /tmp
+wget -O ./fledgepower-filter-mvscale.tar.gz https://github.com/fledge-power/fledgepower-filter-mvscale/archive/refs/tags/1.0.0.tar.gz
+tar -xf fledgepower-filter-mvscale.tar.gz
+mv fledgepower-filter-mvscale-* fledgepower-filter-mvscale
+cd fledgepower-filter-mvscale
+chmod +x mkversion
 
-wget --no-check-certificate http://archives.fledge-iot.org/2.0.1/ubuntu2004/x86_64/fledge-service-dispatcher_2.0.1_x86_64.deb
-dpkg --unpack ./fledge-service-dispatcher_2.0.1_x86_64.deb
-apt-get install -yf
-apt-get clean -y
+mkdir build
+cd build
+cmake -DCMAKE_BUILD_TYPE=Release -DFLEDGE_INCLUDE=/usr/local/fledge/include/ -DFLEDGE_LIB=/usr/local/fledge/lib/ ..
+make
+if [ ! -d "${FLEDGE_ROOT}/plugins/filter/mvscale" ] 
+then
+    sudo mkdir -p ${FLEDGE_ROOT}/plugins/filter/mvscale
+fi
+sudo cp libmvscale.so ${FLEDGE_ROOT}/plugins/filter/mvscale

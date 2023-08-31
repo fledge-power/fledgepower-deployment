@@ -3,7 +3,7 @@ FROM ubuntu:20.04
 LABEL author="Akli Rahmoun"
 
 # Set FLEDGE version, distribution, and platform
-ARG FLEDGEVERSION=2.1.0-711
+ARG FLEDGEVERSION=2.1.0-712
 ARG RELEASE=nightly
 ARG OPERATINGSYSTEM=ubuntu2004
 ARG ARCHITECTURE=x86_64
@@ -70,6 +70,20 @@ RUN chmod +x /tmp/fledge-install-dispatcher.sh && \
     /tmp/fledge-install-dispatcher.sh && \
     echo '=============================================='
 
+########### SNMP ###########
+COPY fledge-north-auditsnmp_build.sh /tmp/
+
+RUN chmod +x /tmp/fledge-north-auditsnmp_build.sh && \
+    /tmp/fledge-north-auditsnmp_build.sh && \
+    echo '=============================================='
+
+########### 104 ###########
+COPY fledgepower-filter-iec104topivot_build.sh /tmp/
+
+RUN chmod +x /tmp/fledgepower-filter-iec104topivot_build.sh && \
+    /tmp/fledgepower-filter-iec104topivot_build.sh && \
+    echo '=============================================='
+
 COPY fledge-south-iec104_build.sh /tmp/
 
 RUN chmod +x /tmp/fledge-south-iec104_build.sh && \
@@ -81,23 +95,31 @@ COPY fledge-north-iec104_build.sh /tmp/
 RUN chmod +x /tmp/fledge-north-iec104_build.sh && \
     /tmp/fledge-north-iec104_build.sh && \
     echo '=============================================='
-    
-COPY fledge-north-auditsnmp_build.sh /tmp/
 
-RUN chmod +x /tmp/fledge-north-auditsnmp_build.sh && \
-    /tmp/fledge-north-auditsnmp_build.sh && \
-    echo '=============================================='
+########### PLUGINS ###########
+COPY fledgepower-filter-mvscale_build.sh /tmp/
 
-COPY fledgepower-filter-iec104topivot_build.sh /tmp/
-
-RUN chmod +x /tmp/fledgepower-filter-iec104topivot_build.sh && \
-    /tmp/fledgepower-filter-iec104topivot_build.sh && \
+RUN chmod +x /tmp/fledgepower-filter-mvscale_build.sh && \
+    /tmp/fledgepower-filter-mvscale_build.sh && \
     echo '=============================================='
 
 COPY fledgepower-filter-transientsp_build.sh /tmp/
 
 RUN chmod +x /tmp/fledgepower-filter-transientsp_build.sh && \
     /tmp/fledgepower-filter-transientsp_build.sh && \
+    echo '=============================================='
+
+########### HNZ ###########
+COPY fledgepower-filter-hnztopivot_build.sh /tmp/
+
+RUN chmod +x /tmp/fledgepower-filter-hnztopivot_build.sh && \
+    /tmp/fledgepower-filter-hnztopivot_build.sh && \
+    echo '=============================================='
+
+COPY fledge-south-hnz_build.sh /tmp/
+
+RUN chmod +x /tmp/fledge-south-hnz_build.sh && \
+    /tmp/fledge-south-hnz_build.sh && \
     echo '=============================================='
 
 WORKDIR /usr/local/fledge
