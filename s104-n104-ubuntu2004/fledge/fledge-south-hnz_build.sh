@@ -20,11 +20,10 @@
 ## Author: Yannick Marchetaux
 ##
 
-VERSION_LIBHNZ=v1.0.0-rc1
-VERSION_SOUTH_HNZ=v1.0.0-rc1
+source /tmp/versions.sh
 
 # Compilation of libHNZ
-wget -O ./libhnz.tar.gz https://github.com/fledge-power/libhnz/archive/refs/tags/$VERSION_LIBHNZ.tar.gz
+wget -O ./libhnz.tar.gz https://github.com/fledge-power/libhnz/archive/refs/$VERSION_LIBHNZ.tar.gz
 tar -xf libhnz.tar.gz
 mv libhnz-* libhnz
 cd libhnz
@@ -33,7 +32,7 @@ cd src/hnz
 ./compilation.sh
 
 # Compilation of fledge-south-hnz
-wget -O ./fledge-south-hnz.tar.gz https://github.com/fledge-power/fledge-south-hnz/archive/refs/tags/$VERSION_SOUTH_HNZ.tar.gz
+wget -O ./fledge-south-hnz.tar.gz https://github.com/fledge-power/fledge-south-hnz/archive/refs/$VERSION_SOUTH_HNZ.tar.gz
 tar -xf fledge-south-hnz.tar.gz
 mv fledge-south-hnz-* fledge-south-hnz
 cd fledge-south-hnz

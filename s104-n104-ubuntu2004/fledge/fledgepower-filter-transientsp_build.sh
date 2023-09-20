@@ -19,8 +19,11 @@
 ##
 ## Author: Yannick Marchetaux
 ##
+
+source /tmp/versions.sh
+
 cd /tmp
-wget -O ./fledgepower-filter-transientsp.tar.gz https://github.com/fledge-power/fledgepower-filter-transientsp/archive/refs/tags/v1.0.0.tar.gz
+wget -O ./fledgepower-filter-transientsp.tar.gz https://github.com/fledge-power/fledgepower-filter-transientsp/archive/refs/$VERISON_TRANSIENT.tar.gz
 tar -xf fledgepower-filter-transientsp.tar.gz
 mv fledgepower-filter-transientsp-* fledgepower-filter-transientsp
 cd fledgepower-filter-transientsp

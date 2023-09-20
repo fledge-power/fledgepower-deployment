@@ -19,8 +19,11 @@
 ##
 ## Author: Yannick Marchetaux
 ##
+
+source /tmp/versions.sh
+
 cd /tmp
-wget -O ./fledgepower-filter-hnztopivot.tar.gz https://github.com/fledge-power/fledgepower-filter-hnztopivot/archive/refs/heads/main.tar.gz
+wget -O ./fledgepower-filter-hnztopivot.tar.gz https://github.com/fledge-power/fledgepower-filter-hnztopivot/archive/refs/$VERSION_HNZ_TO_PIVOT.tar.gz
 tar -xf fledgepower-filter-hnztopivot.tar.gz
 mv fledgepower-filter-hnztopivot-* fledgepower-filter-hnztopivot
 cd fledgepower-filter-hnztopivot

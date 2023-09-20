@@ -3,7 +3,7 @@ FROM ubuntu:20.04
 LABEL author="Akli Rahmoun"
 
 # Set FLEDGE version, distribution, and platform
-ARG FLEDGEVERSION=2.1.0-720
+ARG FLEDGEVERSION=2.1.0-735
 ARG RELEASE=nightly
 ARG OPERATINGSYSTEM=ubuntu2004
 ARG ARCHITECTURE=x86_64
@@ -59,6 +59,7 @@ RUN mkdir ./fledge && \
     echo '=============================================='
     
 COPY fledge-install-include.sh /tmp/
+COPY versions.sh /tmp/
 
 RUN chmod +x /tmp/fledge-install-include.sh && \
     /tmp/fledge-install-include.sh && \
