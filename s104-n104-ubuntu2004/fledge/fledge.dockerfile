@@ -3,7 +3,7 @@ FROM ubuntu:20.04
 LABEL author="Akli Rahmoun"
 
 # Set FLEDGE version, distribution, and platform
-ARG FLEDGEVERSION=2.1.0-735
+ARG FLEDGEVERSION=2.1.0-739
 ARG RELEASE=nightly
 ARG OPERATINGSYSTEM=ubuntu2004
 ARG ARCHITECTURE=x86_64
@@ -95,6 +95,24 @@ COPY fledge-north-iec104_build.sh /tmp/
 
 RUN chmod +x /tmp/fledge-north-iec104_build.sh && \
     /tmp/fledge-north-iec104_build.sh && \
+    echo '=============================================='
+    
+COPY fledge-north-auditsnmp_build.sh /tmp/
+
+RUN chmod +x /tmp/fledge-north-auditsnmp_build.sh && \
+    /tmp/fledge-north-auditsnmp_build.sh && \
+    echo '=============================================='
+
+COPY fledgepower-filter-iec104topivot_build.sh /tmp/
+
+RUN chmod +x /tmp/fledgepower-filter-iec104topivot_build.sh && \
+    /tmp/fledgepower-filter-iec104topivot_build.sh && \
+    echo '=============================================='
+
+COPY fledgepower-filter-transientsp_build.sh /tmp/
+
+RUN chmod +x /tmp/fledgepower-filter-transientsp_build.sh && \
+    /tmp/fledgepower-filter-transientsp_build.sh && \
     echo '=============================================='
 
 ########### PLUGINS ###########
