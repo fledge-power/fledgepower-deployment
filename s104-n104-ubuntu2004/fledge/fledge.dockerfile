@@ -3,7 +3,7 @@ FROM ubuntu:20.04
 LABEL author="Akli Rahmoun"
 
 # Set FLEDGE version, distribution, and platform
-ARG FLEDGEVERSION=2.1.0-739
+ARG FLEDGEVERSION=2.1.0-803
 ARG RELEASE=nightly
 ARG OPERATINGSYSTEM=ubuntu2004
 ARG ARCHITECTURE=x86_64
@@ -69,6 +69,13 @@ COPY fledge-install-dispatcher.sh /tmp/
 
 RUN chmod +x /tmp/fledge-install-dispatcher.sh && \
     /tmp/fledge-install-dispatcher.sh && \
+    echo '=============================================='
+
+########### NOTIFICATION ###########
+COPY fledge-install-notification.sh /tmp/
+
+RUN chmod +x /tmp/fledge-install-notification.sh && \
+    /tmp/fledge-install-notification.sh && \
     echo '=============================================='
 
 ########### SNMP ###########
@@ -139,6 +146,19 @@ COPY fledge-south-hnz_build.sh /tmp/
 
 RUN chmod +x /tmp/fledge-south-hnz_build.sh && \
     /tmp/fledge-south-hnz_build.sh && \
+    echo '=============================================='
+
+########### SYSTEMSP ###########
+COPY fledgepower-notify-systemsp_build.sh /tmp/
+
+RUN chmod +x /tmp/fledgepower-notify-systemsp_build.sh && \
+    /tmp/fledgepower-notify-systemsp_build.sh && \
+    echo '=============================================='
+
+COPY fledgepower-rule-systemsp_build.sh /tmp/
+
+RUN chmod +x /tmp/fledgepower-rule-systemsp_build.sh && \
+    /tmp/fledgepower-rule-systemsp_build.sh && \
     echo '=============================================='
 
 WORKDIR /usr/local/fledge

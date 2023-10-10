@@ -19,32 +19,22 @@
 ##
 ## Author: Yannick Marchetaux
 ##
+source /tmp/versions.sh
 
-## fledge-north-iec104_build.sh
-VERSION_NORTH_IEC104=tags/v1.1.0
-VERSION_MBEDTLS=tags/v2.28.2
+cd /tmp
+wget -O ./fledgepower-notify-systemsp.tar.gz https://github.com/fledge-power/fledgepower-notify-systemsp/archive/refs/$VERISON_SYSTEMSP_NOTIFY.tar.gz
+tar -xf fledgepower-notify-systemsp.tar.gz
+mv fledgepower-notify-systemsp-* fledgepower-notify-systemsp
+cd fledgepower-notify-systemsp
+chmod +x mkversion
 
-## fledge-south-iec104_build.sh
-VERSION_SOUTH_IEC104=tags/v1.1.0
+mkdir build
+cd build
+cmake -DCMAKE_BUILD_TYPE=Release -DFLEDGE_INCLUDE=/usr/local/fledge/include/ -DFLEDGE_LIB=/usr/local/fledge/lib/ ..
+make
 
-## fledge-south-hnz_build.sh
-VERSION_LIBHNZ=heads/develop
-VERSION_SOUTH_HNZ=heads/develop
-
-## fledgepower-filter-iec104topivot_build.sh
-VERSION_IEC104_TO_PIVOT=tags/v1.1.0
-
-## fledgepower-filter-hnztopivot_build.sh
-VERSION_HNZ_TO_PIVOT=heads/develop
-
-## fledgepower-filter-mvscale_build.sh
-VERISON_MVSCALE=tags/1.0.0
-
-## fledgepower-filter-transientsp_build.sh
-VERISON_TRANSIENT=tags/v1.0.0
-
-## fledgepower-notify-systemsp_build.sh
-VERISON_SYSTEMSP_NOTIFY=heads/2-initial-implementation
-
-## fledgepower-rule-systemsp_build.sh
-VERISON_SYSTEMSP_RULE=heads/2-initial-implementation
+if [ ! -d "${FLEDGE_ROOT}/plugins/notificationDelivery/systemspn" ] 
+then
+    sudo mkdir -p ${FLEDGE_ROOT}/plugins/notificationDelivery/systemspn
+fi
+sudo cp libsystemspn.so ${FLEDGE_ROOT}/plugins/notificationDelivery/systemspn
