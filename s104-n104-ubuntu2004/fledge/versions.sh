@@ -44,7 +44,7 @@ VERISON_MVSCALE=tags/1.0.0
 VERISON_TRANSIENT=tags/v1.0.0
 
 ## fledgepower-notify-systemsp_build.sh
-VERISON_SYSTEMSP_NOTIFY=heads/2-initial-implementation
+VERISON_SYSTEMSP_NOTIFY=heads/develop
 
 ## fledgepower-rule-systemsp_build.sh
-VERISON_SYSTEMSP_RULE=heads/2-initial-implementation
+VERISON_SYSTEMSP_RULE=heads/develop
