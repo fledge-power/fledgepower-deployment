@@ -71,6 +71,27 @@ RUN chmod +x /tmp/fledge-install-dispatcher.sh && \
     /tmp/fledge-install-dispatcher.sh && \
     echo '=============================================='
 
+########### NOTIFICATION ###########
+COPY fledge-install-notification.sh /tmp/
+
+RUN chmod +x /tmp/fledge-install-notification.sh && \
+    /tmp/fledge-install-notification.sh && \
+    echo '=============================================='
+
+########### SNMP ###########
+COPY fledge-north-auditsnmp_build.sh /tmp/
+
+RUN chmod +x /tmp/fledge-north-auditsnmp_build.sh && \
+    /tmp/fledge-north-auditsnmp_build.sh && \
+    echo '=============================================='
+
+########### SOUTH HNZ ###########
+COPY fledge-south-hnz_build.sh /tmp/
+
+RUN chmod +x /tmp/fledge-south-hnz_build.sh && \
+    /tmp/fledge-south-hnz_build.sh && \
+    echo '=============================================='
+
 ########### NORTH 104 ###########
 COPY fledge-north-iec104_build.sh /tmp/
 
@@ -78,39 +99,53 @@ RUN chmod +x /tmp/fledge-north-iec104_build.sh && \
     /tmp/fledge-north-iec104_build.sh && \
     echo '=============================================='
 
-########### SOUTH 104 ###########
-COPY fledge-south-iec104_build.sh /tmp/
-
-RUN chmod +x /tmp/fledge-south-iec104_build.sh && \
-    /tmp/fledge-south-iec104_build.sh && \
-    echo '=============================================='
-
-########### NORTH SNMP ###########
+########### NORTH AUDITSNMP ###########
 COPY fledge-north-auditsnmp_build.sh /tmp/
 
 RUN chmod +x /tmp/fledge-north-auditsnmp_build.sh && \
     /tmp/fledge-north-auditsnmp_build.sh && \
     echo '=============================================='
 
-########### PLUGIN TRAD 104 ###########
+########### PLUGINS TRADUCTION 104 ###########
 COPY fledgepower-filter-iec104topivot_build.sh /tmp/
 
 RUN chmod +x /tmp/fledgepower-filter-iec104topivot_build.sh && \
     /tmp/fledgepower-filter-iec104topivot_build.sh && \
     echo '=============================================='
 
-########### PLUGIN TRANSIENT ###########
+########### PLUGINS TRADUCTION HNZ ###########
+COPY fledgepower-filter-hnztopivot_build.sh /tmp/
+
+RUN chmod +x /tmp/fledgepower-filter-hnztopivot_build.sh && \
+    /tmp/fledgepower-filter-hnztopivot_build.sh && \
+    echo '=============================================='
+    
+########### PLUGIN TRANSIENTSP ###########
 COPY fledgepower-filter-transientsp_build.sh /tmp/
 
 RUN chmod +x /tmp/fledgepower-filter-transientsp_build.sh && \
     /tmp/fledgepower-filter-transientsp_build.sh && \
     echo '=============================================='
 
-########### PLUGIN MVSCALE ###########
+########### PLUGINS MVSCALE ###########
 COPY fledgepower-filter-mvscale_build.sh /tmp/
 
 RUN chmod +x /tmp/fledgepower-filter-mvscale_build.sh && \
     /tmp/fledgepower-filter-mvscale_build.sh && \
+    echo '=============================================='
+
+########### PLUGINS NOTIF SYSTEMSP ###########
+COPY fledgepower-notify-systemsp_build.sh /tmp/
+
+RUN chmod +x /tmp/fledgepower-notify-systemsp_build.sh && \
+    /tmp/fledgepower-notify-systemsp_build.sh && \
+    echo '=============================================='
+
+
+ADD fledgepower-rule-systemsp_build.sh /tmp/
+
+RUN chmod +x /tmp/fledgepower-rule-systemsp_build.sh && \
+    /tmp/fledgepower-rule-systemsp_build.sh && \
     echo '=============================================='
 
 WORKDIR /usr/local/fledge
