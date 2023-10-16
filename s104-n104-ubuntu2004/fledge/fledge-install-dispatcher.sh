@@ -21,6 +21,6 @@
 ##
 
 wget --no-check-certificate http://archives.fledge-iot.org/nightly/ubuntu2004/x86_64/fledge-service-dispatcher_2.1.0-19_x86_64.deb
-dpkg --unpack ./fledge-service-dispatcher_2.1.0-17_x86_64.deb
+dpkg --unpack ./fledge-service-dispatcher_2.1.0-19_x86_64.deb
 apt-get install -yf
 apt-get clean -y
