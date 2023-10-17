@@ -17,10 +17,14 @@
 ##--------------------------------------------------------------------
 
 ##
-## Author: Mark Riddoch, Akli Rahmoun
+## Author: Akli Rahmoun
 ##
 
-wget --no-check-certificate http://archives.fledge-iot.org/nightly/ubuntu2004/x86_64/fledge-service-dispatcher_2.1.0-17_x86_64.deb
-dpkg --unpack ./fledge-service-dispatcher_2.1.0-17_x86_64.deb
-apt-get install -yf
-apt-get clean -y
+git clone https://github.com/fledge-power/fledge-north-auditsnmp
+cd fledge-north-auditsnmp/
+
+if [ ! -d "${FLEDGE_ROOT}/python/fledge/plugins/north/auditsnmp" ] 
+then
+    sudo mkdir -p $FLEDGE_ROOT/python/fledge/plugins/north/auditsnmp
+fi
+sudo cp -r auditsnmp/ $FLEDGE_ROOT/python/fledge/plugins/north

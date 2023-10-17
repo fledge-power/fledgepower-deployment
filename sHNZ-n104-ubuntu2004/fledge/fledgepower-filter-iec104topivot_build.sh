@@ -17,35 +17,24 @@
 ##--------------------------------------------------------------------
 
 ##
-## Author: Mark Riddoch, Akli Rahmoun
+## Author: Yannick Marchetaux, Akli Rahmoun
 ##
 
 source /tmp/versions.sh
 
-git clone https://github.com/mz-automation/lib60870.git
-cd lib60870/lib60870-C
-cd dependencies
-wget https://github.com/Mbed-TLS/mbedtls/archive/refs/$VERSION_MBEDTLS.tar.gz
-tar xf v2.28.2.tar.gz
-mv mbedtls-2.28.2/ mbedtls-2.28
-cd ..
-mkdir build
-cd build
-cmake -DBUILD_TESTS=NO -DBUILD_EXAMPLES=NO ..
-make
-sudo make install
-cd ../../..
-wget -O ./fledge-north-iec104.tar.gz https://github.com/fledge-power/fledge-north-iec104/archive/refs/$VERSION_NORTH_IEC104.tar.gz
-tar -xf fledge-north-iec104.tar.gz
-mv fledge-north-iec104-* fledge-north-iec104
-cd fledge-north-iec104
+cd /tmp
+wget -O ./fledgepower-filter-iec104topivot.tar.gz https://github.com/fledge-power/fledgepower-filter-iec104topivot/archive/refs/$VERSION_IEC104_TO_PIVOT.tar.gz
+tar -xf fledgepower-filter-iec104topivot.tar.gz
+mv fledgepower-filter-iec104topivot-* fledgepower-filter-iec104topivot
+cd fledgepower-filter-iec104topivot
 chmod +x mkversion
+
 mkdir build
 cd build
 cmake -DCMAKE_BUILD_TYPE=Release -DFLEDGE_INCLUDE=/usr/local/fledge/include/ -DFLEDGE_LIB=/usr/local/fledge/lib/ ..
 make
-if [ ! -d "${FLEDGE_ROOT}/plugins/north/iec104" ] 
+if [ ! -d "${FLEDGE_ROOT}/plugins/filter/iec104_pivot_filter" ] 
 then
-    sudo mkdir -p $FLEDGE_ROOT/plugins/north/iec104
+    sudo mkdir -p ${FLEDGE_ROOT}/plugins/filter/iec104_pivot_filter
 fi
-sudo cp libiec104.so $FLEDGE_ROOT/plugins/north/iec104
+sudo cp libiec104_pivot_filter.so ${FLEDGE_ROOT}/plugins/filter/iec104_pivot_filter

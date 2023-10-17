@@ -17,10 +17,34 @@
 ##--------------------------------------------------------------------
 
 ##
-## Author: Mark Riddoch, Akli Rahmoun
+## Author: Yannick Marchetaux
 ##
 
-wget --no-check-certificate http://archives.fledge-iot.org/nightly/ubuntu2004/x86_64/fledge-service-dispatcher_2.1.0-17_x86_64.deb
-dpkg --unpack ./fledge-service-dispatcher_2.1.0-17_x86_64.deb
-apt-get install -yf
-apt-get clean -y
+## fledge-north-iec104_build.sh
+VERSION_NORTH_IEC104=tags/v1.1.0
+VERSION_MBEDTLS=tags/v2.28.2
+
+## fledge-south-iec104_build.sh
+VERSION_SOUTH_IEC104=tags/v1.1.0
+
+## fledge-south-hnz_build.sh
+VERSION_LIBHNZ=heads/develop
+VERSION_SOUTH_HNZ=heads/develop
+
+## fledgepower-filter-iec104topivot_build.sh
+VERSION_IEC104_TO_PIVOT=tags/v1.1.0
+
+## fledgepower-filter-hnztopivot_build.sh
+VERSION_HNZ_TO_PIVOT=heads/develop
+
+## fledgepower-filter-mvscale_build.sh
+VERISON_MVSCALE=tags/1.0.0
+
+## fledgepower-filter-transientsp_build.sh
+VERISON_TRANSIENT=tags/v1.0.0
+
+## fledgepower-notify-systemsp_build.sh
+VERISON_SYSTEMSP_NOTIFY=heads/develop
+
+## fledgepower-rule-systemsp_build.sh
+VERISON_SYSTEMSP_RULE=heads/develop
