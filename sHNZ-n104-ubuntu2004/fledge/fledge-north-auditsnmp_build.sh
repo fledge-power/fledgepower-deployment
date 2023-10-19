@@ -17,24 +17,14 @@
 ##--------------------------------------------------------------------
 
 ##
-## Author: Yannick Marchetaux
+## Author: Akli Rahmoun
 ##
 
-source /tmp/versions.sh
+git clone https://github.com/fledge-power/fledge-north-auditsnmp
+cd fledge-north-auditsnmp/
 
-cd /tmp
-wget -O ./fledgepower-filter-transientsp.tar.gz https://github.com/fledge-power/fledgepower-filter-transientsp/archive/refs/$VERISON_TRANSIENT.tar.gz
-tar -xf fledgepower-filter-transientsp.tar.gz
-mv fledgepower-filter-transientsp-* fledgepower-filter-transientsp
-cd fledgepower-filter-transientsp
-chmod +x mkversion
-
-mkdir build
-cd build
-cmake -DCMAKE_BUILD_TYPE=Release -DFLEDGE_INCLUDE=/usr/local/fledge/include/ -DFLEDGE_LIB=/usr/local/fledge/lib/ ..
-make
-if [ ! -d "${FLEDGE_ROOT}/plugins/filter/transientsp" ] 
+if [ ! -d "${FLEDGE_ROOT}/python/fledge/plugins/north/auditsnmp" ] 
 then
-    sudo mkdir -p ${FLEDGE_ROOT}/plugins/filter/transientsp
+    sudo mkdir -p $FLEDGE_ROOT/python/fledge/plugins/north/auditsnmp
 fi
-sudo cp libtransientsp.so ${FLEDGE_ROOT}/plugins/filter/transientsp
+sudo cp -r auditsnmp/ $FLEDGE_ROOT/python/fledge/plugins/north

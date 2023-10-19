@@ -23,18 +23,18 @@
 source /tmp/versions.sh
 
 cd /tmp
-wget -O ./fledgepower-filter-transientsp.tar.gz https://github.com/fledge-power/fledgepower-filter-transientsp/archive/refs/$VERISON_TRANSIENT.tar.gz
-tar -xf fledgepower-filter-transientsp.tar.gz
-mv fledgepower-filter-transientsp-* fledgepower-filter-transientsp
-cd fledgepower-filter-transientsp
+wget -O ./fledgepower-filter-mvscale.tar.gz https://github.com/fledge-power/fledgepower-filter-mvscale/archive/refs/$VERISON_MVSCALE.tar.gz
+tar -xf fledgepower-filter-mvscale.tar.gz
+mv fledgepower-filter-mvscale-* fledgepower-filter-mvscale
+cd fledgepower-filter-mvscale
 chmod +x mkversion
 
 mkdir build
 cd build
 cmake -DCMAKE_BUILD_TYPE=Release -DFLEDGE_INCLUDE=/usr/local/fledge/include/ -DFLEDGE_LIB=/usr/local/fledge/lib/ ..
 make
-if [ ! -d "${FLEDGE_ROOT}/plugins/filter/transientsp" ] 
+if [ ! -d "${FLEDGE_ROOT}/plugins/filter/mvscale" ] 
 then
-    sudo mkdir -p ${FLEDGE_ROOT}/plugins/filter/transientsp
+    sudo mkdir -p ${FLEDGE_ROOT}/plugins/filter/mvscale
 fi
-sudo cp libtransientsp.so ${FLEDGE_ROOT}/plugins/filter/transientsp
+sudo cp libmvscale.so ${FLEDGE_ROOT}/plugins/filter/mvscale

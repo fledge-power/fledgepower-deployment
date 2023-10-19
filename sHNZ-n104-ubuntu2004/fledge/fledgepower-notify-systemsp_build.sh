@@ -19,22 +19,22 @@
 ##
 ## Author: Yannick Marchetaux
 ##
-
 source /tmp/versions.sh
 
 cd /tmp
-wget -O ./fledgepower-filter-transientsp.tar.gz https://github.com/fledge-power/fledgepower-filter-transientsp/archive/refs/$VERISON_TRANSIENT.tar.gz
-tar -xf fledgepower-filter-transientsp.tar.gz
-mv fledgepower-filter-transientsp-* fledgepower-filter-transientsp
-cd fledgepower-filter-transientsp
+wget -O ./fledgepower-notify-systemsp.tar.gz https://github.com/fledge-power/fledgepower-notify-systemsp/archive/refs/$VERISON_SYSTEMSP_NOTIFY.tar.gz
+tar -xf fledgepower-notify-systemsp.tar.gz
+mv fledgepower-notify-systemsp-* fledgepower-notify-systemsp
+cd fledgepower-notify-systemsp
 chmod +x mkversion
 
 mkdir build
 cd build
 cmake -DCMAKE_BUILD_TYPE=Release -DFLEDGE_INCLUDE=/usr/local/fledge/include/ -DFLEDGE_LIB=/usr/local/fledge/lib/ ..
 make
-if [ ! -d "${FLEDGE_ROOT}/plugins/filter/transientsp" ] 
+
+if [ ! -d "${FLEDGE_ROOT}/plugins/notificationDelivery/systemspn" ] 
 then
-    sudo mkdir -p ${FLEDGE_ROOT}/plugins/filter/transientsp
+    sudo mkdir -p ${FLEDGE_ROOT}/plugins/notificationDelivery/systemspn
 fi
-sudo cp libtransientsp.so ${FLEDGE_ROOT}/plugins/filter/transientsp
+sudo cp libsystemspn.so ${FLEDGE_ROOT}/plugins/notificationDelivery/systemspn

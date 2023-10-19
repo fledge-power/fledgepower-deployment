@@ -17,24 +17,10 @@
 ##--------------------------------------------------------------------
 
 ##
-## Author: Yannick Marchetaux
+## Author: Mark Riddoch, Akli Rahmoun
 ##
 
-source /tmp/versions.sh
-
-cd /tmp
-wget -O ./fledgepower-filter-transientsp.tar.gz https://github.com/fledge-power/fledgepower-filter-transientsp/archive/refs/$VERISON_TRANSIENT.tar.gz
-tar -xf fledgepower-filter-transientsp.tar.gz
-mv fledgepower-filter-transientsp-* fledgepower-filter-transientsp
-cd fledgepower-filter-transientsp
-chmod +x mkversion
-
-mkdir build
-cd build
-cmake -DCMAKE_BUILD_TYPE=Release -DFLEDGE_INCLUDE=/usr/local/fledge/include/ -DFLEDGE_LIB=/usr/local/fledge/lib/ ..
-make
-if [ ! -d "${FLEDGE_ROOT}/plugins/filter/transientsp" ] 
-then
-    sudo mkdir -p ${FLEDGE_ROOT}/plugins/filter/transientsp
-fi
-sudo cp libtransientsp.so ${FLEDGE_ROOT}/plugins/filter/transientsp
+wget --no-check-certificate http://archives.fledge-iot.org/nightly/ubuntu2004/x86_64/fledge-service-dispatcher_2.1.0-17_x86_64.deb
+dpkg --unpack ./fledge-service-dispatcher_2.1.0-17_x86_64.deb
+apt-get install -yf
+apt-get clean -y

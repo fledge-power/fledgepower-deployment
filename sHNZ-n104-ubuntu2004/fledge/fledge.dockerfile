@@ -3,8 +3,7 @@ FROM ubuntu:20.04
 LABEL author="Akli Rahmoun"
 
 # Set FLEDGE version, distribution, and platform
-
-ARG FLEDGEVERSION=2.1.0-817
+ARG FLEDGEVERSION=2.1.0-806
 ARG RELEASE=nightly
 ARG OPERATINGSYSTEM=ubuntu2004
 ARG ARCHITECTURE=x86_64
@@ -72,6 +71,27 @@ RUN chmod +x /tmp/fledge-install-dispatcher.sh && \
     /tmp/fledge-install-dispatcher.sh && \
     echo '=============================================='
 
+########### NOTIFICATION ###########
+COPY fledge-install-notification.sh /tmp/
+
+RUN chmod +x /tmp/fledge-install-notification.sh && \
+    /tmp/fledge-install-notification.sh && \
+    echo '=============================================='
+
+########### SNMP ###########
+COPY fledge-north-auditsnmp_build.sh /tmp/
+
+RUN chmod +x /tmp/fledge-north-auditsnmp_build.sh && \
+    /tmp/fledge-north-auditsnmp_build.sh && \
+    echo '=============================================='
+
+########### SOUTH HNZ ###########
+COPY fledge-south-hnz_build.sh /tmp/
+
+RUN chmod +x /tmp/fledge-south-hnz_build.sh && \
+    /tmp/fledge-south-hnz_build.sh && \
+    echo '=============================================='
+
 ########### NORTH 104 ###########
 COPY fledge-north-iec104_build.sh /tmp/
 
@@ -79,39 +99,53 @@ RUN chmod +x /tmp/fledge-north-iec104_build.sh && \
     /tmp/fledge-north-iec104_build.sh && \
     echo '=============================================='
 
-########### SOUTH 104 ###########
-COPY fledge-south-iec104_build.sh /tmp/
-
-RUN chmod +x /tmp/fledge-south-iec104_build.sh && \
-    /tmp/fledge-south-iec104_build.sh && \
-    echo '=============================================='
-
-########### NORTH SNMP ###########
+########### NORTH AUDITSNMP ###########
 COPY fledge-north-auditsnmp_build.sh /tmp/
 
 RUN chmod +x /tmp/fledge-north-auditsnmp_build.sh && \
     /tmp/fledge-north-auditsnmp_build.sh && \
     echo '=============================================='
 
-########### PLUGIN TRAD 104 ###########
+########### PLUGINS TRADUCTION 104 ###########
 COPY fledgepower-filter-iec104topivot_build.sh /tmp/
 
 RUN chmod +x /tmp/fledgepower-filter-iec104topivot_build.sh && \
     /tmp/fledgepower-filter-iec104topivot_build.sh && \
     echo '=============================================='
 
-########### PLUGIN TRANSIENT ###########
+########### PLUGINS TRADUCTION HNZ ###########
+COPY fledgepower-filter-hnztopivot_build.sh /tmp/
+
+RUN chmod +x /tmp/fledgepower-filter-hnztopivot_build.sh && \
+    /tmp/fledgepower-filter-hnztopivot_build.sh && \
+    echo '=============================================='
+    
+########### PLUGIN TRANSIENTSP ###########
 COPY fledgepower-filter-transientsp_build.sh /tmp/
 
 RUN chmod +x /tmp/fledgepower-filter-transientsp_build.sh && \
     /tmp/fledgepower-filter-transientsp_build.sh && \
     echo '=============================================='
 
-########### PLUGIN MVSCALE ###########
+########### PLUGINS MVSCALE ###########
 COPY fledgepower-filter-mvscale_build.sh /tmp/
 
 RUN chmod +x /tmp/fledgepower-filter-mvscale_build.sh && \
     /tmp/fledgepower-filter-mvscale_build.sh && \
+    echo '=============================================='
+
+########### PLUGINS NOTIF SYSTEMSP ###########
+COPY fledgepower-notify-systemsp_build.sh /tmp/
+
+RUN chmod +x /tmp/fledgepower-notify-systemsp_build.sh && \
+    /tmp/fledgepower-notify-systemsp_build.sh && \
+    echo '=============================================='
+
+
+ADD fledgepower-rule-systemsp_build.sh /tmp/
+
+RUN chmod +x /tmp/fledgepower-rule-systemsp_build.sh && \
+    /tmp/fledgepower-rule-systemsp_build.sh && \
     echo '=============================================='
 
 WORKDIR /usr/local/fledge
@@ -123,7 +157,7 @@ RUN chmod +x start.sh
 VOLUME /usr/local/fledge 
 
 # Fledge API port for FELDGE API http and https and Code Server
-EXPOSE 8081 8090 1995 8080 2404 2405
+EXPOSE 8081 8090 1995 8080 2404 2405 6001 6002
 
 # start rsyslog, FLEDGE, and tail syslog
 CMD ["/bin/bash","/usr/local/fledge/start.sh"]

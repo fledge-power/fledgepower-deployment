@@ -22,19 +22,26 @@
 
 source /tmp/versions.sh
 
-cd /tmp
-wget -O ./fledgepower-filter-transientsp.tar.gz https://github.com/fledge-power/fledgepower-filter-transientsp/archive/refs/$VERISON_TRANSIENT.tar.gz
-tar -xf fledgepower-filter-transientsp.tar.gz
-mv fledgepower-filter-transientsp-* fledgepower-filter-transientsp
-cd fledgepower-filter-transientsp
-chmod +x mkversion
+# Compilation of libHNZ
+wget -O ./libhnz.tar.gz https://github.com/fledge-power/libhnz/archive/refs/$VERSION_LIBHNZ.tar.gz
+tar -xf libhnz.tar.gz
+mv libhnz-* libhnz
+cd libhnz
+export LIB_HNZ=`pwd`
+cd src/hnz
+./compilation.sh
 
+# Compilation of fledge-south-hnz
+wget -O ./fledge-south-hnz.tar.gz https://github.com/fledge-power/fledge-south-hnz/archive/refs/$VERSION_SOUTH_HNZ.tar.gz
+tar -xf fledge-south-hnz.tar.gz
+mv fledge-south-hnz-* fledge-south-hnz
+cd fledge-south-hnz
 mkdir build
 cd build
 cmake -DCMAKE_BUILD_TYPE=Release -DFLEDGE_INCLUDE=/usr/local/fledge/include/ -DFLEDGE_LIB=/usr/local/fledge/lib/ ..
 make
-if [ ! -d "${FLEDGE_ROOT}/plugins/filter/transientsp" ] 
+if [ ! -d "${FLEDGE_ROOT}/plugins/south/hnz" ] 
 then
-    sudo mkdir -p ${FLEDGE_ROOT}/plugins/filter/transientsp
+    sudo mkdir -p $FLEDGE_ROOT/plugins/south/hnz
 fi
-sudo cp libtransientsp.so ${FLEDGE_ROOT}/plugins/filter/transientsp
+sudo cp libhnz.so $FLEDGE_ROOT/plugins/south/hnz

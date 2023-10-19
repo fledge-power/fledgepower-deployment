@@ -17,24 +17,15 @@
 ##--------------------------------------------------------------------
 
 ##
-## Author: Yannick Marchetaux
+## Author: Mark Riddoch, Akli Rahmoun
 ##
 
-source /tmp/versions.sh
-
-cd /tmp
-wget -O ./fledgepower-filter-transientsp.tar.gz https://github.com/fledge-power/fledgepower-filter-transientsp/archive/refs/$VERISON_TRANSIENT.tar.gz
-tar -xf fledgepower-filter-transientsp.tar.gz
-mv fledgepower-filter-transientsp-* fledgepower-filter-transientsp
-cd fledgepower-filter-transientsp
-chmod +x mkversion
-
-mkdir build
-cd build
-cmake -DCMAKE_BUILD_TYPE=Release -DFLEDGE_INCLUDE=/usr/local/fledge/include/ -DFLEDGE_LIB=/usr/local/fledge/lib/ ..
-make
-if [ ! -d "${FLEDGE_ROOT}/plugins/filter/transientsp" ] 
-then
-    sudo mkdir -p ${FLEDGE_ROOT}/plugins/filter/transientsp
-fi
-sudo cp libtransientsp.so ${FLEDGE_ROOT}/plugins/filter/transientsp
+git clone https://github.com/fledge-iot/fledge.git
+cd fledge
+sudo mkdir -p /usr/local/fledge/include/rapidjson/
+find C/common/ -name '*.h' -exec sudo cp -prv '{}' '/usr/local/fledge/include' ';'
+find C/plugins/ -name '*.h' -exec sudo cp -prv '{}' '/usr/local/fledge/include' ';'
+find C/services/ -name '*.h' -exec sudo cp -prv '{}' '/usr/local/fledge/include' ';'
+find C/tasks/ -name '*.h' -exec sudo cp -prv '{}' '/usr/local/fledge/include' ';'
+find C/thirdparty/Simple-Web-Server/ -name '*.hpp' -exec sudo cp -prv '{}' '/usr/local/fledge/include' ';'
+sudo cp -prv C/thirdparty/rapidjson/include/rapidjson/* /usr/local/fledge/include/rapidjson/

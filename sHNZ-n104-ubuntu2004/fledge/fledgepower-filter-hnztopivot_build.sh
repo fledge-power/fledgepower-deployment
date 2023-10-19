@@ -23,18 +23,18 @@
 source /tmp/versions.sh
 
 cd /tmp
-wget -O ./fledgepower-filter-transientsp.tar.gz https://github.com/fledge-power/fledgepower-filter-transientsp/archive/refs/$VERISON_TRANSIENT.tar.gz
-tar -xf fledgepower-filter-transientsp.tar.gz
-mv fledgepower-filter-transientsp-* fledgepower-filter-transientsp
-cd fledgepower-filter-transientsp
+wget -O ./fledgepower-filter-hnztopivot.tar.gz https://github.com/fledge-power/fledgepower-filter-hnztopivot/archive/refs/$VERSION_HNZ_TO_PIVOT.tar.gz
+tar -xf fledgepower-filter-hnztopivot.tar.gz
+mv fledgepower-filter-hnztopivot-* fledgepower-filter-hnztopivot
+cd fledgepower-filter-hnztopivot
 chmod +x mkversion
 
 mkdir build
 cd build
 cmake -DCMAKE_BUILD_TYPE=Release -DFLEDGE_INCLUDE=/usr/local/fledge/include/ -DFLEDGE_LIB=/usr/local/fledge/lib/ ..
 make
-if [ ! -d "${FLEDGE_ROOT}/plugins/filter/transientsp" ] 
+if [ ! -d "${FLEDGE_ROOT}/plugins/filter/hnz_pivot_filter" ] 
 then
-    sudo mkdir -p ${FLEDGE_ROOT}/plugins/filter/transientsp
+    sudo mkdir -p ${FLEDGE_ROOT}/plugins/filter/hnz_pivot_filter
 fi
-sudo cp libtransientsp.so ${FLEDGE_ROOT}/plugins/filter/transientsp
+sudo cp libhnz_pivot_filter.so ${FLEDGE_ROOT}/plugins/filter/hnz_pivot_filter

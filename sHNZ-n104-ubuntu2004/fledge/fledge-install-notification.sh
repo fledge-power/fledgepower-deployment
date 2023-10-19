@@ -17,24 +17,15 @@
 ##--------------------------------------------------------------------
 
 ##
-## Author: Yannick Marchetaux
+## Author: Mark Riddoch, Akli Rahmoun
 ##
+FLEDGENOTIFVERSION=2.1.0-47
+RELEASE=nightly
+OPERATINGSYSTEM=ubuntu2004
+ARCHITECTURE=x86_64
+FLEDGELINK="http://archives.fledge-iot.org/$RELEASE/$OPERATINGSYSTEM/$ARCHITECTURE"
 
-source /tmp/versions.sh
-
-cd /tmp
-wget -O ./fledgepower-filter-transientsp.tar.gz https://github.com/fledge-power/fledgepower-filter-transientsp/archive/refs/$VERISON_TRANSIENT.tar.gz
-tar -xf fledgepower-filter-transientsp.tar.gz
-mv fledgepower-filter-transientsp-* fledgepower-filter-transientsp
-cd fledgepower-filter-transientsp
-chmod +x mkversion
-
-mkdir build
-cd build
-cmake -DCMAKE_BUILD_TYPE=Release -DFLEDGE_INCLUDE=/usr/local/fledge/include/ -DFLEDGE_LIB=/usr/local/fledge/lib/ ..
-make
-if [ ! -d "${FLEDGE_ROOT}/plugins/filter/transientsp" ] 
-then
-    sudo mkdir -p ${FLEDGE_ROOT}/plugins/filter/transientsp
-fi
-sudo cp libtransientsp.so ${FLEDGE_ROOT}/plugins/filter/transientsp
+wget --no-check-certificate ${FLEDGELINK}/fledge-service-notification_${FLEDGENOTIFVERSION}_${ARCHITECTURE}.deb
+dpkg --unpack ./fledge-service-notification_${FLEDGENOTIFVERSION}_${ARCHITECTURE}.deb
+apt-get install -yf
+apt-get clean -y
