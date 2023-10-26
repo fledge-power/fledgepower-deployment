@@ -17,21 +17,15 @@
 ##--------------------------------------------------------------------
 
 ##
-## Author: Yannick Marchetaux
+## Author: Mark Riddoch, Akli Rahmoun
 ##
-cd /tmp
-wget -O ./fledgepower-filter-stamp.tar.gz https://github.com/fledge-power/fledgepower-filter-stamp/archive/refs/heads/main.tar.gz
-tar -xf fledgepower-filter-stamp.tar.gz
-mv fledgepower-filter-stamp-* fledgepower-filter-stamp
-cd fledgepower-filter-stamp
-chmod +x mkversion
+FLEDGENOTIFVERSION=2.2.0
+RELEASE=2.2.0
+OPERATINGSYSTEM=ubuntu2004
+ARCHITECTURE=x86_64
+FLEDGELINK="http://archives.fledge-iot.org/$RELEASE/$OPERATINGSYSTEM/$ARCHITECTURE"
 
-mkdir build
-cd build
-cmake -DCMAKE_BUILD_TYPE=Release -DFLEDGE_INCLUDE=/usr/local/fledge/include/ -DFLEDGE_LIB=/usr/local/fledge/lib/ ..
-make
-if [ ! -d "${FLEDGE_ROOT}/plugins/filter/status-points-timestamping" ] 
-then
-    sudo mkdir -p ${FLEDGE_ROOT}/plugins/filter/status-points-timestamping
-fi
-sudo cp libstatus-points-timestamping.so ${FLEDGE_ROOT}/plugins/filter/status-points-timestamping
+wget --no-check-certificate ${FLEDGELINK}/fledge-service-notification_${FLEDGENOTIFVERSION}_${ARCHITECTURE}.deb
+dpkg --unpack ./fledge-service-notification_${FLEDGENOTIFVERSION}_${ARCHITECTURE}.deb
+apt-get install -yf
+apt-get clean -y
