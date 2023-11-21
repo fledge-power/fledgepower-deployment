@@ -79,25 +79,25 @@ RUN chmod +x /tmp/fledge-north-auditsnmp_build.sh && \
     echo '=============================================='
 
 ########### PLUGIN 104 TO PIVOT ###########
-#COPY fledgepower-filter-iec104topivot_build.sh /tmp/
+COPY fledgepower-filter-iec104topivot_build.sh /tmp/
 
-#RUN chmod +x /tmp/fledgepower-filter-iec104topivot_build.sh && \
-#    /tmp/fledgepower-filter-iec104topivot_build.sh && \
-#    echo '=============================================='
+RUN chmod +x /tmp/fledgepower-filter-iec104topivot_build.sh && \
+    /tmp/fledgepower-filter-iec104topivot_build.sh && \
+    echo '=============================================='
 
 ########### PLUGIN TRANSIENT ###########
-#COPY fledgepower-filter-transientsp_build.sh /tmp/
+COPY fledgepower-filter-transientsp_build.sh /tmp/
 
-#RUN chmod +x /tmp/fledgepower-filter-transientsp_build.sh && \
-#    /tmp/fledgepower-filter-transientsp_build.sh && \
-#    echo '=============================================='
+RUN chmod +x /tmp/fledgepower-filter-transientsp_build.sh && \
+    /tmp/fledgepower-filter-transientsp_build.sh && \
+    echo '=============================================='
 
 ########### PLUGIN MVSCALE ###########
-#COPY fledgepower-filter-mvscale_build.sh /tmp/
+COPY fledgepower-filter-mvscale_build.sh /tmp/
 
-#RUN chmod +x /tmp/fledgepower-filter-mvscale_build.sh && \
-#    /tmp/fledgepower-filter-mvscale_build.sh && \
-#    echo '=============================================='
+RUN chmod +x /tmp/fledgepower-filter-mvscale_build.sh && \
+    /tmp/fledgepower-filter-mvscale_build.sh && \
+    echo '=============================================='
 
 WORKDIR /usr/local/fledge
 
