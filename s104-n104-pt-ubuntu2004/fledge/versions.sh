@@ -21,18 +21,18 @@
 ##
 
 ## fledge-north-iec104_build.sh
-VERSION_NORTH_IEC104=tags/v1.1.0
+VERSION_NORTH_IEC104=tags/v1.2.0
 VERSION_MBEDTLS=tags/v2.28.2
 
 ## fledge-south-iec104_build.sh
-VERSION_SOUTH_IEC104=tags/v1.1.0
+VERSION_SOUTH_IEC104=tags/v1.2.0
 
 ## fledge-south-hnz_build.sh
 VERSION_LIBHNZ=heads/develop
 VERSION_SOUTH_HNZ=heads/develop
 
 ## fledgepower-filter-iec104topivot_build.sh
-VERSION_IEC104_TO_PIVOT=tags/v1.1.0
+VERSION_IEC104_TO_PIVOT=tags/v1.2.0
 
 ## fledgepower-filter-hnztopivot_build.sh
 VERSION_HNZ_TO_PIVOT=heads/develop
