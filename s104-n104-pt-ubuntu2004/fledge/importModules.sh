@@ -11,8 +11,8 @@ n2_north_service_name="iec104north_c2"
 
 snmp_north_service_name="auditsnmpnorth"
 
-#plugin_1="iec104_pivot_filter"
-#plugin_2="transientsp"
+plugin_1="iec104_pivot_filter"
+plugin_2="transientsp"
 
 # Create service south
 curl -sX POST http://localhost:8081/fledge/service -d '{"name":"'$s1_south_service_name'","type":"south","plugin":"iec104","enabled":false}'
