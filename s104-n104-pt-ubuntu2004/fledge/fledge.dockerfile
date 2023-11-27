@@ -4,8 +4,8 @@ LABEL author="Akli Rahmoun"
 
 # Set FLEDGE version, distribution, and platform
 
-ARG FLEDGEVERSION=2.2.0-25
-ARG RELEASE=FOGL-8256
+ARG FLEDGEVERSION=2.2.0-36
+ARG RELEASE=nightly
 ARG OPERATINGSYSTEM=ubuntu2004
 ARG ARCHITECTURE=x86_64
 ARG FLEDGELINK="http://archives.fledge-iot.org/fixes/${RELEASE}/${OPERATINGSYSTEM}/${ARCHITECTURE}"
