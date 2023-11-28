@@ -17,21 +17,14 @@
 ##--------------------------------------------------------------------
 
 ##
-## Author: Yannick Marchetaux
+## Author: Akli Rahmoun
 ##
-cd /tmp
-wget -O ./fledgepower-filter-stamp.tar.gz https://github.com/fledge-power/fledgepower-filter-stamp/archive/refs/heads/main.tar.gz
-tar -xf fledgepower-filter-stamp.tar.gz
-mv fledgepower-filter-stamp-* fledgepower-filter-stamp
-cd fledgepower-filter-stamp
-chmod +x mkversion
 
-mkdir build
-cd build
-cmake -DCMAKE_BUILD_TYPE=Release -DFLEDGE_INCLUDE=/usr/local/fledge/include/ -DFLEDGE_LIB=/usr/local/fledge/lib/ ..
-make
-if [ ! -d "${FLEDGE_ROOT}/plugins/filter/status-points-timestamping" ] 
+git clone https://github.com/fledge-power/fledge-north-auditsnmp
+cd fledge-north-auditsnmp/
+
+if [ ! -d "${FLEDGE_ROOT}/python/fledge/plugins/north/auditsnmp" ] 
 then
-    sudo mkdir -p ${FLEDGE_ROOT}/plugins/filter/status-points-timestamping
+    sudo mkdir -p $FLEDGE_ROOT/python/fledge/plugins/north/auditsnmp
 fi
-sudo cp libstatus-points-timestamping.so ${FLEDGE_ROOT}/plugins/filter/status-points-timestamping
+sudo cp -r auditsnmp/ $FLEDGE_ROOT/python/fledge/plugins/north

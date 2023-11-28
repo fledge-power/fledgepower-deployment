@@ -20,21 +20,31 @@
 ## Author: Yannick Marchetaux
 ##
 
-source /tmp/versions.sh
+## fledge-north-iec104_build.sh
+VERSION_NORTH_IEC104=tags/v1.2.0
+VERSION_MBEDTLS=tags/v2.28.2
 
-cd /tmp
-wget -O ./fledgepower-filter-mvscale.tar.gz https://github.com/fledge-power/fledgepower-filter-mvscale/archive/refs/$VERISON_MVSCALE.tar.gz
-tar -xf fledgepower-filter-mvscale.tar.gz
-mv fledgepower-filter-mvscale-* fledgepower-filter-mvscale
-cd fledgepower-filter-mvscale
-chmod +x mkversion
+## fledge-south-iec104_build.sh
+VERSION_SOUTH_IEC104=tags/v1.2.0
 
-mkdir build
-cd build
-cmake -DCMAKE_BUILD_TYPE=Release -DFLEDGE_INCLUDE=/usr/local/fledge/include/ -DFLEDGE_LIB=/usr/local/fledge/lib/ ..
-make
-if [ ! -d "${FLEDGE_ROOT}/plugins/filter/mvscale" ] 
-then
-    sudo mkdir -p ${FLEDGE_ROOT}/plugins/filter/mvscale
-fi
-sudo cp libmvscale.so ${FLEDGE_ROOT}/plugins/filter/mvscale
+## fledge-south-hnz_build.sh
+VERSION_LIBHNZ=heads/develop
+VERSION_SOUTH_HNZ=heads/develop
+
+## fledgepower-filter-iec104topivot_build.sh
+VERSION_IEC104_TO_PIVOT=tags/v1.2.0
+
+## fledgepower-filter-hnztopivot_build.sh
+VERSION_HNZ_TO_PIVOT=heads/develop
+
+## fledgepower-filter-mvscale_build.sh
+VERISON_MVSCALE=tags/1.0.0
+
+## fledgepower-filter-transientsp_build.sh
+VERISON_TRANSIENT=tags/v1.0.0
+
+## fledgepower-notify-systemsp_build.sh
+VERISON_SYSTEMSP_NOTIFY=heads/develop
+
+## fledgepower-rule-systemsp_build.sh
+VERISON_SYSTEMSP_RULE=heads/develop
