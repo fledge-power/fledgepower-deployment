@@ -17,10 +17,13 @@
 ##--------------------------------------------------------------------
 
 ##
-## Author: Yannick Marchetaux
+## Author: Akli Rahmoun
 ##
+
+source /tmp/versions.sh
+
 cd /tmp
-wget -O ./fledgepower-filter-iec104topivot.tar.gz https://github.com/fledge-power/fledgepower-filter-iec104topivot/archive/refs/heads/main.tar.gz
+wget -O ./fledgepower-filter-iec104topivot.tar.gz https://github.com/fledge-power/fledgepower-filter-iec104topivot/archive/refs/$VERSION_IEC104_TO_PIVOT.tar.gz
 tar -xf fledgepower-filter-iec104topivot.tar.gz
 mv fledgepower-filter-iec104topivot-* fledgepower-filter-iec104topivot
 cd fledgepower-filter-iec104topivot

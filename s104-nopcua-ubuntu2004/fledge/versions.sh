@@ -17,10 +17,13 @@
 ##--------------------------------------------------------------------
 
 ##
-## Author: Mark Riddoch, Akli Rahmoun
+## Author: Yannick Marchetaux
 ##
 
-wget --no-check-certificate http://archives.fledge-iot.org/nightly/ubuntu2004/x86_64/fledge-service-dispatcher_2.2.0-10_x86_64.deb
-dpkg --unpack ./fledge-service-dispatcher_2.2.0-10_x86_64.deb
-apt-get install -yf
-apt-get clean -y
+VERSION_MBEDTLS=tags/v2.28.2
+
+## fledge-south-iec104_build.sh
+VERSION_SOUTH_IEC104=tags/v1.2.0
+
+## fledgepower-filter-iec104topivot_build.sh
+VERSION_IEC104_TO_PIVOT=tags/v1.2.0

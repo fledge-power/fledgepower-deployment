@@ -19,6 +19,7 @@
 ##
 ## Author: Akli Rahmoun
 ##
+
 cd /tmp
 wget -O ./fledgepower-filter-pivottoopcua.tar.gz https://github.com/fledge-power/fledgepower-filter-pivottoopcua/archive/refs/heads/main.tar.gz
 tar -xf fledgepower-filter-pivottoopcua.tar.gz

@@ -20,10 +20,12 @@
 ## Author: Mark Riddoch, Akli Rahmoun
 ##
 
+source /tmp/versions.sh
+
 git clone https://github.com/mz-automation/lib60870.git
 cd lib60870/lib60870-C
 cd dependencies
-wget https://github.com/Mbed-TLS/mbedtls/archive/refs/tags/v2.28.2.tar.gz
+wget https://github.com/Mbed-TLS/mbedtls/archive/refs/$VERSION_MBEDTLS.tar.gz
 tar xf v2.28.2.tar.gz
 mv mbedtls-2.28.2/ mbedtls-2.28
 cd ..
@@ -33,7 +35,9 @@ cmake -DBUILD_TESTS=NO -DBUILD_EXAMPLES=NO ..
 make
 sudo make install
 cd ../../..
-git clone https://github.com/fledge-power/fledge-south-iec104.git
+wget -O ./fledge-south-iec104.tar.gz https://github.com/fledge-power/fledge-south-iec104/archive/refs/$VERSION_SOUTH_IEC104.tar.gz
+tar -xf fledge-south-iec104.tar.gz
+mv fledge-south-iec104-* fledge-south-iec104
 cd fledge-south-iec104
 mkdir build
 cd build
