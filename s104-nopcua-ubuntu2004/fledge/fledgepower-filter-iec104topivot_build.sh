@@ -23,7 +23,7 @@
 source /tmp/versions.sh
 
 cd /tmp
-wget -O ./fledgepower-filter-iec104topivot.tar.gz https://github.com/fledge-power/fledgepower-filter-iec104topivot/archive/refs/$VERSION_IEC104_TO_PIVOT.tar.gz
+wget -O ./fledgepower-filter-iec104topivot.tar.gz https://github.com/fledge-power/fledgepower-filter-iec104topivot/archive/refs/tags/v1.2.0.tar.gz
 tar -xf fledgepower-filter-iec104topivot.tar.gz
 mv fledgepower-filter-iec104topivot-* fledgepower-filter-iec104topivot
 cd fledgepower-filter-iec104topivot
