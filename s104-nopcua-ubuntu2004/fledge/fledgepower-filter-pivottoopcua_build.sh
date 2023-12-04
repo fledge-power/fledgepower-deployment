@@ -21,10 +21,10 @@
 ##
 
 cd /tmp
-wget -O ./fledgepower-filter-pivottoopcua.tar.gz https://github.com/fledge-power/fledgepower-filter-opcuatopivot/archive/refs/tags/v1.0.0.tar.gz
-tar -xf fledgepower-filter-pivottoopcua.tar.gz
-mv fledgepower-filter-pivottoopcua-* fledgepower-filter-pivottoopcua
-cd fledgepower-filter-pivottoopcua
+wget -O ./fledgepower-filter-opcuatopivot.tar.gz https://github.com/fledge-power/fledgepower-filter-opcuatopivot/archive/refs/tags/v1.0.0.tar.gz
+tar -xf fledgepower-filter-opcuatopivot.tar.gz
+mv fledgepower-filter-opcuatopivot-* fledgepower-filter-opcuatopivot
+cd fledgepower-filter-opcuatopivot
 chmod +x mkversion
 
 mkdir build
