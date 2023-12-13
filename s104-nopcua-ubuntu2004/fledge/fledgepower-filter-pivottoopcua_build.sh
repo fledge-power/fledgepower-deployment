@@ -21,7 +21,7 @@
 ##
 
 cd /tmp
-wget -O ./fledgepower-filter-opcuatopivot.tar.gz https://github.com/fledge-power/fledgepower-filter-opcuatopivot/archive/refs/tags/v1.0.0.tar.gz
+wget -O ./fledgepower-filter-opcuatopivot.tar.gz https://github.com/fledge-power/fledgepower-filter-opcuatopivot/archive/refs/tags/v1.0.1.tar.gz
 tar -xf fledgepower-filter-opcuatopivot.tar.gz
 mv fledgepower-filter-opcuatopivot-* fledgepower-filter-opcuatopivot
 cd fledgepower-filter-opcuatopivot
