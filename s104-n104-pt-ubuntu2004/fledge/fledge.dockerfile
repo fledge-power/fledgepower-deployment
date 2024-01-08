@@ -4,7 +4,7 @@ LABEL author="Akli Rahmoun"
 
 # Set FLEDGE version, distribution, and platform
 
-ARG FLEDGEVERSION=2.2.0-51
+ARG FLEDGEVERSION=2.2.0-82
 ARG RELEASE=nightly
 ARG OPERATINGSYSTEM=ubuntu2004
 ARG ARCHITECTURE=x86_64
