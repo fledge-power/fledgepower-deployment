@@ -19,8 +19,13 @@
 ##
 ## Author: Mark Riddoch, Akli Rahmoun
 ##
+FLEDGEDISPATCHVERSION=2.3.0
+RELEASE=2.3.0
+OPERATINGSYSTEM=ubuntu2004
+ARCHITECTURE=x86_64
+FLEDGELINK="http://archives.fledge-iot.org/$RELEASE/$OPERATINGSYSTEM/$ARCHITECTURE"
 
-wget --no-check-certificate http://archives.fledge-iot.org/2.2.0/ubuntu2004/x86_64/fledge-service-dispatcher_2.2.0_x86_64.deb
-dpkg --unpack ./fledge-service-dispatcher_2.2.0_x86_64.deb
+wget --no-check-certificate ${FLEDGELINK}/fledge-service-dispatcher_${FLEDGEDISPATCHVERSION}_${ARCHITECTURE}.deb
+dpkg --unpack ./fledge-service-dispatcher_${FLEDGEDISPATCHVERSION}_${ARCHITECTURE}.deb
 apt-get install -yf
 apt-get clean -y

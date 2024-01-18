@@ -19,8 +19,13 @@
 ##
 ## Author: Mark Riddoch, Akli Rahmoun
 ##
+FLEDGENOTIFVERSION=2.1.0
+RELEASE=2.1.0
+OPERATINGSYSTEM=ubuntu2004
+ARCHITECTURE=x86_64
+FLEDGELINK="http://archives.fledge-iot.org/$RELEASE/$OPERATINGSYSTEM/$ARCHITECTURE"
 
-wget --no-check-certificate http://archives.fledge-iot.org/2.1.0/ubuntu2004/x86_64/fledge-service-notification_2.1.0_x86_64.deb
-dpkg --unpack ./fledge-service-notification_2.1.0_x86_64.deb
+wget --no-check-certificate ${FLEDGELINK}/fledge-service-notification_${FLEDGENOTIFVERSION}_${ARCHITECTURE}.deb
+dpkg --unpack ./fledge-service-notification_${FLEDGENOTIFVERSION}_${ARCHITECTURE}.deb
 apt-get install -yf
 apt-get clean -y

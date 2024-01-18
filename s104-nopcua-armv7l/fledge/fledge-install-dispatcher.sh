@@ -19,8 +19,14 @@
 ##
 ## Author: Mark Riddoch, Akli Rahmoun
 ##
+FLEDGEDISPATCHVERSION=2.0.1
+RELEASE=2.0.1
+OPERATINGSYSTEM=bullseye
+ARCHITECTURE=armv7l
+FLEDGELINK="http://archives.fledge-iot.org/$RELEASE/$OPERATINGSYSTEM/$ARCHITECTURE"
 
-wget --no-check-certificate http://archives.fledge-iot.org/2.0.1/bullseye/armv7l/fledge-service-dispatcher_2.0.1_armv7l.deb
-dpkg --unpack ./fledge-service-dispatcher_2.0.1_armv7l.deb
+wget --no-check-certificate ${FLEDGELINK}/fledge-service-dispatcher_${FLEDGEDISPATCHVERSION}_${ARCHITECTURE}.deb
+dpkg --unpack ./fledge-service-dispatcher_${FLEDGEDISPATCHVERSION}_${ARCHITECTURE}.deb
 apt-get install -yf
 apt-get clean -y
+
