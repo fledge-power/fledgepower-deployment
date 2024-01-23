@@ -26,7 +26,8 @@ RUN apt-get update && apt-get dist-upgrade -y && apt-get install --no-install-re
     sed \
     wget \
     snmp \
-    cmake g++ make build-essential autoconf automake uuid-dev && \
+    cmake g++ make build-essential autoconf automake uuid-dev \
+    libgtest-dev libgmock-dev && \
     echo '=============================================='
     
 RUN mkdir ./fledge && \
