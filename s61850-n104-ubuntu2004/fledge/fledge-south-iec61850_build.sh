@@ -36,8 +36,8 @@ sed -i "s/CONFIG_MMS_SORT_NAME_LIST 1/CONFIG_MMS_SORT_NAME_LIST 0/" ./config/sta
 make
 sudo make install
 cd ../../..
-wget -O ./fledge-south-iec104.tar.gz https://github.com/fledge-power/fledge-south-iec61850/archive/refs/tags/v1.0.0-rc1.tar.gz
-tar -xf fledge-south-iec61850-1.0.0-rc1.tar.gz
+wget -O ./fledge-south-iec61850.tar.gz https://github.com/fledge-power/fledge-south-iec61850/archive/refs/tags/v1.0.0-rc1.tar.gz
+tar -xf fledge-south-iec61850.tar.gz
 mv fledge-south-iec61850-* fledge-south-iec61850
 cd fledge-south-iec61850
 mkdir build
