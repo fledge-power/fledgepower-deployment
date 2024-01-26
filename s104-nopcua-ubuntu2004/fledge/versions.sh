@@ -23,7 +23,7 @@
 VERSION_MBEDTLS=tags/v2.28.2
 
 ## fledge-south-iec104_build.sh
-VERSION_SOUTH_IEC104=tags/v1.2.0
+VERSION_SOUTH_IEC104=tags/v1.2.1
 
 ## fledgepower-filter-iec104topivot_build.sh
 VERSION_IEC104_TO_PIVOT=tags/v1.2.0
