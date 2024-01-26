@@ -25,7 +25,7 @@ VERSION_NORTH_IEC104=tags/v1.2.1
 VERSION_MBEDTLS=tags/v2.28.2
 
 ## fledge-south-iec104_build.sh
-VERSION_SOUTH_IEC104=tags/v1.2.0
+VERSION_SOUTH_IEC104=tags/v1.2.1
 
 ## fledge-south-hnz_build.sh
 VERSION_LIBHNZ=heads/develop
