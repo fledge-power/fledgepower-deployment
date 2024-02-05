@@ -77,3 +77,5 @@ curl -sX POST http://localhost:8081/fledge/notification -d '{"name":"'$notif_nam
 # Workaround for delay between notifications (we want 0 but Fledge does not allow it, and -1 is rejected at notification instance creation)
 curl -X PUT --data '{"retrigger_time":"-1"}' http://localhost:8081/fledge/category/$notif_name_1
 
+# Restart Fledge as it is mandatory for control pipelines to work
+curl -X PUT http://localhost:8081/fledge/restart
