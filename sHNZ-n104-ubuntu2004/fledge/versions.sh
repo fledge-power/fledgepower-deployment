@@ -26,7 +26,7 @@ VERSION_MBEDTLS=tags/v2.28.2
 
 ## fledge-south-hnz_build.sh
 VERSION_LIBHNZ=heads/develop
-VERSION_SOUTH_HNZ=heads/develop
+VERSION_SOUTH_HNZ=tags/v1.0.0-RC2
 
 ## fledgepower-filter-iec104topivot_build.sh
 VERSION_IEC104_TO_PIVOT=tags/v1.2.0
