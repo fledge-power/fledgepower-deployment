@@ -22,7 +22,7 @@
 
 VERSION=$1
 
-wget -0 ./fledge-north-auditsnmp.tar.gz https://github.com/fledge-power/fledge-north-auditsnmp/archive/refs/tags/$VERSION.tar.gz
+wget -O ./fledge-north-auditsnmp.tar.gz https://github.com/fledge-power/fledge-north-auditsnmp/archive/refs/tags/$VERSION.tar.gz
 tar -xf fledge-north-auditsnmp.tar.gz
 mv fledge-north-auditsnmp-* fledge-north-auditsnmp
 cd fledge-north-auditsnmp/
