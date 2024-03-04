@@ -23,7 +23,7 @@
 VERSION=$1
 
 cd /tmp
-wget -O ./fledgepower-notify-systemsp.tar.gz https://github.com/fledge-power/fledgepower-notify-systemsp/archive/refs/$VERSION.tar.gz
+wget -O ./fledgepower-notify-systemsp.tar.gz https://github.com/fledge-power/fledgepower-notify-systemsp/archive/refs/tags/$VERSION.tar.gz
 tar -xf fledgepower-notify-systemsp.tar.gz
 mv fledgepower-notify-systemsp-* fledgepower-notify-systemsp
 cd fledgepower-notify-systemsp
