@@ -12,6 +12,7 @@ ARG FLEDGENOTIFVERSION=FLEDGENOTIFVERSION
 ARG FLEDGELINK="http://archives.fledge-iot.org/${RELEASE}/${OPERATINGSYSTEM}/${ARCHITECTURE}"
 
 ENV FLEDGE_ROOT=/usr/local/fledge
+ENV LIB_HNZ=""
 
 # Avoid interactive questions when installing Kerberos
 ENV DEBIAN_FRONTEND=noninteractive
