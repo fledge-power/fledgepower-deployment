@@ -22,7 +22,7 @@
 
 VERSION=$1
 
-wget -O ./libhnz.tar.gz https://github.com/fledge-power/libhnz/archive/refs/$VERSION.tar.gz
+wget -O ./libhnz.tar.gz https://github.com/fledge-power/libhnz/archive/refs/tags/$VERSION.tar.gz
 tar -xf libhnz.tar.gz
 mv libhnz-* libhnz
 cd libhnz
