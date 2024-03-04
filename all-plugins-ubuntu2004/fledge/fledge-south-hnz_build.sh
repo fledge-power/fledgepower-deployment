@@ -22,6 +22,9 @@
 
 VERSION=$1
 
+## DEBUG
+echo $LIB_HNZ/src
+
 wget -O ./fledge-south-hnz.tar.gz https://github.com/fledge-power/fledge-south-hnz/archive/refs/tags/$VERSION.tar.gz
 tar -xf fledge-south-hnz.tar.gz
 mv fledge-south-hnz-* fledge-south-hnz
