@@ -23,7 +23,7 @@
 VERSION=$1
 
 cd /tmp
-wget -O ./fledgepower-filter-transientsp.tar.gz https://github.com/fledge-power/fledgepower-filter-transientsp/archive/refs/$VERSION.tar.gz
+wget -O ./fledgepower-filter-transientsp.tar.gz https://github.com/fledge-power/fledgepower-filter-transientsp/archive/refs/tags/$VERSION.tar.gz
 tar -xf fledgepower-filter-transientsp.tar.gz
 mv fledgepower-filter-transientsp-* fledgepower-filter-transientsp
 cd fledgepower-filter-transientsp
