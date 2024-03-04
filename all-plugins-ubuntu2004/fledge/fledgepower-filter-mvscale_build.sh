@@ -23,7 +23,7 @@
 VERSION=$1
 
 cd /tmp
-wget -O ./fledgepower-filter-mvscale.tar.gz https://github.com/fledge-power/fledgepower-filter-mvscale/archive/refs/$VERSION.tar.gz
+wget -O ./fledgepower-filter-mvscale.tar.gz https://github.com/fledge-power/fledgepower-filter-mvscale/archive/refs/tags/$VERSION.tar.gz
 tar -xf fledgepower-filter-mvscale.tar.gz
 mv fledgepower-filter-mvscale-* fledgepower-filter-mvscale
 cd fledgepower-filter-mvscale
