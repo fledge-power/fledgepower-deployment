@@ -13,8 +13,9 @@ env:
   IMAGE_REGISTRY: ghcr.io
   REGISTRY_USER: ${{ github.actor }}
   REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
-  FLEDGE_IMAGE_NAME: 'fledgepower/fledge-104-opcua-armv7l'
-  FLEDGE_GUI_IMAGE_NAME: 'fledgepower/fledge-gui-armv7l'
+  FLEDGE_IMAGE_NAME: 'fledgepower/fledge'
+  FLEDGE_GUI_IMAGE_NAME: 'fledgepower/fledge-gui'
+  #IMAGE_TAG: '1.0.0-amd64'
   IMAGE_TAG: 'latest'
 
 jobs:
@@ -23,6 +24,7 @@ jobs:
     permissions:
       contents: read
       packages: write
+      security-events: write
 
     steps:
       - name: Checkout repository
@@ -44,6 +46,14 @@ jobs:
           sudo apt-get update
           sudo apt-get install docker-ce docker-ce-cli containerd.io
 
+      # Download and install yq yaml processor
+      - name: Download and install yq
+        env: 
+          YQ_REPO: "https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64"
+        run: |
+          sudo wget -qO /usr/local/bin/yq ${{ env.YQ_REPO }}
+          sudo chmod a+x /usr/local/bin/yq
+
       # Download fledgepower deployment
       - name: Download fledgepower deployment
         env: 
@@ -58,20 +68,36 @@ jobs:
           registry: ${{ env.IMAGE_REGISTRY }}
           username: ${{ env.REGISTRY_USER }}
           password: ${{ env.REGISTRY_PASSWORD }}
-
-      # Download and install qemu packages
-      - name: Install qemu packages
+        
+      # Build image
+      - name: Build images
         run: |
-          sudo -E apt-get install -y qemu-user-static
-      
-      # Build and push images
-      - name: Build and push images
-        run: |
-          export DOCKER_BUILDKIT=1
-          sudo -E docker buildx create --name mybuilder
-          sudo -E docker buildx use mybuilder
-          sudo -E docker buildx inspect --bootstrap
-          cd ./fledgepower-deployment/s104-nopcua-armv7l/fledge/
-          sudo -E docker buildx build --platform linux/arm/v7 -f fledge.dockerfile -t ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_IMAGE_NAME }}:${{ env.IMAGE_TAG }} --push .
+          cd ./fledgepower-deployment/all-plugins-ubuntu2004/fledge/
+          sudo chmod +x ./buildContainerfile.sh
+          ./buildContainerfile.sh
+          sudo -E docker build -f fledge.dockerfile -t ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_IMAGE_NAME }}:${{ env.IMAGE_TAG }} . --label ${{ github.ref }}
           cd ../fledge-gui
-          sudo -E docker buildx build --platform linux/arm/v7 -f fledge-gui.dockerfile -t ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_GUI_IMAGE_NAME }}:${{ env.IMAGE_TAG }} --push .
+          sudo -E docker build -f fledge-gui.dockerfile -t ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_GUI_IMAGE_NAME }}:${{ env.IMAGE_TAG }} . --label ${{ github.ref }}          
+          
+      # Run Snyk to check Docker image for vulnerabilities
+      - name: Snyk scan
+        continue-on-error: true
+        uses: snyk/actions/docker@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          image: ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+          args: --sarif-file-output=snyk.sarif
+      
+      # Upload result to GitHub Code Scanning
+      - name: Snyk results upload
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: snyk.sarif
+      
+      # Push to ghcr.io (Github Image Registry)
+      - name: Push images
+        run: |
+          sudo -E docker push ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+          sudo -E docker push ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_GUI_IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+          
