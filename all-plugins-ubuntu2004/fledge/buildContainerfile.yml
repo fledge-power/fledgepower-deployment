@@ -35,7 +35,7 @@ build_modules:
       version: v1.0.0-RC3
   - module: 
       name: libhnz-install.sh
-      version: v1.0.0
+      version: v2.0.0
   - module: 
       name: fledge-south-iec104_build.sh
       version: v1.2.2
