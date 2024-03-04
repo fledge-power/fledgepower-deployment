@@ -23,7 +23,7 @@
 VERSION=$1
 
 cd /tmp
-wget -O ./fledgepower-rule-systemsp.tar.gz https://github.com/fledge-power/fledgepower-rule-systemsp/archive/refs/$VERSION.tar.gz
+wget -O ./fledgepower-rule-systemsp.tar.gz https://github.com/fledge-power/fledgepower-rule-systemsp/archive/refs/tags/$VERSION.tar.gz
 tar -xf fledgepower-rule-systemsp.tar.gz
 mv fledgepower-rule-systemsp-* fledgepower-rule-systemsp
 cd fledgepower-rule-systemsp
