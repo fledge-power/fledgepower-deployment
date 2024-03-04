@@ -1,0 +1,57 @@
+version: "1.0"
+
+fledge:
+    version: 2.3.0-125
+    release: nightly
+    operatingsystem: ubuntu2004
+    architecture: x86_64
+    dispatcherversion: 2.3.0-13
+    notifversion: 2.3.0-1
+
+build_modules:
+  - module: 
+      name: lib60870-install.sh
+      version: v1.0.0
+  - module: 
+      name: fledge-north-iec104_build.sh
+      version: v1.2.1
+  - module: 
+      name: fledge-south-iec104_build.sh
+      version: v1.2.2
+  - module: 
+      name: libhnz-install.sh
+      version: v1.0.0
+  - module: 
+      name: fledge-south-hnz_build.sh
+      version: v1.0.0-RC3
+  - module: 
+      name: fledgepower-filter-iec104topivot_build.sh
+      version: v1.2.0
+  - module: 
+      name: fledgepower-filter-hnztopivot_build.sh
+      version: v1.0.0-RC2
+  - module: 
+      name: fledgepower-filter-transientsp_build.sh
+      version: v1.0.0
+  - module: 
+      name: fledgepower-filter-mvscale_build.sh
+      version: v1.0.0
+  - module: 
+      name: fledgepower-notify-systemsp_build.sh
+      version: v1.0.0-RC1
+  - module: 
+      name: fledgepower-rule-systemsp_build.sh
+      version: v1.0.0-RC1
+  - module: 
+      name: fledge-north-auditsnmp_build.sh
+      version: v1.0.0
+
+ports:
+  - 1995
+  - 2404
+  - 2405
+  - 6001
+  - 6002
+  - 8080
+  - 8081
+  - 8090
