@@ -22,10 +22,13 @@
 
 VERSION=$1
 
+
+
 wget -O ./libhnz.tar.gz https://github.com/fledge-power/libhnz/archive/refs/tags/$VERSION.tar.gz
 tar -xf libhnz.tar.gz
-mv libhnz-* libhnz
-cd libhnz
+sudo mkdir -p /usr/local/hnz
+mv libhnz-* /usr/local/hnz/libhnz
+cd /usr/local/hnz/libhnz
 export LIB_HNZ=`pwd`
 cd src/hnz
-./compilation.sh
+sudo ./compilation.sh
