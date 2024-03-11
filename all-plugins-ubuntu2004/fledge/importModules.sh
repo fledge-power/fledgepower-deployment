@@ -90,7 +90,7 @@ curl -X PUT --data '{"maxSendLatency":"100"}' http://localhost:8081/fledge/categ
 curl -X PUT --data '{"statistics":"per service"}' http://localhost:8081/fledge/category/$s1_south_service_name_advanced
 
 # Param storage layer
-curl -X PUT --data '{"readingPlugin":"sqlitememory"}' http://localhost:8081/fledge/category/Storage
+#curl -X PUT --data '{"readingPlugin":"sqlitememory"}' http://localhost:8081/fledge/category/Storage
 
 # Param purge
 curl -X PUT --data '{"value":"1"}' http://localhost:8081/fledge/category/PURGE_READ/age
