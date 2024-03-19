@@ -93,14 +93,21 @@ curl -sX POST http://localhost:8081/fledge/control/pipeline -d '{"execution":"Sh
 
 # Param advanced south
 sleep 5
+# setting south service max readings latency to 100 ms
 curl -X PUT --data '{"maxSendLatency":"100"}' http://localhost:8081/fledge/category/$s1_south_service_name_advanced
 curl -X PUT --data '{"maxSendLatency":"100"}' http://localhost:8081/fledge/category/$s2_south_service_name_advanced
 curl -X PUT --data '{"maxSendLatency":"100"}' http://localhost:8081/fledge/category/$s3_south_service_name_advanced
 curl -X PUT --data '{"maxSendLatency":"100"}' http://localhost:8081/fledge/category/$s4_south_service_name_advanced
+# setting statistics to be collected at service level
 curl -X PUT --data '{"statistics":"per service"}' http://localhost:8081/fledge/category/$s1_south_service_name_advanced
 curl -X PUT --data '{"statistics":"per service"}' http://localhost:8081/fledge/category/$s2_south_service_name_advanced
 curl -X PUT --data '{"statistics":"per service"}' http://localhost:8081/fledge/category/$s3_south_service_name_advanced
 curl -X PUT --data '{"statistics":"per service"}' http://localhost:8081/fledge/category/$s4_south_service_name_advanced
+# setting audit tracker interval to 5 min
+curl -X PUT --data '{"assetTrackerInterval":"300000"}' http://localhost:8081/fledge/category/$s1_south_service_name_advanced
+curl -X PUT --data '{"assetTrackerInterval":"300000"}' http://localhost:8081/fledge/category/$s2_south_service_name_advanced
+curl -X PUT --data '{"assetTrackerInterval":"300000"}' http://localhost:8081/fledge/category/$s3_south_service_name_advanced
+curl -X PUT --data '{"assetTrackerInterval":"300000"}' http://localhost:8081/fledge/category/$s4_south_service_name_advanced
 
 # Param storage layer
 #curl -X PUT --data '{"readingPlugin":"sqlitememory"}' http://localhost:8081/fledge/category/Storage
