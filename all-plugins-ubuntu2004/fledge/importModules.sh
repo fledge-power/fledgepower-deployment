@@ -23,8 +23,12 @@
 # Constants
 s1_south_service_name="hnzsouth_s1"
 s2_south_service_name="hnzsouth_s2"
+s3_south_service_name="iec104south_s1"
+s4_south_service_name="iec104south_s2"
 s1_south_service_name_advanced="${s1_south_service_name}Advanced"
 s2_south_service_name_advanced="${s2_south_service_name}Advanced"
+s3_south_service_name_advanced="${s3_south_service_name}Advanced"
+s4_south_service_name_advanced="${s4_south_service_name}Advanced"
 
 n1_north_service_name="iec104north_c1"
 n2_north_service_name="iec104north_c2"
@@ -52,6 +56,8 @@ ctrl_filter_2_pd="${ctrl_pipeline_2}_pivot_to_destination_filter"
 # Create service south
 curl -sX POST http://localhost:8081/fledge/service -d '{"name":"'$s1_south_service_name'","type":"south","plugin":"hnz","enabled":false}'
 curl -sX POST http://localhost:8081/fledge/service -d '{"name":"'$s2_south_service_name'","type":"south","plugin":"hnz","enabled":false}'
+curl -sX POST http://localhost:8081/fledge/service -d '{"name":"'$s3_south_service_name'","type":"south","plugin":"iec104","enabled":false}'
+curl -sX POST http://localhost:8081/fledge/service -d '{"name":"'$s4_south_service_name'","type":"south","plugin":"iec104","enabled":false}'
 
 # Create service north
 curl -sX POST http://localhost:8081/fledge/service -d '{"name":"'$n1_north_service_name'","type":"north","plugin":"iec104","enabled":false}'
@@ -74,6 +80,8 @@ curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$ctrl_filter_2_p
 # Create of south pipelines
 curl -X PUT http://localhost:8081/fledge/filter/$s1_south_service_name/pipeline -d  '{"pipeline": ["'$plugin_3'", "'$plugin_2'", "'$plugin_4'"]}'
 curl -X PUT http://localhost:8081/fledge/filter/$s2_south_service_name/pipeline -d  '{"pipeline": ["'$plugin_3'", "'$plugin_2'", "'$plugin_4'"]}'
+curl -X PUT http://localhost:8081/fledge/filter/$s3_south_service_name/pipeline -d  '{"pipeline": ["'$plugin_1'", "'$plugin_2'"]}'
+curl -X PUT http://localhost:8081/fledge/filter/$s4_south_service_name/pipeline -d  '{"pipeline": ["'$plugin_1'", "'$plugin_2'"]}'
 
 # Create of north pipelines
 curl -X PUT http://localhost:8081/fledge/filter/$n1_north_service_name/pipeline -d  '{"pipeline": ["'$plugin_1'"]}'
@@ -87,7 +95,12 @@ curl -sX POST http://localhost:8081/fledge/control/pipeline -d '{"execution":"Sh
 sleep 5
 curl -X PUT --data '{"maxSendLatency":"100"}' http://localhost:8081/fledge/category/$s1_south_service_name_advanced
 curl -X PUT --data '{"maxSendLatency":"100"}' http://localhost:8081/fledge/category/$s2_south_service_name_advanced
+curl -X PUT --data '{"maxSendLatency":"100"}' http://localhost:8081/fledge/category/$s3_south_service_name_advanced
+curl -X PUT --data '{"maxSendLatency":"100"}' http://localhost:8081/fledge/category/$s4_south_service_name_advanced
 curl -X PUT --data '{"statistics":"per service"}' http://localhost:8081/fledge/category/$s1_south_service_name_advanced
+curl -X PUT --data '{"statistics":"per service"}' http://localhost:8081/fledge/category/$s2_south_service_name_advanced
+curl -X PUT --data '{"statistics":"per service"}' http://localhost:8081/fledge/category/$s3_south_service_name_advanced
+curl -X PUT --data '{"statistics":"per service"}' http://localhost:8081/fledge/category/$s4_south_service_name_advanced
 
 # Param storage layer
 #curl -X PUT --data '{"readingPlugin":"sqlitememory"}' http://localhost:8081/fledge/category/Storage
