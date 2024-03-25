@@ -32,6 +32,8 @@ s4_south_service_name_advanced="${s4_south_service_name}Advanced"
 
 n1_north_service_name="iec104north_c1"
 n2_north_service_name="iec104north_c2"
+n1_north_service_name_advanced="${n1_north_service_name}Advanced"
+n2_north_service_name_advanced="${n2_north_service_name}Advanced"
 
 snmp_north_service_name="auditsnmpnorth"
 
@@ -104,10 +106,12 @@ curl -X PUT --data '{"statistics":"per service"}' http://localhost:8081/fledge/c
 curl -X PUT --data '{"statistics":"per service"}' http://localhost:8081/fledge/category/$s3_south_service_name_advanced
 curl -X PUT --data '{"statistics":"per service"}' http://localhost:8081/fledge/category/$s4_south_service_name_advanced
 # setting audit tracker interval to 5 min
-curl -X PUT --data '{"assetTrackerInterval":"300000"}' http://localhost:8081/fledge/category/$s1_south_service_name_advanced
-curl -X PUT --data '{"assetTrackerInterval":"300000"}' http://localhost:8081/fledge/category/$s2_south_service_name_advanced
-curl -X PUT --data '{"assetTrackerInterval":"300000"}' http://localhost:8081/fledge/category/$s3_south_service_name_advanced
-curl -X PUT --data '{"assetTrackerInterval":"300000"}' http://localhost:8081/fledge/category/$s4_south_service_name_advanced
+curl -X PUT --data '{"assetTrackerInterval":"3600000"}' http://localhost:8081/fledge/category/$s1_south_service_name_advanced
+curl -X PUT --data '{"assetTrackerInterval":"3600000"}' http://localhost:8081/fledge/category/$s2_south_service_name_advanced
+curl -X PUT --data '{"assetTrackerInterval":"3600000"}' http://localhost:8081/fledge/category/$s3_south_service_name_advanced
+curl -X PUT --data '{"assetTrackerInterval":"3600000"}' http://localhost:8081/fledge/category/$s4_south_service_name_advanced
+curl -X PUT --data '{"assetTrackerInterval":"3600000"}' http://localhost:8081/fledge/category/$n1_north_service_name_advanced
+curl -X PUT --data '{"assetTrackerInterval":"3600000"}' http://localhost:8081/fledge/category/$n2_north_service_name_advanced
 
 # Param storage layer
 #curl -X PUT --data '{"readingPlugin":"sqlitememory"}' http://localhost:8081/fledge/category/Storage
