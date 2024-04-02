@@ -136,18 +136,18 @@ curl -X PUT --data '{"statistics":"per service"}' http://localhost:8081/fledge/c
 curl -X PUT --data '{"statistics":"per service"}' http://localhost:8081/fledge/category/$s3_south_service_name_advanced
 curl -X PUT --data '{"statistics":"per service"}' http://localhost:8081/fledge/category/$s4_south_service_name_advanced
 # setting audit tracker interval to 5 min
-curl -X PUT --data '{"assetTrackerInterval":"86400000‬"}' http://localhost:8081/fledge/category/$s1_south_service_name_advanced
-curl -X PUT --data '{"assetTrackerInterval":"86400000‬"}' http://localhost:8081/fledge/category/$s2_south_service_name_advanced
-curl -X PUT --data '{"assetTrackerInterval":"86400000‬"}' http://localhost:8081/fledge/category/$s3_south_service_name_advanced
-curl -X PUT --data '{"assetTrackerInterval":"86400000‬"}' http://localhost:8081/fledge/category/$s4_south_service_name_advanced
-curl -X PUT --data '{"assetTrackerInterval":"86400000‬"}' http://localhost:8081/fledge/category/$n1_north_service_name_advanced
-curl -X PUT --data '{"assetTrackerInterval":"86400000‬"}' http://localhost:8081/fledge/category/$n2_north_service_name_advanced
-curl -X PUT --data '{"assetTrackerInterval":"86400000‬"}' http://localhost:8081/fledge/category/$n3_north_service_name_advanced
-curl -X PUT --data '{"assetTrackerInterval":"86400000‬"}' http://localhost:8081/fledge/category/$n4_north_service_name_advanced
-curl -X PUT --data '{"assetTrackerInterval":"86400000‬"}' http://localhost:8081/fledge/category/$n5_north_service_name_advanced
-curl -X PUT --data '{"assetTrackerInterval":"86400000‬"}' http://localhost:8081/fledge/category/$n6_north_service_name_advanced
-curl -X PUT --data '{"assetTrackerInterval":"86400000‬"}' http://localhost:8081/fledge/category/$n7_north_service_name_advanced
-curl -X PUT --data '{"assetTrackerInterval":"86400000‬"}' http://localhost:8081/fledge/category/$n8_north_service_name_advanced
+curl -X PUT --data '{"assetTrackerInterval":"8640000‬"}' http://localhost:8081/fledge/category/$s1_south_service_name_advanced
+curl -X PUT --data '{"assetTrackerInterval":"8640000‬"}' http://localhost:8081/fledge/category/$s2_south_service_name_advanced
+curl -X PUT --data '{"assetTrackerInterval":"8640000‬"}' http://localhost:8081/fledge/category/$s3_south_service_name_advanced
+curl -X PUT --data '{"assetTrackerInterval":"8640000‬"}' http://localhost:8081/fledge/category/$s4_south_service_name_advanced
+curl -X PUT --data '{"assetTrackerInterval":"8640000‬"}' http://localhost:8081/fledge/category/$n1_north_service_name_advanced
+curl -X PUT --data '{"assetTrackerInterval":"8640000‬"}' http://localhost:8081/fledge/category/$n2_north_service_name_advanced
+curl -X PUT --data '{"assetTrackerInterval":"8640000‬"}' http://localhost:8081/fledge/category/$n3_north_service_name_advanced
+curl -X PUT --data '{"assetTrackerInterval":"86400000"}' http://localhost:8081/fledge/category/$n4_north_service_name_advanced
+curl -X PUT --data '{"assetTrackerInterval":"86400000"}' http://localhost:8081/fledge/category/$n5_north_service_name_advanced
+curl -X PUT --data '{"assetTrackerInterval":"8640000‬"}' http://localhost:8081/fledge/category/$n6_north_service_name_advanced
+curl -X PUT --data '{"assetTrackerInterval":"8640000‬"}' http://localhost:8081/fledge/category/$n7_north_service_name_advanced
+curl -X PUT --data '{"assetTrackerInterval":"8640000‬"}' http://localhost:8081/fledge/category/$n8_north_service_name_advanced
 
 # Param storage layer
 curl -X PUT --data '{"readingPlugin":"sqlitememory"}' http://localhost:8081/fledge/category/Storage
