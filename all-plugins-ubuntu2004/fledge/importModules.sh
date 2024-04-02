@@ -32,8 +32,20 @@ s4_south_service_name_advanced="${s4_south_service_name}Advanced"
 
 n1_north_service_name="iec104north_c1"
 n2_north_service_name="iec104north_c2"
+n3_north_service_name="iec104north_c3"
+n4_north_service_name="iec104north_c4"
+n5_north_service_name="iec104north_c5"
+n6_north_service_name="iec104north_c6"
+n7_north_service_name="iec104north_c7"
+n8_north_service_name="iec104north_c8"
 n1_north_service_name_advanced="${n1_north_service_name}Advanced"
 n2_north_service_name_advanced="${n2_north_service_name}Advanced"
+n3_north_service_name_advanced="${n3_north_service_name}Advanced"
+n4_north_service_name_advanced="${n4_north_service_name}Advanced"
+n5_north_service_name_advanced="${n5_north_service_name}Advanced"
+n6_north_service_name_advanced="${n6_north_service_name}Advanced"
+n7_north_service_name_advanced="${n7_north_service_name}Advanced"
+n8_north_service_name_advanced="${n8_north_service_name}Advanced"
 
 snmp_north_service_name="auditsnmpnorth"
 
@@ -64,6 +76,12 @@ curl -sX POST http://localhost:8081/fledge/service -d '{"name":"'$s4_south_servi
 # Create service north
 curl -sX POST http://localhost:8081/fledge/service -d '{"name":"'$n1_north_service_name'","type":"north","plugin":"iec104","enabled":false}'
 curl -sX POST http://localhost:8081/fledge/service -d '{"name":"'$n2_north_service_name'","type":"north","plugin":"iec104","enabled":false}'
+curl -sX POST http://localhost:8081/fledge/service -d '{"name":"'$n3_north_service_name'","type":"north","plugin":"iec104","enabled":false}'
+curl -sX POST http://localhost:8081/fledge/service -d '{"name":"'$n4_north_service_name'","type":"north","plugin":"iec104","enabled":false}'
+curl -sX POST http://localhost:8081/fledge/service -d '{"name":"'$n5_north_service_name'","type":"north","plugin":"iec104","enabled":false}'
+curl -sX POST http://localhost:8081/fledge/service -d '{"name":"'$n6_north_service_name'","type":"north","plugin":"iec104","enabled":false}'
+curl -sX POST http://localhost:8081/fledge/service -d '{"name":"'$n7_north_service_name'","type":"north","plugin":"iec104","enabled":false}'
+curl -sX POST http://localhost:8081/fledge/service -d '{"name":"'$n8_north_service_name'","type":"north","plugin":"iec104","enabled":false}'
 curl -sX POST http://localhost:8081/fledge/service -d '{"name":"'$snmp_north_service_name'","type":"north","plugin":"auditsnmp","enabled":false}'
 
 # Create service notification
@@ -78,6 +96,10 @@ curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$ctrl_filter_1_s
 curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$ctrl_filter_1_pd'", "plugin": "'$plugin_3'"}'
 curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$ctrl_filter_2_sp'", "plugin": "'$plugin_1'"}'
 curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$ctrl_filter_2_pd'", "plugin": "'$plugin_3'"}'
+curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$ctrl_filter_3_sp'", "plugin": "'$plugin_1'"}'
+curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$ctrl_filter_3_pd'", "plugin": "'$plugin_3'"}'
+curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$ctrl_filter_4_sp'", "plugin": "'$plugin_1'"}'
+curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$ctrl_filter_4_pd'", "plugin": "'$plugin_3'"}'
 
 # Create of south pipelines
 curl -X PUT http://localhost:8081/fledge/filter/$s1_south_service_name/pipeline -d  '{"pipeline": ["'$plugin_3'", "'$plugin_2'", "'$plugin_4'"]}'
@@ -88,10 +110,18 @@ curl -X PUT http://localhost:8081/fledge/filter/$s4_south_service_name/pipeline 
 # Create of north pipelines
 curl -X PUT http://localhost:8081/fledge/filter/$n1_north_service_name/pipeline -d  '{"pipeline": ["'$plugin_1'"]}'
 curl -X PUT http://localhost:8081/fledge/filter/$n2_north_service_name/pipeline -d  '{"pipeline": ["'$plugin_1'"]}'
+curl -X PUT http://localhost:8081/fledge/filter/$n3_north_service_name/pipeline -d  '{"pipeline": ["'$plugin_1'"]}'
+curl -X PUT http://localhost:8081/fledge/filter/$n4_north_service_name/pipeline -d  '{"pipeline": ["'$plugin_1'"]}'
+curl -X PUT http://localhost:8081/fledge/filter/$n5_north_service_name/pipeline -d  '{"pipeline": ["'$plugin_1'"]}'
+curl -X PUT http://localhost:8081/fledge/filter/$n6_north_service_name/pipeline -d  '{"pipeline": ["'$plugin_1'"]}'
+curl -X PUT http://localhost:8081/fledge/filter/$n7_north_service_name/pipeline -d  '{"pipeline": ["'$plugin_1'"]}'
+curl -X PUT http://localhost:8081/fledge/filter/$n8_north_service_name/pipeline -d  '{"pipeline": ["'$plugin_1'"]}'
 
 # Create control pipelines
-curl -sX POST http://localhost:8081/fledge/control/pipeline -d '{"execution":"Shared","source":{"type":2,"name":"'$n1_north_service_name'"},"destination":{"type":2,"name":"'$s1_south_service_name'"},"filters":["'$ctrl_filter_1_sp'","'$ctrl_filter_1_pd'"],"enabled":true,"name":"'$ctrl_pipeline_1'"}'
-curl -sX POST http://localhost:8081/fledge/control/pipeline -d '{"execution":"Shared","source":{"type":2,"name":"'$n2_north_service_name'"},"destination":{"type":2,"name":"'$s2_south_service_name'"},"filters":["'$ctrl_filter_2_sp'","'$ctrl_filter_2_pd'"],"enabled":true,"name":"'$ctrl_pipeline_2'"}'
+curl -sX POST http://localhost:8081/fledge/control/pipeline -d '{"execution":"Shared","source":{"type":2,"name":"'$n2_north_service_name'"},"destination":{"type":2,"name":"'$s1_south_service_name'"},"filters":["'$ctrl_filter_1_sp'","'$ctrl_filter_1_pd'"],"enabled":true,"name":"'$ctrl_pipeline_1'"}'
+curl -sX POST http://localhost:8081/fledge/control/pipeline -d '{"execution":"Shared","source":{"type":2,"name":"'$n4_north_service_name'"},"destination":{"type":2,"name":"'$s1_south_service_name'"},"filters":["'$ctrl_filter_2_sp'","'$ctrl_filter_2_pd'"],"enabled":true,"name":"'$ctrl_pipeline_2'"}'
+curl -sX POST http://localhost:8081/fledge/control/pipeline -d '{"execution":"Shared","source":{"type":2,"name":"'$n6_north_service_name'"},"destination":{"type":2,"name":"'$s1_south_service_name'"},"filters":["'$ctrl_filter_3_sp'","'$ctrl_filter_3_pd'"],"enabled":true,"name":"'$ctrl_pipeline_3'"}'
+curl -sX POST http://localhost:8081/fledge/control/pipeline -d '{"execution":"Shared","source":{"type":2,"name":"'$n8_north_service_name'"},"destination":{"type":2,"name":"'$s1_south_service_name'"},"filters":["'$ctrl_filter_4_sp'","'$ctrl_filter_4_pd'"],"enabled":true,"name":"'$ctrl_pipeline_4'"}'
 
 # Param advanced south
 sleep 5
@@ -106,15 +136,21 @@ curl -X PUT --data '{"statistics":"per service"}' http://localhost:8081/fledge/c
 curl -X PUT --data '{"statistics":"per service"}' http://localhost:8081/fledge/category/$s3_south_service_name_advanced
 curl -X PUT --data '{"statistics":"per service"}' http://localhost:8081/fledge/category/$s4_south_service_name_advanced
 # setting audit tracker interval to 5 min
-curl -X PUT --data '{"assetTrackerInterval":"3600000"}' http://localhost:8081/fledge/category/$s1_south_service_name_advanced
-curl -X PUT --data '{"assetTrackerInterval":"3600000"}' http://localhost:8081/fledge/category/$s2_south_service_name_advanced
-curl -X PUT --data '{"assetTrackerInterval":"3600000"}' http://localhost:8081/fledge/category/$s3_south_service_name_advanced
-curl -X PUT --data '{"assetTrackerInterval":"3600000"}' http://localhost:8081/fledge/category/$s4_south_service_name_advanced
-curl -X PUT --data '{"assetTrackerInterval":"3600000"}' http://localhost:8081/fledge/category/$n1_north_service_name_advanced
-curl -X PUT --data '{"assetTrackerInterval":"3600000"}' http://localhost:8081/fledge/category/$n2_north_service_name_advanced
+curl -X PUT --data '{"assetTrackerInterval":"86400000‬"}' http://localhost:8081/fledge/category/$s1_south_service_name_advanced
+curl -X PUT --data '{"assetTrackerInterval":"86400000‬"}' http://localhost:8081/fledge/category/$s2_south_service_name_advanced
+curl -X PUT --data '{"assetTrackerInterval":"86400000‬"}' http://localhost:8081/fledge/category/$s3_south_service_name_advanced
+curl -X PUT --data '{"assetTrackerInterval":"86400000‬"}' http://localhost:8081/fledge/category/$s4_south_service_name_advanced
+curl -X PUT --data '{"assetTrackerInterval":"86400000‬"}' http://localhost:8081/fledge/category/$n1_north_service_name_advanced
+curl -X PUT --data '{"assetTrackerInterval":"86400000‬"}' http://localhost:8081/fledge/category/$n2_north_service_name_advanced
+curl -X PUT --data '{"assetTrackerInterval":"86400000‬"}' http://localhost:8081/fledge/category/$n3_north_service_name_advanced
+curl -X PUT --data '{"assetTrackerInterval":"86400000‬"}' http://localhost:8081/fledge/category/$n4_north_service_name_advanced
+curl -X PUT --data '{"assetTrackerInterval":"86400000‬"}' http://localhost:8081/fledge/category/$n5_north_service_name_advanced
+curl -X PUT --data '{"assetTrackerInterval":"86400000‬"}' http://localhost:8081/fledge/category/$n6_north_service_name_advanced
+curl -X PUT --data '{"assetTrackerInterval":"86400000‬"}' http://localhost:8081/fledge/category/$n7_north_service_name_advanced
+curl -X PUT --data '{"assetTrackerInterval":"86400000‬"}' http://localhost:8081/fledge/category/$n8_north_service_name_advanced
 
 # Param storage layer
-#curl -X PUT --data '{"readingPlugin":"sqlitememory"}' http://localhost:8081/fledge/category/Storage
+curl -X PUT --data '{"readingPlugin":"sqlitememory"}' http://localhost:8081/fledge/category/Storage
 
 # Param purge
 curl -X PUT --data '{"value":"1"}' http://localhost:8081/fledge/category/PURGE_READ/age
