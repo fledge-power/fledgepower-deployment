@@ -1,11 +1,11 @@
 version: "1.0"
 
 fledge:
-    version: 2.3.0-167
+    version: 2.3.0-187
     release: nightly
     operatingsystem: ubuntu2004
     architecture: x86_64
-    dispatcherversion: 2.3.0-13
+    dispatcherversion: 2.3.0-14
     notifversion: 2.3.0-3
 
 build_modules:
