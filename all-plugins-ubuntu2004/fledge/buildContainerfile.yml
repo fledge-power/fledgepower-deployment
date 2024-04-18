@@ -38,10 +38,10 @@ build_modules:
       version: v1.0.0
   - module: 
       name: fledge-south-iec104_build.sh
-      version: v1.2.2
+      version: v1.2.3
   - module: 
       name: fledge-north-iec104_build.sh
-      version: v1.2.1
+      version: v1.2.2
   - module: 
       name: lib60870-install.sh
       version: v1.0.0
