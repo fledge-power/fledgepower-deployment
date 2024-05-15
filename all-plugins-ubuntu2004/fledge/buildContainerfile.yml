@@ -26,7 +26,7 @@ build_modules:
       version: v1.0.0
   - module: 
       name: fledgepower-filter-hnztopivot_build.sh
-      version: v2.0.0
+      version: v1.0.0
   - module: 
       name: fledgepower-filter-iec104topivot_build.sh
       version: v1.2.0
