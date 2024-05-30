@@ -2,7 +2,7 @@ version: "1.0"
 
 fledge:
     version: 2.4.0-72
-    release: fixes/RTEP
+    release: "fixes/RTEP"
     operatingsystem: ubuntu2004
     architecture: x86_64
     dispatcherversion: 2.4.0-7
