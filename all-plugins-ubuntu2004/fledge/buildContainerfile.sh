@@ -40,7 +40,7 @@ FLEDGENOTIFVERSION=$(yq e '.fledge.notifversion' "$yaml_file")
 
 # Update Containerfile args values
 sed -i "s/ARG FLEDGEVERSION=.*/ARG FLEDGEVERSION=\"$FLEDGEVERSION\"/" $dockerfile
-sed -i "s/ARG RELEASE=.*/ARG RELEASE=\"$RELEASE\"/" $dockerfile
+sed -i "s|ARG RELEASE=.*|ARG RELEASE=\"$RELEASE\"|" $dockerfile
 sed -i "s/ARG OPERATINGSYSTEM=.*/ARG OPERATINGSYSTEM=\"$OPERATINGSYSTEM\"/" $dockerfile
 sed -i "s/ARG ARCHITECTURE=.*/ARG ARCHITECTURE=\"$ARCHITECTURE\"/" $dockerfile
 sed -i "s/ARG FLEDGEDISPATCHERVERSION=.*/ARG FLEDGEDISPATCHERVERSION=\"$FLEDGEDISPATCHERVERSION\"/" $dockerfile
