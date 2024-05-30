@@ -1,8 +1,8 @@
 version: "1.0"
 
 fledge:
-    version: 2.4.0-31
-    release: nightly
+    version: 2.4.0-72
+    release: RTEP
     operatingsystem: ubuntu2004
     architecture: x86_64
     dispatcherversion: 2.4.0-7
