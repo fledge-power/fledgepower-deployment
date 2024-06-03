@@ -5,7 +5,7 @@ fledge:
     release: "fixes/RTEP"
     operatingsystem: ubuntu2004
     architecture: x86_64
-    dispatcherversion: 2.4.0-7
+    dispatcherversion: 2.4.0-9
     notifversion: 2.4.0-2
 
 build_modules:
