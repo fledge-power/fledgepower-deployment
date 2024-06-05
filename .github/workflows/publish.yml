@@ -71,6 +71,8 @@ jobs:
         
       # Build image
       - name: Build images
+        env:
+          TASE2_REPO_ACCESS_TOKEN: ${{ secrets.TASE2_REPO_ACCESS_TOKEN }}
         run: |
           cd ./fledgepower-deployment/all-plugins-ubuntu2004/fledge/
           sudo chmod +x ./buildContainerfile.sh

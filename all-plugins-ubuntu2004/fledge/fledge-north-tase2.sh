@@ -17,16 +17,22 @@
 ##--------------------------------------------------------------------
 
 ##
-## Author: Yannick Marchetaux
+## Author: Akli Rahmoun
 ##
 
 VERSION=$1
 
-wget -O ./libhnz.tar.gz https://github.com/fledge-power/libhnz/archive/refs/tags/$VERSION.tar.gz
-tar -xf libhnz.tar.gz
-sudo mkdir -p /usr/local/hnz
-mv libhnz-* /usr/local/hnz/libhnz
-cd /usr/local/hnz/libhnz
-export LIB_HNZ=`pwd`
-cd src/hnz
-sudo ./compilation.sh
+wget -O ./fledge-north-tase2.tar.gz https://github.com/fledge-power/fledge-north-tase2/archive/refs/tags/$VERSION.tar.gz
+tar -xf fledge-north-tase2.tar.gz
+mv fledge-north-tase2-* fledge-north-tase2
+cd fledge-north-tase2
+chmod +x mkversion
+mkdir build
+cd build
+cmake -DCMAKE_BUILD_TYPE=Release -DFLEDGE_INCLUDE=/usr/local/fledge/include/ -DFLEDGE_LIB=/usr/local/fledge/lib/ ..
+make
+if [ ! -d "${FLEDGE_ROOT}/plugins/north/tase2" ] 
+then
+    sudo mkdir -p $FLEDGE_ROOT/plugins/north/tase2
+fi
+sudo cp libtase2.so $FLEDGE_ROOT/plugins/north/tase2

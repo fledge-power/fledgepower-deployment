@@ -17,16 +17,19 @@
 ##--------------------------------------------------------------------
 
 ##
-## Author: Yannick Marchetaux
+## Author: Akli Rahmoun
 ##
 
-VERSION=$1
+cd /tmp
 
-wget -O ./libhnz.tar.gz https://github.com/fledge-power/libhnz/archive/refs/tags/$VERSION.tar.gz
-tar -xf libhnz.tar.gz
-sudo mkdir -p /usr/local/hnz
-mv libhnz-* /usr/local/hnz/libhnz
-cd /usr/local/hnz/libhnz
-export LIB_HNZ=`pwd`
-cd src/hnz
-sudo ./compilation.sh
+git clone https://x-token-auth:$TASE2_REPO_ACCESS_TOKEN@bitbucket.org/mzillgith/libtase2-release.git
+cd libtase2-release
+export LIB_TASE2=$PWD
+mkdir build
+cd build
+cmake -DBUILD_TESTS=NO -DBUILD_EXAMPLES=NO ..
+make
+sudo make install
+sudo ldconfig
+
+apt install --yes libgtest-dev

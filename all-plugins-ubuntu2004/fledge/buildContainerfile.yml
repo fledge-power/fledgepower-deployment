@@ -10,6 +10,21 @@ fledge:
 
 build_modules:
   - module: 
+      name: fledge-south-tase2.sh
+      version: v1.0.0-RC1
+  - module: 
+      name: fledge-north-tase2.sh
+      version: v1.0.0-RC1
+  - module: 
+      name: libtase2-install.sh
+      version: v1.0.0
+  - module: 
+      name: fledgepower-filter-pivottoopcua_build.sh
+      version: v1.0.0
+  - module: 
+      name: fledge-north-opcua_build.sh
+      version: v1.0.0
+  - module: 
       name: fledge-north-auditsnmp_build.sh
       version: v1.0.0
   - module: 
