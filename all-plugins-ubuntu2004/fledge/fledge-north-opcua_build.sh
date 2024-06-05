@@ -33,8 +33,8 @@
 
 VERSION=$1
 
-[ -z "${FLEDGE_N_S2OPCUA_BRANCH}" ] && export FLEDGE_N_S2OPCUA_BRANCH=main
-[ -z "${S2OPCUA_BRANCH}" ] && export S2OPCUA_BRANCH=S2OPC_Toolkit_1.3.0
+FLEDGE_N_S2OPCUA_BRANCH=main
+S2OPCUA_BRANCH=S2OPC_Toolkit_1.3.0
 
 MBEDTLS_REPO_URL="https://github.com/ARMmbed/mbedtls/archive/refs/tags"
 MBEDTLS_VERSION="2.28.1"
