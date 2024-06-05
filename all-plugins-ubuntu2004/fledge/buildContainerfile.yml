@@ -1,12 +1,12 @@
 version: "1.0"
 
 fledge:
-    version: 2.4.0-77
-    release: "fixes/RTEP"
+    version: 2.4.0
+    release: 2.4.0
     operatingsystem: ubuntu2004
     architecture: x86_64
-    dispatcherversion: 2.4.0-9
-    notifversion: 2.4.0-2
+    dispatcherversion: 2.4.0
+    notifversion: 2.4.0
 
 build_modules:
   - module: 
