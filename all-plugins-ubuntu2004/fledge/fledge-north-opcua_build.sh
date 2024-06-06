@@ -20,7 +20,6 @@
 ## Author: Mark Riddoch, Akli Rahmoun, Jeremie Chabod
 ##
 
-
 ## use a native ubuntu empty docker to test this script:
 ##    docker run -it --network host --rm -v $(pwd):/workdir -w /workdir ubuntu
 ##         apt update
@@ -40,28 +39,9 @@ MBEDTLS_REPO_URL="https://github.com/ARMmbed/mbedtls/archive/refs/tags"
 MBEDTLS_VERSION="2.28.1"
 FLEDGE_REPO_URL="https://github.com/fledge-iot/fledge/archive/refs/tags/v2.0.1.zip" 
 
-# check options
-## -f: force a clean
-## -d: install depandancies only
-## -l: install lib only (do not reinstall depandancies)
-
-BUILD_DEPS=true
+rm -rf ${DEV_ROOT}  2>/dev/null
 BUILD_LIB=true
-[ "$1" == "-f" ] && shift && rm -rf ${DEV_ROOT}  2>/dev/null
-[ "$1" == "-d" ] && shift && BUILD_LIB=false
-[ "$1" == "-l" ] && shift && BUILD_DEPS=false
-
-
-if ! [ -z "$1" ] ; then
-    echo "Build the S2OPC north plugin for fledge. (fledge-north-s2opcua) "
-    echo "Usage: $0 [-f] [-n]"
-    echo "    -f  : force a full rebuild (clean previous build and rebuild dependancies)"
-    echo "    -n  : Do not rebuild dependacies (only rebuild the plugin)"
-    echo "Use the 'S2OPCUA_BRANCH' variable to select the S2OPC branch to build (default = S2OPC_Toolkit_1.3.0)"
-    echo "Use the 'FLEDGE_N_S2OPCUA_BRANCH' variable to select the fledge-north-s2opcua branch to build (default = main)"
-    
-    exit 1
-fi
+BUILD_DEPS=true
 
 echo "Using branch ${FLEDGE_N_S2OPCUA_BRANCH} of fledge-north-s2opcua.git"
 echo "Using branch ${S2OPCUA_BRANCH} of S2OPC.git"
@@ -71,9 +51,8 @@ export DEV_PLUGIN=${DEV_ROOT}/fledge-north-s2opcua
 export DEV_FLEDGE=${DEV_ROOT}/fledge
 export S2OPC_ROOT=${DEV_ROOT}/S2OPC
 #export DEV_INST=${DEV_ROOT}/install
-# export CMAKE_INSTALL_PREFIX=${DEV_INST}
+#export CMAKE_INSTALL_PREFIX=${DEV_INST}
 mkdir -p ${DEV_ROOT} ${DEV_LOG} # ${DEV_INST}
-
 
 function _fail() {
     echo "Build failed:$1"
