@@ -17,6 +17,7 @@ env:
   FLEDGE_GUI_IMAGE_NAME: 'fledgepower/fledge-gui'
   #IMAGE_TAG: '1.0.0-amd64'
   IMAGE_TAG: 'latest'
+  TASE2_REPO_ACCESS_TOKEN: ${{ secrets.TASE2_REPO_ACCESS_TOKEN }}
 
 jobs:
   build-and-push-image:
@@ -71,8 +72,6 @@ jobs:
         
       # Build image
       - name: Build images
-        env:
-          TASE2_REPO_ACCESS_TOKEN: ${{ secrets.TASE2_REPO_ACCESS_TOKEN }}
         run: |
           cd ./fledgepower-deployment/all-plugins-ubuntu2004/fledge/
           sudo chmod +x ./buildContainerfile.sh
