@@ -22,6 +22,8 @@
 
 cd /tmp
 
+echo $TASE2_REPO_ACCESS_TOKEN
+
 git clone https://x-token-auth:$TASE2_REPO_ACCESS_TOKEN@bitbucket.org/mzillgith/libtase2-release.git
 cd libtase2-release
 export LIB_TASE2=$PWD
