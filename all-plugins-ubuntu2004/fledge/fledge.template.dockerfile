@@ -14,6 +14,8 @@ ARG FLEDGELINK="http://archives.fledge-iot.org/${RELEASE}/${OPERATINGSYSTEM}/${A
 ENV FLEDGE_ROOT=/usr/local/fledge
 ENV LIB_HNZ="/usr/local/hnz/libhnz"
 
+ENV TASE2_REPO_ACCESS_TOKEN=TASE2_REPO_ACCESS_TOKEN
+
 # Avoid interactive questions when installing Kerberos
 ENV DEBIAN_FRONTEND=noninteractive
 
