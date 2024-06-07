@@ -20,6 +20,8 @@
 ## Author: Akli Rahmoun
 ##
 
+echo "TASE REPO ACCESS TOKEN: $TASE2_REPO_ACCESS_TOKEN"
+
 # Set the YAML file
 yaml_file="buildContainerfile.yml"
 
