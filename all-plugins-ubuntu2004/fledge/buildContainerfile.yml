@@ -23,7 +23,7 @@ build_modules:
       version: v1.0.0
   - module: 
       name: fledge-south-iec61850.sh
-      version: v1.0.0-rc2
+      version: v1.0.0-RC3
   - module: 
       name: lib61850-install.sh
       version: v1.0.0
