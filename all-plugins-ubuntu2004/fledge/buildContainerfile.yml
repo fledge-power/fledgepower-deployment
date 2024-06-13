@@ -10,6 +10,9 @@ fledge:
 
 build_modules:
   - module: 
+      name: fledgepower-filter-tase2topivot_build.sh
+      version: v1.0.0-RC2
+  - module: 
       name: fledge-south-tase2.sh
       version: v1.0.0-RC1
   - module: 
@@ -17,6 +20,12 @@ build_modules:
       version: v1.0.0-RC1
   - module: 
       name: libtase2-install.sh
+      version: v1.0.0
+  - module: 
+      name: fledge-south-iec61850.sh
+      version: v1.0.0-rc2
+  - module: 
+      name: lib61850-install.sh
       version: v1.0.0
   - module: 
       name: fledgepower-filter-pivottoopcua_build.sh
