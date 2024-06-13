@@ -22,7 +22,7 @@
 
 VERSION=$1
 
-wget -O ./fledge-south-iec104.tar.gz https://github.com/fledge-power/fledge-south-iec61850/archive/refs/tags/$VERSION.tar.gz
+wget -O ./fledge-south-iec61850.tar.gz https://github.com/fledge-power/fledge-south-iec61850/archive/refs/tags/$VERSION.tar.gz
 tar -xf fledge-south-iec61850.tar.gz
 mv fledge-south-iec61850-* fledge-south-iec61850
 cd fledge-south-iec61850
