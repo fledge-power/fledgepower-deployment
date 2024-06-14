@@ -14,7 +14,7 @@ build_modules:
       version: v1.0.0-RC2
   - module: 
       name: fledge-south-tase2.sh
-      version: v1.0.0-RC1
+      version: v1.0.0-RC2
   - module: 
       name: fledge-north-tase2.sh
       version: v1.0.0-RC1
