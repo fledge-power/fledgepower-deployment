@@ -29,7 +29,7 @@ cd fledge-south-tase2
 chmod +x mkversion
 mkdir build
 cd build
-cmake -DCMAKE_BUILD_TYPE=Release -DFLEDGE_INCLUDE=/usr/local/fledge/include/ -DFLEDGE_LIB=/usr/local/fledge/lib/ -DCMAKE_PREFIX_PATH=/usr/local/fledge ..
+cmake -DCMAKE_BUILD_TYPE=Release -DFLEDGE_INCLUDE=/usr/local/fledge/include/ -DFLEDGE_LIB=/usr/local/fledge/lib/ ..
 make
 if [ ! -d "${FLEDGE_ROOT}/plugins/south/tase2" ] 
 then
