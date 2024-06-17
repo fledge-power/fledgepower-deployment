@@ -23,7 +23,7 @@
 VERSION=$1
 
 cd /tmp
-wget -O ./fledgepower-filter-tase2topivot.tar.gz https://github.com/fledge-power/fledgepower-filter-tase2topivot/releases/tag/$VERSION.tar.gz
+wget -O ./fledgepower-filter-tase2topivot.tar.gz https://github.com/fledge-power/fledgepower-filter-tase2topivot/archive/refs/tags/$VERSION.tar.gz
 tar -xf fledgepower-filter-tase2topivot.tar.gz
 mv fledgepower-filter-tase2topivot-* fledgepower-filter-tase2topivot
 cd fledgepower-filter-tase2topivot
