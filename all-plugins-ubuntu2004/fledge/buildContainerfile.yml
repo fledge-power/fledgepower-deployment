@@ -56,7 +56,7 @@ build_modules:
       version: v1.2.0
   - module: 
       name: fledge-south-hnz_build.sh
-      version: v2.0.0
+      version: v2.1.0
   - module: 
       name: libhnz-install.sh
       version: v1.0.0
@@ -68,6 +68,9 @@ build_modules:
       version: v1.2.2
   - module: 
       name: lib60870-install.sh
+      version: v1.0.0
+  - module: 
+      name: fledgepower-filter-spoperators_build.sh
       version: v1.0.0
       
 ports:

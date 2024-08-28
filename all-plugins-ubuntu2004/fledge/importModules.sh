@@ -53,6 +53,7 @@ plugin_1="iec104_pivot_filter"
 plugin_2="transientsp"
 plugin_3="hnz_pivot_filter"
 plugin_4="mvscale"
+plugin_5="spoperators"
 
 name_service_notif="notif"
 notif_plugin_1="systemspr"
@@ -92,6 +93,7 @@ curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$plugin_1'", "pl
 curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$plugin_2'", "plugin": "'$plugin_2'"}'
 curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$plugin_3'", "plugin": "'$plugin_3'"}'
 curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$plugin_4'", "plugin": "'$plugin_4'"}'
+curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$plugin_5'", "plugin": "'$plugin_5'"}'
 curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$ctrl_filter_1_sp'", "plugin": "'$plugin_1'"}'
 curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$ctrl_filter_1_pd'", "plugin": "'$plugin_3'"}'
 curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$ctrl_filter_2_sp'", "plugin": "'$plugin_1'"}'
@@ -102,8 +104,8 @@ curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$ctrl_filter_4_s
 curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$ctrl_filter_4_pd'", "plugin": "'$plugin_3'"}'
 
 # Create of south pipelines
-curl -X PUT http://localhost:8081/fledge/filter/$s1_south_service_name/pipeline -d  '{"pipeline": ["'$plugin_3'", "'$plugin_2'", "'$plugin_4'"]}'
-curl -X PUT http://localhost:8081/fledge/filter/$s2_south_service_name/pipeline -d  '{"pipeline": ["'$plugin_3'", "'$plugin_2'", "'$plugin_4'"]}'
+curl -X PUT http://localhost:8081/fledge/filter/$s1_south_service_name/pipeline -d  '{"pipeline": ["'$plugin_3'", "'$plugin_2'", "'$plugin_4'", "'$plugin_5'"]}'
+curl -X PUT http://localhost:8081/fledge/filter/$s2_south_service_name/pipeline -d  '{"pipeline": ["'$plugin_3'", "'$plugin_2'", "'$plugin_4'", "'$plugin_5'"]}'
 curl -X PUT http://localhost:8081/fledge/filter/$s3_south_service_name/pipeline -d  '{"pipeline": ["'$plugin_1'", "'$plugin_2'"]}'
 curl -X PUT http://localhost:8081/fledge/filter/$s4_south_service_name/pipeline -d  '{"pipeline": ["'$plugin_1'", "'$plugin_2'"]}'
 
