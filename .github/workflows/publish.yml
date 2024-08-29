@@ -60,7 +60,7 @@ jobs:
         env: 
           FP_DEPLOY_REPO: "https://github.com/fledge-power/fledgepower-deployment.git"
         run: |
-          git clone ${{ env.FP_DEPLOY_REPO }}
+          git clone ${{ env.FP_DEPLOY_REPO }} --branch ${{ github.ref_name }} --single-branch 
           
       # Log in to the Container registry ghcr.io
       - name: Log in to the Container registry
