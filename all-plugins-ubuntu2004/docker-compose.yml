@@ -4,7 +4,7 @@ services:
 
   fledge-power:
     container_name: fledge
-    image: fledgepower/fledge
+    image: jshmitz/fledge
     build:
       context: fledge/
       dockerfile: fledge.dockerfile
@@ -23,7 +23,7 @@ services:
 
   fledge-gui:
     container_name: fledge-gui
-    image: fledgepower/fledge-gui
+    image: jshmitz/fledge-gui
     build:
       context: fledge-gui/
       dockerfile: fledge-gui.dockerfile
