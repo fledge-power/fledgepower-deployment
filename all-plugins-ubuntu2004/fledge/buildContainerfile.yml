@@ -35,7 +35,7 @@ build_modules:
       version: v1.0.0
   - module: 
       name: fledge-north-auditsnmp_build.sh
-      version: v1.0.0
+      version: v2.1.0
   - module: 
       name: fledgepower-rule-systemsp_build.sh
       version: v1.0.0-RC1
