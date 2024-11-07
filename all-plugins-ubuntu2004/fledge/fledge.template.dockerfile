@@ -5,6 +5,7 @@ LABEL author="Akli Rahmoun"
 # Set FLEDGE version, distribution, and platform
 ARG FLEDGEVERSION=FLEDGEVERSION
 ARG RELEASE=RELEASE
+ARG GITHEAD=GITHEAD
 ARG OPERATINGSYSTEM=OPERATINGSYSTEM
 ARG ARCHITECTURE=ARCHITECTURE
 ARG FLEDGEDISPATCHERVERSION=FLEDGEDISPATCHERVERSION
@@ -51,7 +52,7 @@ RUN mkdir ./fledge && \
 COPY fledge-install-include.sh /tmp/
 
 RUN chmod +x /tmp/fledge-install-include.sh && \
-    /tmp/fledge-install-include.sh && \
+    /tmp/fledge-install-include.sh ${GITHEAD} && \
     echo '=============================================='
 
 COPY fledge-install-dispatcher.sh /tmp/

@@ -20,8 +20,11 @@
 ## Author: Mark Riddoch, Akli Rahmoun
 ##
 
+GITHEAD=$1
+
 git clone https://github.com/fledge-iot/fledge.git
 cd fledge
+git checkout $GITHEAD 
 sudo mkdir -p /usr/local/fledge/include/rapidjson/
 find C/common/ -name '*.h' -exec sudo cp -prv '{}' '/usr/local/fledge/include' ';'
 find C/plugins/ -name '*.h' -exec sudo cp -prv '{}' '/usr/local/fledge/include' ';'

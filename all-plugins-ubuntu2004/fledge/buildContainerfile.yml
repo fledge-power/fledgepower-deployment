@@ -3,6 +3,7 @@ version: "1.0"
 fledge:
     version: 2.5.0
     release: 2.5.0
+    githead: v2.5.0
     operatingsystem: ubuntu2004
     architecture: x86_64
     dispatcherversion: 2.5.0
