@@ -3,11 +3,8 @@ name: Publish
 # Controls when the workflow will run
 on:
   push:
-    tags:        
-      - v*-rc* # publish only rc (release candidates), example: v1.0.0-rc0
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+    tags:
+      - v* # publish only on version tags
 
 env:
   IMAGE_REGISTRY: ghcr.io
@@ -16,7 +13,8 @@ env:
   FLEDGE_IMAGE_NAME: 'fledgepower/fledge'
   FLEDGE_GUI_IMAGE_NAME: 'fledgepower/fledge-gui'
   #IMAGE_TAG: '1.0.0-amd64'
-  IMAGE_TAG: 'latest'
+  #IMAGE_TAG: 'latest'
+  IMAGE_TAG: ${{ github.ref_name }}
   TASE2_REPO_ACCESS_TOKEN: ${{ secrets.TASE2_REPO_ACCESS_TOKEN }}
 
 jobs:
@@ -49,7 +47,7 @@ jobs:
 
       # Download and install yq yaml processor
       - name: Download and install yq
-        env: 
+        env:
           YQ_REPO: "https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64"
         run: |
           sudo wget -qO /usr/local/bin/yq ${{ env.YQ_REPO }}
@@ -57,11 +55,11 @@ jobs:
 
       # Download fledgepower deployment
       - name: Download fledgepower deployment
-        env: 
+        env:
           FP_DEPLOY_REPO: "https://github.com/fledge-power/fledgepower-deployment.git"
         run: |
-          git clone ${{ env.FP_DEPLOY_REPO }} --branch ${{ github.ref_name }} --single-branch 
-          
+          git clone ${{ env.FP_DEPLOY_REPO }} --branch ${{ github.ref_name }} --single-branch
+
       # Log in to the Container registry ghcr.io
       - name: Log in to the Container registry
         uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
@@ -69,7 +67,7 @@ jobs:
           registry: ${{ env.IMAGE_REGISTRY }}
           username: ${{ env.REGISTRY_USER }}
           password: ${{ env.REGISTRY_PASSWORD }}
-        
+
       # Build image
       - name: Build images
         run: |
@@ -78,8 +76,8 @@ jobs:
           ./buildContainerfile.sh
           sudo -E docker build -f fledge.dockerfile -t ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_IMAGE_NAME }}:${{ env.IMAGE_TAG }} . --label ${{ github.ref }}
           cd ../fledge-gui
-          sudo -E docker build -f fledge-gui.dockerfile -t ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_GUI_IMAGE_NAME }}:${{ env.IMAGE_TAG }} . --label ${{ github.ref }}          
-          
+          sudo -E docker build -f fledge-gui.dockerfile -t ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_GUI_IMAGE_NAME }}:${{ env.IMAGE_TAG }} . --label ${{ github.ref }}
+
       # Run Snyk to check Docker image for vulnerabilities
       - name: Snyk scan
         continue-on-error: true
@@ -96,16 +94,16 @@ jobs:
           sed -i 's/"security-severity": "undefined"/"security-severity": "0"/g' snyk.sarif
           sed -i 's/"security-severity": "null"/"security-severity": "0"/g' snyk.sarif
           cat snyk.sarif
-        
+
       # Upload result to GitHub Code Scanning
       - name: Snyk results upload
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: snyk.sarif
-      
+
       # Push to ghcr.io (Github Image Registry)
       - name: Push images
         run: |
           sudo -E docker push ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_IMAGE_NAME }}:${{ env.IMAGE_TAG }}
           sudo -E docker push ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_GUI_IMAGE_NAME }}:${{ env.IMAGE_TAG }}
-          
+
