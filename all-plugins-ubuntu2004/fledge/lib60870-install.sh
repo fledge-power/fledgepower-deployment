@@ -24,7 +24,7 @@ VERSION=$1
 
 wget -O ./lib60870.tar.gz https://github.com/mz-automation/lib60870/archive/refs/tags/${VERSION}.tar.gz
 tar -xf lib60870.tar.gz
-cd lib60870/lib60870-C/dependencies/
+cd lib60870*/lib60870-C/dependencies/
 wget https://github.com/Mbed-TLS/mbedtls/archive/refs/tags/v2.28.9.tar.gz
 tar xf v2.28.9.tar.gz
 mv mbedtls-2.28.9/ mbedtls-2.28
