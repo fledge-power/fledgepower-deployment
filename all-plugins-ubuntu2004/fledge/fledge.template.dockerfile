@@ -74,6 +74,9 @@ WORKDIR /usr/local/fledge
 COPY importModules.sh importModules.sh
 COPY start.sh start.sh
 
+# REMOVE SOURCES IN /tmp
+RUN rm -rf /tmp/*
+
 RUN chmod +x start.sh
 VOLUME /usr/local/fledge 
 
