@@ -27,7 +27,7 @@ VERSION=$1
 
 git clone https://github.com/mz-automation/lib60870.git
 cd lib60870*/
-git checkout 671f204
+git checkout a3d2d72
 cd lib60870-C/dependencies/
 
 wget https://github.com/Mbed-TLS/mbedtls/archive/refs/tags/v2.28.9.tar.gz
