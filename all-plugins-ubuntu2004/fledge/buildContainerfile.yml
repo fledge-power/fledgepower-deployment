@@ -22,12 +22,12 @@ build_modules:
   - module: 
       name: libtase2-install.sh
       version: v1.0.0
-#   - module: 
-#       name: fledge-south-iec61850.sh
-#       version: v1.0.0-RC3
-#   - module: 
-#       name: lib61850-install.sh
-#       version: v1.6.0
+  - module: 
+      name: fledge-south-iec61850.sh
+      version: v1.0.0-RC3
+  - module: 
+      name: lib61850-install.sh
+      version: v1.6.0
   - module: 
       name: fledgepower-filter-pivottoopcua_build.sh
       version: v1.0.0
@@ -69,7 +69,7 @@ build_modules:
       version: v1.2.2
   - module: 
       name: lib60870-install.sh
-      version: v2.3.2
+      version: v2.3.3
   - module: 
       name: fledgepower-filter-spoperators_build.sh
       version: v1.0.0
