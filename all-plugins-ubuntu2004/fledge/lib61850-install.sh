@@ -20,12 +20,14 @@
 ## Author: Mark Riddoch, Akli Rahmoun
 ##
 
-git clone https://github.com/mz-automation/libiec61850.git
-cd libiec61850
-cd third_party/mbedtls
-wget https://github.com/Mbed-TLS/mbedtls/archive/refs/tags/v2.28.2.tar.gz
-tar xf v2.28.2.tar.gz
-mv mbedtls-2.28.2/ mbedtls-2.28
+VERSION=$1
+
+wget -O ./libiec61850.tar.gz https://github.com/mz-automation/libiec61850/archive/refs/tags/${VERSION}.tar.gz
+tar -xf libiec61850.tar.gz
+cd libiec61850*/third_party/mbedtls/
+wget https://github.com/Mbed-TLS/mbedtls/archive/refs/tags/v2.28.9.tar.gz
+tar xf v2.28.9.tar.gz
+mv mbedtls-2.28.9/ mbedtls-2.28
 cd ../..
 mkdir build
 cd build
