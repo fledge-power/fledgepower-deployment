@@ -39,10 +39,10 @@ build_modules:
       version: v2.1.0
   - module: 
       name: fledgepower-rule-systemsp_build.sh
-      version: v1.0.0-RC1
+      version: v1.0.0
   - module: 
       name: fledgepower-notify-systemsp_build.sh
-      version: v1.0.0-RC1
+      version: v1.0.0
   - module: 
       name: fledgepower-filter-mvscale_build.sh
       version: v1.0.0
