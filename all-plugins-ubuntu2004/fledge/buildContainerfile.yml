@@ -54,19 +54,19 @@ build_modules:
       version: v1.0.0
   - module: 
       name: fledgepower-filter-iec104topivot_build.sh
-      version: v1.2.0
+      version: v1.2.1-dev1
   - module: 
       name: fledge-south-hnz_build.sh
-      version: v2.1.2
+      version: v3.0.0-dev2
   - module: 
       name: libhnz-install.sh
       version: v1.0.0
   - module: 
       name: fledge-south-iec104_build.sh
-      version: v1.3.0
+      version: v1.3.1-dev2
   - module: 
       name: fledge-north-iec104_build.sh
-      version: v1.2.2
+      version: v1.2.3-dev2
   - module: 
       name: lib60870-install.sh
       version: v2.3.3
