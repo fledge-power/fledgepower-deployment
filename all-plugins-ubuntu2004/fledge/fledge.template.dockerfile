@@ -67,6 +67,9 @@ RUN chmod +x /tmp/fledge-install-notification.sh && \
     /tmp/fledge-install-notification.sh ${FLEDGENOTIFVERSION} ${RELEASE} ${OPERATINGSYSTEM} ${ARCHITECTURE} && \
     echo '=============================================='
 
+# Hotfix for uppercase ssl certificate, can be removed after integrating Fledge >= 2.7.0 (including commit 9d8bc89)
+RUN sed -i '/username =.*commonName/ s/ *$/.lower()/' "/usr/local/fledge/python/fledge/services/core/api/auth.py"
+
 # INSERT MODULES TO BUILD HERE
 
 WORKDIR /usr/local/fledge
