@@ -1,39 +1,39 @@
 version: "1.0"
 
 fledge:
-    version: 2.5.0
-    release: 2.5.0
-    githead: v2.5.0
+    version: 3.0.0
+    release: nightly
+    githead: origin/HEAD
     operatingsystem: ubuntu2004
     architecture: x86_64
-    dispatcherversion: 2.5.0
-    notifversion: 2.5.0
+    dispatcherversion: 3.0.0
+    notifversion: 3.0.0
 
 build_modules:
-  - module: 
-      name: fledgepower-filter-tase2topivot_build.sh
-      version: v1.0.0-RC2
-  - module: 
-      name: fledge-south-tase2.sh
-      version: v1.0.0-RC2
-  - module: 
-      name: fledge-north-tase2.sh
-      version: v1.0.0-RC1
-  - module: 
-      name: libtase2-install.sh
-      version: v1.0.0
+# - module: 
+#     name: fledgepower-filter-tase2topivot_build.sh
+#     version: v1.0.0-RC2
+# - module: 
+#     name: fledge-south-tase2.sh
+#     version: v1.0.0-RC2
+# - module: 
+#     name: fledge-north-tase2.sh
+#     version: v1.0.0-RC1
+# - module: 
+#     name: libtase2-install.sh
+#     version: v1.0.0
 #   - module: 
 #       name: fledge-south-iec61850.sh
 #       version: v1.0.0-RC3
 #   - module: 
 #       name: lib61850-install.sh
 #       version: v1.6.0
-  - module: 
-      name: fledgepower-filter-pivottoopcua_build.sh
-      version: v1.0.0
-  - module: 
-      name: fledge-north-opcua_build.sh
-      version: v1.0.0
+# - module: 
+#     name: fledgepower-filter-pivottoopcua_build.sh
+#     version: v1.0.0
+# - module: 
+#     name: fledge-north-opcua_build.sh
+#     version: v1.0.0
   - module: 
       name: fledge-north-auditsnmp_build.sh
       version: v2.1.0
