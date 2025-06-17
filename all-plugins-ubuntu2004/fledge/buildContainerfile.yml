@@ -1,13 +1,13 @@
 version: "1.0"
 
 fledge:
-    version: 3.0.0
-    release: nightly
-    githead: origin/HEAD
-    operatingsystem: ubuntu2004
-    architecture: x86_64
-    dispatcherversion: 3.0.0
-    notifversion: 3.0.0
+  version: 3.0.0-206
+  release: nightly
+  githead: origin/HEAD
+  operatingsystem: ubuntu2004
+  architecture: x86_64
+  dispatcherversion: 3.0.0
+  notifversion: 3.0.0
 
 build_modules:
 # - module: 
