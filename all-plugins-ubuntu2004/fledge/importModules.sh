@@ -151,12 +151,27 @@ curl -sX POST http://localhost:8081/fledge/service -d '{"name":"'$snmp_north_ser
 # Create service notification
 curl -sX POST http://localhost:8081/fledge/service -d '{"name":"'$name_service_notif'","type":"notification","enabled":true}'
 
-# Create plugins
-curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$plugin_1'", "plugin": "'$plugin_1'"}'
-curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$plugin_2'", "plugin": "'$plugin_2'"}'
-curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$plugin_3'", "plugin": "'$plugin_3'"}'
-curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$plugin_4'", "plugin": "'$plugin_4'"}'
-curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$plugin_5'", "plugin": "'$plugin_5'"}'
+# Create plugins (one instance of a given plugin for each service that will use it)
+curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$s1_south_service_name'_'$plugin_3'", "plugin": "'$plugin_3'"}'
+curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$s1_south_service_name'_'$plugin_2'", "plugin": "'$plugin_2'"}'
+curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$s1_south_service_name'_'$plugin_4'", "plugin": "'$plugin_4'"}'
+curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$s1_south_service_name'_'$plugin_5'", "plugin": "'$plugin_5'"}'
+curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$s2_south_service_name'_'$plugin_3'", "plugin": "'$plugin_3'"}'
+curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$s2_south_service_name'_'$plugin_2'", "plugin": "'$plugin_2'"}'
+curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$s2_south_service_name'_'$plugin_4'", "plugin": "'$plugin_4'"}'
+curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$s2_south_service_name'_'$plugin_5'", "plugin": "'$plugin_5'"}'
+curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$s3_south_service_name'_'$plugin_1'", "plugin": "'$plugin_1'"}'
+curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$s3_south_service_name'_'$plugin_2'", "plugin": "'$plugin_2'"}'
+curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$s4_south_service_name'_'$plugin_1'", "plugin": "'$plugin_1'"}'
+curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$s4_south_service_name'_'$plugin_2'", "plugin": "'$plugin_2'"}'
+curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$n1_north_service_name'_'$plugin_1'", "plugin": "'$plugin_1'"}'
+curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$n2_north_service_name'_'$plugin_1'", "plugin": "'$plugin_1'"}'
+curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$n3_north_service_name'_'$plugin_1'", "plugin": "'$plugin_1'"}'
+curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$n4_north_service_name'_'$plugin_1'", "plugin": "'$plugin_1'"}'
+curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$n5_north_service_name'_'$plugin_1'", "plugin": "'$plugin_1'"}'
+curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$n6_north_service_name'_'$plugin_1'", "plugin": "'$plugin_1'"}'
+curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$n7_north_service_name'_'$plugin_1'", "plugin": "'$plugin_1'"}'
+curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$n8_north_service_name'_'$plugin_1'", "plugin": "'$plugin_1'"}'
 # Group 1.1
 curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$ctrl_filter_1_sp'", "plugin": "'$plugin_1'"}'
 curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$ctrl_filter_1_pd'", "plugin": "'$plugin_3'"}'
@@ -195,20 +210,20 @@ curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$ctrl_filter_16_
 curl -X POST http://localhost:8081/fledge/filter -d '{"name": "'$ctrl_filter_16_pd'", "plugin": "'$plugin_1'"}'
 
 # Create of south pipelines
-curl -X PUT http://localhost:8081/fledge/filter/$s1_south_service_name/pipeline -d  '{"pipeline": ["'$plugin_3'", "'$plugin_2'", "'$plugin_4'", "'$plugin_5'"]}'
-curl -X PUT http://localhost:8081/fledge/filter/$s2_south_service_name/pipeline -d  '{"pipeline": ["'$plugin_3'", "'$plugin_2'", "'$plugin_4'", "'$plugin_5'"]}'
-curl -X PUT http://localhost:8081/fledge/filter/$s3_south_service_name/pipeline -d  '{"pipeline": ["'$plugin_1'", "'$plugin_2'"]}'
-curl -X PUT http://localhost:8081/fledge/filter/$s4_south_service_name/pipeline -d  '{"pipeline": ["'$plugin_1'", "'$plugin_2'"]}'
+curl -X PUT http://localhost:8081/fledge/filter/$s1_south_service_name/pipeline -d  '{"pipeline": ["'$s1_south_service_name'_'$plugin_3'", "'$s1_south_service_name'_'$plugin_2'", "'$s1_south_service_name'_'$plugin_4'", "'$s1_south_service_name'_'$plugin_5'"]}'
+curl -X PUT http://localhost:8081/fledge/filter/$s2_south_service_name/pipeline -d  '{"pipeline": ["'$s2_south_service_name'_'$plugin_3'", "'$s2_south_service_name'_'$plugin_2'", "'$s2_south_service_name'_'$plugin_4'", "'$s2_south_service_name'_'$plugin_5'"]}'
+curl -X PUT http://localhost:8081/fledge/filter/$s3_south_service_name/pipeline -d  '{"pipeline": ["'$s3_south_service_name'_'$plugin_1'", "'$s3_south_service_name'_'$plugin_2'"]}'
+curl -X PUT http://localhost:8081/fledge/filter/$s4_south_service_name/pipeline -d  '{"pipeline": ["'$s4_south_service_name'_'$plugin_1'", "'$s4_south_service_name'_'$plugin_2'"]}'
 
 # Create of north pipelines
-curl -X PUT http://localhost:8081/fledge/filter/$n1_north_service_name/pipeline -d  '{"pipeline": ["'$plugin_1'"]}'
-curl -X PUT http://localhost:8081/fledge/filter/$n2_north_service_name/pipeline -d  '{"pipeline": ["'$plugin_1'"]}'
-curl -X PUT http://localhost:8081/fledge/filter/$n3_north_service_name/pipeline -d  '{"pipeline": ["'$plugin_1'"]}'
-curl -X PUT http://localhost:8081/fledge/filter/$n4_north_service_name/pipeline -d  '{"pipeline": ["'$plugin_1'"]}'
-curl -X PUT http://localhost:8081/fledge/filter/$n5_north_service_name/pipeline -d  '{"pipeline": ["'$plugin_1'"]}'
-curl -X PUT http://localhost:8081/fledge/filter/$n6_north_service_name/pipeline -d  '{"pipeline": ["'$plugin_1'"]}'
-curl -X PUT http://localhost:8081/fledge/filter/$n7_north_service_name/pipeline -d  '{"pipeline": ["'$plugin_1'"]}'
-curl -X PUT http://localhost:8081/fledge/filter/$n8_north_service_name/pipeline -d  '{"pipeline": ["'$plugin_1'"]}'
+curl -X PUT http://localhost:8081/fledge/filter/$n1_north_service_name/pipeline -d  '{"pipeline": ["'$n1_north_service_name'_'$plugin_1'"]}'
+curl -X PUT http://localhost:8081/fledge/filter/$n2_north_service_name/pipeline -d  '{"pipeline": ["'$n2_north_service_name'_'$plugin_1'"]}'
+curl -X PUT http://localhost:8081/fledge/filter/$n3_north_service_name/pipeline -d  '{"pipeline": ["'$n3_north_service_name'_'$plugin_1'"]}'
+curl -X PUT http://localhost:8081/fledge/filter/$n4_north_service_name/pipeline -d  '{"pipeline": ["'$n4_north_service_name'_'$plugin_1'"]}'
+curl -X PUT http://localhost:8081/fledge/filter/$n5_north_service_name/pipeline -d  '{"pipeline": ["'$n5_north_service_name'_'$plugin_1'"]}'
+curl -X PUT http://localhost:8081/fledge/filter/$n6_north_service_name/pipeline -d  '{"pipeline": ["'$n6_north_service_name'_'$plugin_1'"]}'
+curl -X PUT http://localhost:8081/fledge/filter/$n7_north_service_name/pipeline -d  '{"pipeline": ["'$n7_north_service_name'_'$plugin_1'"]}'
+curl -X PUT http://localhost:8081/fledge/filter/$n8_north_service_name/pipeline -d  '{"pipeline": ["'$n8_north_service_name'_'$plugin_1'"]}'
 
 # Create control pipelines
 # Group 1.1
