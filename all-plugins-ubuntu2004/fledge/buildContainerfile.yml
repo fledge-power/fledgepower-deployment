@@ -57,7 +57,7 @@ build_modules:
       version: v1.2.1
   - module: 
       name: fledge-south-hnz_build.sh
-      version: v3.2.0
+      version: v3.1.0
   - module: 
       name: libhnz-install.sh
       version: v1.0.0
