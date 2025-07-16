@@ -69,7 +69,7 @@ build_modules:
       version: v1.3.0
   - module: 
       name: lib60870-install.sh
-      version: v2.3.3
+      version: v2.3.6
   - module: 
       name: fledgepower-filter-spoperators_build.sh
       version: v1.0.0
