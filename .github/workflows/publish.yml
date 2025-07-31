@@ -73,7 +73,7 @@ jobs:
       # Build image
       - name: Build images
         run: |
-          cd ./fledgepower-deployment/all-plugins-ubuntu2004/fledge/
+          cd ./fledgepower-deployment/all-plugins-ubuntu2404/fledge/
           sudo chmod +x ./buildContainerfile.sh
           ./buildContainerfile.sh
           sudo -E docker build -f fledge.dockerfile -t ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_IMAGE_NAME }}:${{ env.IMAGE_TAG }} . --label ${{ github.ref }}
