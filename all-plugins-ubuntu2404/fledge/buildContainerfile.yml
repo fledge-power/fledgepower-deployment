@@ -31,9 +31,9 @@ build_modules:
   - module: 
       name: fledgepower-filter-pivottoopcua_build.sh
       version: v1.0.0
-  - module: 
-      name: fledge-north-opcua_build.sh
-      version: v1.0.0
+#   - module: 
+#       name: fledge-north-opcua_build.sh
+#       version: v1.0.0
   - module: 
       name: fledge-north-auditsnmp_build.sh
       version: v2.1.0
