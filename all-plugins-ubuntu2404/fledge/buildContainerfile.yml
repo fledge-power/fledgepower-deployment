@@ -1,13 +1,13 @@
 version: "1.0"
 
 fledge:
-    version: 2.5.0
-    release: 2.5.0
-    githead: v2.5.0
-    operatingsystem: ubuntu2004
+    version: 3.1.0
+    release: 3.1.0
+    githead: v3.1.0
+    operatingsystem: ubuntu2404
     architecture: x86_64
-    dispatcherversion: 2.5.0
-    notifversion: 2.5.0
+    dispatcherversion: 3.1.0
+    notifversion: 3.1.0
 
 build_modules:
   - module: 
@@ -39,40 +39,40 @@ build_modules:
       version: v2.1.0
   - module: 
       name: fledgepower-rule-systemsp_build.sh
-      version: v1.0.0
+      version: v2.0.0
   - module: 
       name: fledgepower-notify-systemsp_build.sh
-      version: v1.0.0
+      version: v2.0.0
   - module: 
       name: fledgepower-filter-mvscale_build.sh
-      version: v1.0.0
+      version: v2.0.0
   - module: 
       name: fledgepower-filter-transientsp_build.sh
-      version: v1.0.0
+      version: v2.0.0
   - module: 
       name: fledgepower-filter-hnztopivot_build.sh
-      version: v1.0.0
+      version: v2.0.0
   - module: 
       name: fledgepower-filter-iec104topivot_build.sh
-      version: v1.2.1
+      version: v2.0.0
   - module: 
       name: fledge-south-hnz_build.sh
-      version: v3.1.0
+      version: v4.0.0
   - module: 
       name: libhnz-install.sh
-      version: v1.0.0
+      version: v1.1.0
   - module: 
       name: fledge-south-iec104_build.sh
-      version: v1.4.0
+      version: v2.0.0
   - module: 
       name: fledge-north-iec104_build.sh
-      version: v1.3.0
+      version: v2.0.0
   - module: 
       name: lib60870-install.sh
       version: v2.3.6
   - module: 
       name: fledgepower-filter-spoperators_build.sh
-      version: v1.0.0
+      version: v2.0.0
       
 ports:
   - 1995
