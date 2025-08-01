@@ -103,11 +103,12 @@ jobs:
           sed -i 's/"security-severity": "null"/"security-severity": "0"/g' snyk.sarif
           cat snyk.sarif
 
-      # Upload result to GitHub Code Scanning
-      - name: Snyk results upload
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: snyk.sarif
+      # As of July 22nd 2025, Github does not support uploading Snyk SARIF with multiple runs
+      # # Upload result to GitHub Code Scanning
+      # - name: Snyk results upload
+      #   uses: github/codeql-action/upload-sarif@v3
+      #   with:
+      #     sarif_file: snyk.sarif
 
       # Push to ghcr.io (Github Image Registry)
       - name: Push images
