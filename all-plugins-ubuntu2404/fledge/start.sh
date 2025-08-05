@@ -14,10 +14,6 @@ if [ ! -z "$password_token" ]; then
     curl -X PUT http://localhost:8081/fledge/category/rest_api -d '{"authentication":"optional"}' -H "authorization: $password_token"
 fi
 
-# Redémarrage
-/usr/local/fledge/bin/fledge -u admin -p fledge stop
-/usr/local/fledge/bin/fledge start
-
 sleep 10
-sh importModules.sh
+sh importModules.sh $password_token
 tail -f /var/log/syslog
