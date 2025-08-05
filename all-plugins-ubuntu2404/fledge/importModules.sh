@@ -89,10 +89,10 @@ ctrl_pipeline_10="${n6_north_service_name}_to_${s2_south_service_name}"
 ctrl_pipeline_11="${n7_north_service_name}_to_${s2_south_service_name}"
 ctrl_pipeline_12="${n8_north_service_name}_to_${s2_south_service_name}"
 # Group 2.2
-ctrl_pipeline_9="${n5_north_service_name}_to_${s4_south_service_name}"
-ctrl_pipeline_10="${n6_north_service_name}_to_${s4_south_service_name}"
-ctrl_pipeline_11="${n7_north_service_name}_to_${s4_south_service_name}"
-ctrl_pipeline_12="${n8_north_service_name}_to_${s4_south_service_name}"
+ctrl_pipeline_13="${n5_north_service_name}_to_${s4_south_service_name}"
+ctrl_pipeline_14="${n6_north_service_name}_to_${s4_south_service_name}"
+ctrl_pipeline_15="${n7_north_service_name}_to_${s4_south_service_name}"
+ctrl_pipeline_16="${n8_north_service_name}_to_${s4_south_service_name}"
 
 # Group 1.1
 ctrl_filter_1_sp="${ctrl_pipeline_1}_source_to_pivot_filter"
@@ -281,15 +281,10 @@ curl -X PUT --data '{"value":"1"}' http://localhost:8081/fledge/category/PURGE_R
 curl -X PUT --data '{"value":"100000"}' http://localhost:8081/fledge/category/PURGE_READ/size
 
 # Create Notification plugins
-curl -sX POST http://localhost:8081/fledge/notification -d '{"name":"'$notif_name_1'","description":"'$notif_name_1' notification instance","rule":"'$notif_plugin_1'","channel":"'$notif_plugin_2'","notification_type":"retriggered","enabled":false,"retrigger_time":"1","rule_config":{},"delivery_config":{}}'
-curl -sX POST http://localhost:8081/fledge/notification -d '{"name":"'$notif_name_2'","description":"'$notif_name_2' notification instance","rule":"'$notif_plugin_1'","channel":"'$notif_plugin_2'","notification_type":"retriggered","enabled":false,"retrigger_time":"1","rule_config":{},"delivery_config":{}}'
-curl -sX POST http://localhost:8081/fledge/notification -d '{"name":"'$notif_name_3'","description":"'$notif_name_3' notification instance","rule":"'$notif_plugin_1'","channel":"'$notif_plugin_2'","notification_type":"retriggered","enabled":false,"retrigger_time":"1","rule_config":{},"delivery_config":{}}'
-curl -sX POST http://localhost:8081/fledge/notification -d '{"name":"'$notif_name_4'","description":"'$notif_name_4' notification instance","rule":"'$notif_plugin_1'","channel":"'$notif_plugin_2'","notification_type":"retriggered","enabled":false,"retrigger_time":"1","rule_config":{},"delivery_config":{}}'
-# Workaround for delay between notifications (we want 0 but Fledge does not allow it, and -1 is rejected at notification instance creation)
-curl -X PUT --data '{"retrigger_time":"-1"}' http://localhost:8081/fledge/category/$notif_name_1
-curl -X PUT --data '{"retrigger_time":"-1"}' http://localhost:8081/fledge/category/$notif_name_2
-curl -X PUT --data '{"retrigger_time":"-1"}' http://localhost:8081/fledge/category/$notif_name_3
-curl -X PUT --data '{"retrigger_time":"-1"}' http://localhost:8081/fledge/category/$notif_name_4
+curl -sX POST http://localhost:8081/fledge/notification -d '{"name":"'$notif_name_1'","description":"'$notif_name_1' notification instance","rule":"'$notif_plugin_1'","channel":"'$notif_plugin_2'","notification_type":"retriggered","enabled":false,"retrigger_time":"0","rule_config":{},"delivery_config":{}}'
+curl -sX POST http://localhost:8081/fledge/notification -d '{"name":"'$notif_name_2'","description":"'$notif_name_2' notification instance","rule":"'$notif_plugin_1'","channel":"'$notif_plugin_2'","notification_type":"retriggered","enabled":false,"retrigger_time":"0","rule_config":{},"delivery_config":{}}'
+curl -sX POST http://localhost:8081/fledge/notification -d '{"name":"'$notif_name_3'","description":"'$notif_name_3' notification instance","rule":"'$notif_plugin_1'","channel":"'$notif_plugin_2'","notification_type":"retriggered","enabled":false,"retrigger_time":"0","rule_config":{},"delivery_config":{}}'
+curl -sX POST http://localhost:8081/fledge/notification -d '{"name":"'$notif_name_4'","description":"'$notif_name_4' notification instance","rule":"'$notif_plugin_1'","channel":"'$notif_plugin_2'","notification_type":"retriggered","enabled":false,"retrigger_time":"0","rule_config":{},"delivery_config":{}}'
 
 # Restart Fledge as it is mandatory for control pipelines to work
 curl -X PUT http://localhost:8081/fledge/restart
