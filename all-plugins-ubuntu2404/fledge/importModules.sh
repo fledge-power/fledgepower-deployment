@@ -32,9 +32,9 @@
 
 curl_wrapper() {
     if  [ ! -z "$TOKEN" ]; then
-        curl $@ -H "authorization: $TOKEN"
+        curl "$@" -H "authorization: $TOKEN"
     else
-        curl $@
+        curl "$@"
     fi
 }
 
