@@ -80,6 +80,14 @@ jobs:
           cd ../fledge-gui
           sudo -E docker build -f fledge-gui.dockerfile -t ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_GUI_IMAGE_NAME }}:${{ env.IMAGE_TAG }} . --label ${{ github.ref }}
 
+      # Archive configuration for sonar report, generate by previous bash script
+      - name: Archive sonar report configuration files
+        uses: actions/upload-artifact@v4
+        with:
+          name: sonar-report-files
+          path: |
+            all-plugins-ubuntu2404/fledge/pmc.yml
+            all-plugins-ubuntu2404/fledge/sonarcloud.ini
       # Run Snyk to check Docker image for vulnerabilities
       - name: Snyk scan
         continue-on-error: true
@@ -117,3 +125,42 @@ jobs:
           sudo -E docker push ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_IMAGE_NAME }}:${{ env.LATEST_TAG }}
           sudo -E docker push ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_GUI_IMAGE_NAME }}:${{ env.IMAGE_TAG }}
           sudo -E docker push ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_GUI_IMAGE_NAME }}:${{ env.LATEST_TAG }}
+
+  generate-sonar-report:
+    runs-on: ubuntu-latest
+    needs: build-and-push-image
+    permissions:
+      contents: read
+      packages: write
+      security-events: write
+    steps:
+      # Download rte-sonar-report
+      - name: Download rte-sonar-report
+        env:
+          RTE_SONAR_REPORT_REPO: "https://github.com/rte-france/rte-sonar-report.git"
+        run: |
+          git clone ${{ env.RTE_SONAR_REPORT_REPO }} --branch 2025.3.0 --single-branch
+      # Set up Python
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install . .[dev] build
+      # Install rte-sonar-report
+      - name: Install rte-sonar-report
+        run: |
+          cd ./rte-sonar-report
+          python -m pip install . 
+      # Download sonar configuration files from previous job
+      - name: Download sonar configuration files
+        uses: actions/download-artifact@v5
+        with:
+          name: sonar-report-files
+      # Generate the Sonar report for RTE prescription enforcement
+      - name: Generate Sonar report
+        run: |
+          python -m rte_sonar_reports -a sonar-report-files/pmc.yml -c sonar-report-files/sonarcloud.ini -o sonar_report.pdf
+
