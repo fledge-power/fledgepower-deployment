@@ -98,33 +98,33 @@ jobs:
           image: ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_IMAGE_NAME }}:${{ env.IMAGE_TAG }}
           args: --sarif-file-output=snyk.sarif
           
-      # Tag image with latest image
-      - name: Tag image
-        run: |
-           sudo -E docker tag ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_IMAGE_NAME }}:${{ env.IMAGE_TAG }} ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_IMAGE_NAME }}:${{ env.LATEST_TAG }}
-           sudo -E docker tag ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_GUI_IMAGE_NAME }}:${{ env.IMAGE_TAG }} ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_GUI_IMAGE_NAME }}:${{ env.LATEST_TAG }}
+      # # Tag image with latest image
+      # - name: Tag image
+      #   run: |
+      #      sudo -E docker tag ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_IMAGE_NAME }}:${{ env.IMAGE_TAG }} ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_IMAGE_NAME }}:${{ env.LATEST_TAG }}
+      #      sudo -E docker tag ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_GUI_IMAGE_NAME }}:${{ env.IMAGE_TAG }} ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_GUI_IMAGE_NAME }}:${{ env.LATEST_TAG }}
 
-      # Replace security-severity undefined for license-related findings
-      - name: Replace security-severity undefined for license-related findings
-        run: |
-          sed -i 's/"security-severity": "undefined"/"security-severity": "0"/g' snyk.sarif
-          sed -i 's/"security-severity": "null"/"security-severity": "0"/g' snyk.sarif
-          cat snyk.sarif
+      # # Replace security-severity undefined for license-related findings
+      # - name: Replace security-severity undefined for license-related findings
+      #   run: |
+      #     sed -i 's/"security-severity": "undefined"/"security-severity": "0"/g' snyk.sarif
+      #     sed -i 's/"security-severity": "null"/"security-severity": "0"/g' snyk.sarif
+      #     cat snyk.sarif
 
-      # As of July 22nd 2025, Github does not support uploading Snyk SARIF with multiple runs
-      # # Upload result to GitHub Code Scanning
-      # - name: Snyk results upload
-      #   uses: github/codeql-action/upload-sarif@v3
-      #   with:
-      #     sarif_file: snyk.sarif
+      # # As of July 22nd 2025, Github does not support uploading Snyk SARIF with multiple runs
+      # # # Upload result to GitHub Code Scanning
+      # # - name: Snyk results upload
+      # #   uses: github/codeql-action/upload-sarif@v3
+      # #   with:
+      # #     sarif_file: snyk.sarif
 
-      # Push to ghcr.io (Github Image Registry)
-      - name: Push images
-        run: |
-          sudo -E docker push ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_IMAGE_NAME }}:${{ env.IMAGE_TAG }}
-          sudo -E docker push ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_IMAGE_NAME }}:${{ env.LATEST_TAG }}
-          sudo -E docker push ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_GUI_IMAGE_NAME }}:${{ env.IMAGE_TAG }}
-          sudo -E docker push ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_GUI_IMAGE_NAME }}:${{ env.LATEST_TAG }}
+      # # Push to ghcr.io (Github Image Registry)
+      # - name: Push images
+      #   run: |
+      #     sudo -E docker push ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+      #     sudo -E docker push ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_IMAGE_NAME }}:${{ env.LATEST_TAG }}
+      #     sudo -E docker push ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_GUI_IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+      #     sudo -E docker push ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_GUI_IMAGE_NAME }}:${{ env.LATEST_TAG }}
 
   generate-sonar-report:
     runs-on: ubuntu-latest
