@@ -76,9 +76,9 @@ jobs:
           cd ./fledgepower-deployment/all-plugins-ubuntu2404/fledge/
           sudo chmod +x ./buildContainerfile.sh
           ./buildContainerfile.sh
-          sudo -E docker build -f fledge.dockerfile -t ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_IMAGE_NAME }}:${{ env.IMAGE_TAG }} . --label ${{ github.ref }}
-          cd ../fledge-gui
-          sudo -E docker build -f fledge-gui.dockerfile -t ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_GUI_IMAGE_NAME }}:${{ env.IMAGE_TAG }} . --label ${{ github.ref }}
+#          sudo -E docker build -f fledge.dockerfile -t ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_IMAGE_NAME }}:${{ env.IMAGE_TAG }} . --label ${{ github.ref }}
+#          cd ../fledge-gui
+#          sudo -E docker build -f fledge-gui.dockerfile -t ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_GUI_IMAGE_NAME }}:${{ env.IMAGE_TAG }} . --label ${{ github.ref }}
 
       # Archive configuration for sonar report, generate by previous bash script
       - name: Archive sonar report configuration files
@@ -88,15 +88,15 @@ jobs:
           path: |
             all-plugins-ubuntu2404/fledge/pmc.yml
             all-plugins-ubuntu2404/fledge/sonarcloud.ini
-      # Run Snyk to check Docker image for vulnerabilities
-      - name: Snyk scan
-        continue-on-error: true
-        uses: snyk/actions/docker@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          image: ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_IMAGE_NAME }}:${{ env.IMAGE_TAG }}
-          args: --sarif-file-output=snyk.sarif
+      # # Run Snyk to check Docker image for vulnerabilities
+      # - name: Snyk scan
+      #   continue-on-error: true
+      #   uses: snyk/actions/docker@master
+      #   env:
+      #     SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      #   with:
+      #     image: ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+      #     args: --sarif-file-output=snyk.sarif
           
       # # Tag image with latest image
       # - name: Tag image

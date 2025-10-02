@@ -95,6 +95,9 @@ for module in $module_names; do
     # Extract the module name without its extension
     name=$(echo $module_name | cut -d_ -f1)
 
+    # Temporary for debug
+    echo $name
+
     project_key="fledge-power_"$name
     type="backend"
     sonar_config="SonarCloud"
@@ -110,6 +113,9 @@ for module in $module_names; do
   fi 
 
 done
+
+# Temporary for debug
+ls -la
 
 # Read ports values from conf file
 mapfile -t ports < <(yq eval '.ports[]' "$yaml_file")
