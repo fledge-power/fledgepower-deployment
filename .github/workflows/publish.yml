@@ -176,5 +176,5 @@ jobs:
         with:
           name: sonar-report-pdf
           path: |
-            fledgepower-deployment/all-plugins-ubuntu2404/fledge/sonar_report.pdf
+            fledgepower-deployment/fledgepower-deployment/sonar_report.pdf
 
