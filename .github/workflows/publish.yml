@@ -148,6 +148,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get install build-essential
+          sudo apt install libcairo2-dev pkg-config python3-dev
           python -m pip install --upgrade pip setuptools wheel
       # Install rte-sonar-report
       - name: Install rte-sonar-report
