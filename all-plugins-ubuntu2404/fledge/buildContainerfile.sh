@@ -116,6 +116,7 @@ done
 
 # Temporary for debug
 ls -la
+cat pmc.yml
 
 # Read ports values from conf file
 mapfile -t ports < <(yq eval '.ports[]' "$yaml_file")

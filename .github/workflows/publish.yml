@@ -86,8 +86,8 @@ jobs:
         with:
           name: sonar-report-files
           path: |
-            all-plugins-ubuntu2404/fledge/pmc.yml
             all-plugins-ubuntu2404/fledge/sonarcloud.ini
+            all-plugins-ubuntu2404/fledge/pmc.yml
       # # Run Snyk to check Docker image for vulnerabilities
       # - name: Snyk scan
       #   continue-on-error: true
