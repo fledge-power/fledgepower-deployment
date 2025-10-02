@@ -169,5 +169,12 @@ jobs:
       # Generate the Sonar report for RTE prescription enforcement
       - name: Generate Sonar report
         run: |
-          python -m rte_sonar_reports -a sonar-report-files/pmc.yml -c sonar-report-files/sonarcloud.ini -o sonar_report.pdf
+          python -m rte_sonar_reports -a pmc.yml -c sonarcloud.ini -o sonar_report.pdf
+      # Archive sonar report file
+      - name: Archive sonar report file
+        uses: actions/upload-artifact@v4
+        with:
+          name: sonar-report-pdf
+          path: |
+            fledgepower-deployment/all-plugins-ubuntu2404/fledge/sonar_report.pdf
 
