@@ -89,14 +89,11 @@ for module in $module_names; do
   # Insert the Docker instructions into the Dockerfile
   sed -i "/$start_marker/a $docker_instructions" "$dockerfile"
 
-  # Add only fledge-power lib
-  if [[ $module_name = "fledge"* ]]
+  # Add only fledge-power lib except fledgepower-filter-opcuatopivot and fledge-north-auditsnmp
+  if [[ $module_name = "fledge"* && $module_name != "fledgepower-filter-pivottoopcua"* && $module_name != "fledge-north-auditsnmp"* ]]
   then
     # Extract the module name without its extension
     name=$(echo $module_name | cut -d_ -f1)
-
-    # Temporary for debug
-    echo $name
 
     project_key="fledge-power_"$name
     type="backend"
@@ -113,10 +110,6 @@ for module in $module_names; do
   fi 
 
 done
-
-# Temporary for debug
-ls -la
-cat pmc.yml
 
 # Read ports values from conf file
 mapfile -t ports < <(yq eval '.ports[]' "$yaml_file")
