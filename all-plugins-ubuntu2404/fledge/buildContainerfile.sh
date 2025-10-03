@@ -57,7 +57,7 @@ sed -i "s/ARG FLEDGENOTIFVERSION=.*/ARG FLEDGENOTIFVERSION=\"$FLEDGENOTIFVERSION
 
 sed -i "s/ENV TASE2_REPO_ACCESS_TOKEN=.*/ENV TASE2_REPO_ACCESS_TOKEN=\"$TASE2_REPO_ACCESS_TOKEN\"/" $dockerfile
 
-# Get the latest tag version
+# Get the latest tag version of the branch
 pmc_version=$(git describe --tags --abbrev=0)
 
 # Start Sonar configuration
