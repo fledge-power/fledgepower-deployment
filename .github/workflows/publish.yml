@@ -177,12 +177,12 @@ jobs:
       # Generate the Sonar report for RTE prescription enforcement
       - name: Generate Sonar report
         run: |
-          python -m rte_sonar_reports -a pmc.yml -c sonarcloud.ini -o pmc_v${{ github.event.inputs.tags || github.ref_name }}.pdf
+          python -m rte_sonar_reports -a pmc.yml -c sonarcloud.ini -o pmc_${{ github.event.inputs.tags || github.ref_name }}.pdf
       # Archive sonar report file
       - name: Archive sonar report file
         uses: actions/upload-artifact@v4
         with:
           name: sonar-report-pdf
           path: |
-            pmc_v${{ github.event.inputs.tags || github.ref_name }}.pdf
+            pmc_${{ github.event.inputs.tags || github.ref_name }}.pdf
 
