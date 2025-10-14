@@ -8,11 +8,11 @@ on:
   workflow_dispatch:
     inputs:
       tags:
-        description: 'Define the tag (vx.y.z)'
+        description: 'Define the tag (ex: v2.3.1)'
         required: true
         type: string
       publish:
-        description: 'True to publish the image'
+        description: 'Check to publish the image'
         required: true
         type: boolean
 
@@ -24,7 +24,7 @@ env:
   FLEDGE_GUI_IMAGE_NAME: 'fledgepower/fledge-gui'
   #IMAGE_TAG: '1.0.0-amd64'
   #IMAGE_TAG: 'latest'
-  IMAGE_TAG: ${{ github.ref_name }}
+  IMAGE_TAG: ${{ github.event.inputs.tags || github.ref_name }}
   TASE2_REPO_ACCESS_TOKEN: ${{ secrets.TASE2_REPO_ACCESS_TOKEN }}
   LATEST_TAG: "${{ github.event_name == 'workflow_dispatch' && 'latest-dev' || 'latest' }}"
 
@@ -69,7 +69,7 @@ jobs:
         env:
           FP_DEPLOY_REPO: "https://github.com/fledge-power/fledgepower-deployment.git"
         run: |
-          git clone ${{ env.FP_DEPLOY_REPO }} --branch ${{ github.ref_name }} --single-branch
+          git clone ${{ env.FP_DEPLOY_REPO }} --branch ${{ github.event.inputs.tags || github.ref_name }} --single-branch
 
       # Log in to the Container registry ghcr.io
       - name: Log in to the Container registry
