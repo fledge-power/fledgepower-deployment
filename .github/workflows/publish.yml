@@ -8,11 +8,13 @@ on:
   workflow_dispatch:
     inputs:
       tags:
-        description: 'Define the tag'
-        required: false
-        type: choice
-        options:
-          - v2.3.1
+        description: 'Define the tag (vx.y.z)'
+        required: true
+        type: string
+      publish:
+        description: 'True to publish the image'
+        required: true
+        type: boolean
 
 env:
   IMAGE_REGISTRY: ghcr.io
@@ -131,8 +133,9 @@ jobs:
       #   with:
       #     sarif_file: snyk.sarif
 
-      # Push to ghcr.io (Github Image Registry)
+      # Push to ghcr.io (Github Image Registry) only when it's required
       - name: Push images
+        if: ${{ github.event_name == 'push' || inputs.publish }}
         run: |
           sudo -E docker push ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_IMAGE_NAME }}:${{ env.IMAGE_TAG }}
           sudo -E docker push ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_IMAGE_NAME }}:${{ env.LATEST_TAG }}
