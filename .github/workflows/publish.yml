@@ -112,7 +112,7 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           image: ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_IMAGE_NAME }}:${{ env.IMAGE_TAG }}
-          args: --file=Dockerfile
+          args: --file=fledgepower-deployment/all-plugins-ubuntu2404/fledge/fledge.dockerfile
           
       # Tag image with latest image
       - name: Tag image
