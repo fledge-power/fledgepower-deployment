@@ -12,7 +12,7 @@ on:
         required: true
         type: string
       publish:
-        description: 'Check to publish the image'
+        description: 'Check if you want to publish the image'
         required: true
         type: boolean
 
@@ -69,7 +69,8 @@ jobs:
         env:
           FP_DEPLOY_REPO: "https://github.com/fledge-power/fledgepower-deployment.git"
         run: |
-          git clone ${{ env.FP_DEPLOY_REPO }} --branch ${{ github.event.inputs.tags || github.ref_name }} --single-branch
+          #git clone ${{ env.FP_DEPLOY_REPO }} --branch ${{ github.event.inputs.tags || github.ref_name }} --single-branch
+          git clone ${{ env.FP_DEPLOY_REPO }} --branch ${{ github.ref_name }} --single-branch
 
       # Log in to the Container registry ghcr.io
       - name: Log in to the Container registry
@@ -90,7 +91,7 @@ jobs:
           sudo -E docker build -f fledge-gui.dockerfile -t ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_GUI_IMAGE_NAME }}:${{ env.IMAGE_TAG }} . --label ${{ github.ref }}
       
       # Updated version on pmc.yml with the release tag 
-      - name: Upadated version on pmc.yml
+      - name: Updated version on pmc.yml
         run: |
           yq '.application.version = "'${{ github.event.inputs.tags || github.ref_name }}'"' -i fledgepower-deployment/all-plugins-ubuntu2404/fledge/pmc.yml
           
@@ -111,7 +112,7 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           image: ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_IMAGE_NAME }}:${{ env.IMAGE_TAG }}
-          args: --sarif-file-output=snyk.sarif
+          args: --sarif-file-output=snyk.sarif --file=Dockerfile
           
       # Tag image with latest image
       - name: Tag image
@@ -127,11 +128,11 @@ jobs:
           cat snyk.sarif
 
       # As of July 22nd 2025, Github does not support uploading Snyk SARIF with multiple runs
-      # # Upload result to GitHub Code Scanning
-      # - name: Snyk results upload
-      #   uses: github/codeql-action/upload-sarif@v3
-      #   with:
-      #     sarif_file: snyk.sarif
+      # Upload result to GitHub Code Scanning
+      - name: Snyk results upload
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: snyk.sarif
 
       # Push to ghcr.io (Github Image Registry) only when it's required
       - name: Push images
