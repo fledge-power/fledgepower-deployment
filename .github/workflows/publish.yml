@@ -81,9 +81,6 @@ jobs:
           load: true 
           tags: ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_IMAGE_NAME }}:${{ env.IMAGE_TAG }}
           labels: ${{ github.ref }}
-          cache-from: type=gha,scope=fledge
-          cache-to: type=gha,mode=max,scope=fledge
-
       # Build Fledge GUI
       - name: Build Fledge GUI
         uses: docker/build-push-action@v5
@@ -93,8 +90,6 @@ jobs:
           load: true
           tags: ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_GUI_IMAGE_NAME }}:${{ env.IMAGE_TAG }}
           labels: ${{ github.ref }}
-          cache-from: type=gha,scope=fledge
-          cache-to: type=gha,mode=max,scope=fledge
       
       # Updated version on pmc.yml with the release tag 
       - name: Updated version on pmc.yml
