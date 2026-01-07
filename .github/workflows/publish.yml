@@ -61,15 +61,40 @@ jobs:
           username: ${{ env.REGISTRY_USER }}
           password: ${{ env.REGISTRY_PASSWORD }}
 
-      # Build image
-      - name: Build images
+      # Activate Docker Buildx
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # Execute script to prepare Dockerfiles
+      - name: Prepare Dockerfiles
         run: |
           cd ./fledgepower-deployment/all-plugins-ubuntu2404/fledge/
           sudo chmod +x ./buildContainerfile.sh
           ./buildContainerfile.sh
-          sudo -E docker build -f fledge.dockerfile -t ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_IMAGE_NAME }}:${{ env.IMAGE_TAG }} . --label ${{ github.ref }}
-          cd ../fledge-gui
-          sudo -E docker build -f fledge-gui.dockerfile -t ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_GUI_IMAGE_NAME }}:${{ env.IMAGE_TAG }} . --label ${{ github.ref }}
+
+      # Build Fledge
+      - name: Build Fledge
+        uses: docker/build-push-action@v5
+        with:
+          context: ./fledgepower-deployment/all-plugins-ubuntu2404/fledge/
+          file: ./fledgepower-deployment/all-plugins-ubuntu2404/fledge/fledge.dockerfile
+          load: true 
+          tags: ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+          labels: ${{ github.ref }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      # Build Fledge GUI
+      - name: Build Fledge GUI
+        uses: docker/build-push-action@v5
+        with:
+          context: ./fledgepower-deployment/all-plugins-ubuntu2404/fledge-gui/
+          file: ./fledgepower-deployment/all-plugins-ubuntu2404/fledge-gui/fledge-gui.dockerfile
+          load: true
+          tags: ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_GUI_IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+          labels: ${{ github.ref }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
       
       # Updated version on pmc.yml with the release tag 
       - name: Updated version on pmc.yml
