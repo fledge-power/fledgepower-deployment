@@ -8,11 +8,13 @@ on:
   workflow_dispatch:
     inputs:
       tags:
-        description: 'Define the tag'
+        description: 'Define the tag (e.g. v2.3.1). If not set, the current branch or tag name will be used. If set, the scan will generate the report using this tag and run on the specified tag.'
         required: false
-        type: choice
-        options:
-          - v2.3.1
+        type: string
+      publish:
+        description: 'Check if you want to publish the image'
+        required: true
+        type: boolean
 
 env:
   IMAGE_REGISTRY: ghcr.io
@@ -20,39 +22,25 @@ env:
   REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
   FLEDGE_IMAGE_NAME: 'fledgepower/fledge'
   FLEDGE_GUI_IMAGE_NAME: 'fledgepower/fledge-gui'
-  #IMAGE_TAG: '1.0.0-amd64'
-  #IMAGE_TAG: 'latest'
-  IMAGE_TAG: ${{ github.ref_name }}
+  IMAGE_TAG: ${{ github.event.inputs.tags || github.ref_name }}
   TASE2_REPO_ACCESS_TOKEN: ${{ secrets.TASE2_REPO_ACCESS_TOKEN }}
   LATEST_TAG: "${{ github.event_name == 'workflow_dispatch' && 'latest-dev' || 'latest' }}"
 
 jobs:
   build-and-push-image:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       contents: read
       packages: write
       security-events: write
 
     steps:
+      # Clone repo
       - name: Checkout repository
         uses: actions/checkout@v2
-
-      # Download and install Docker
-      - name: Download and install Docker
-        run: |
-          sudo apt-get update
-          sudo apt-get install \
-                  ca-certificates \
-                  curl \
-                  gnupg \
-                  lsb-release
-          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-          echo \
-              "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
-              $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-          sudo apt-get update
-          sudo apt-get install docker-ce docker-ce-cli containerd.io
+        with:
+          ref: ${{ github.event.inputs.tags || github.ref }}
+          path: fledgepower-deployment
 
       # Download and install yq yaml processor
       - name: Download and install yq
@@ -62,13 +50,6 @@ jobs:
           sudo wget -qO /usr/local/bin/yq ${{ env.YQ_REPO }}
           sudo chmod a+x /usr/local/bin/yq
 
-      # Download fledgepower deployment
-      - name: Download fledgepower deployment
-        env:
-          FP_DEPLOY_REPO: "https://github.com/fledge-power/fledgepower-deployment.git"
-        run: |
-          git clone ${{ env.FP_DEPLOY_REPO }} --branch ${{ github.ref_name }} --single-branch
-
       # Log in to the Container registry ghcr.io
       - name: Log in to the Container registry
         uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
@@ -77,23 +58,44 @@ jobs:
           username: ${{ env.REGISTRY_USER }}
           password: ${{ env.REGISTRY_PASSWORD }}
 
-      # Build image
-      - name: Build images
+      # Activate Docker Buildx
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # Execute script to prepare Dockerfiles
+      - name: Prepare Dockerfiles
         run: |
           cd ./fledgepower-deployment/all-plugins-ubuntu2404/fledge/
           sudo chmod +x ./buildContainerfile.sh
           ./buildContainerfile.sh
-          sudo -E docker build -f fledge.dockerfile -t ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_IMAGE_NAME }}:${{ env.IMAGE_TAG }} . --label ${{ github.ref }}
-          cd ../fledge-gui
-          sudo -E docker build -f fledge-gui.dockerfile -t ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_GUI_IMAGE_NAME }}:${{ env.IMAGE_TAG }} . --label ${{ github.ref }}
+
+      # Build Fledge
+      - name: Build Fledge
+        uses: docker/build-push-action@v5
+        with:
+          context: ./fledgepower-deployment/all-plugins-ubuntu2404/fledge/
+          file: ./fledgepower-deployment/all-plugins-ubuntu2404/fledge/fledge.dockerfile
+          load: true 
+          tags: ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+          labels: ${{ github.event.inputs.tags || github.ref }}
+      # Build Fledge GUI
+      - name: Build Fledge GUI
+        uses: docker/build-push-action@v5
+        with:
+          context: ./fledgepower-deployment/all-plugins-ubuntu2404/fledge-gui/
+          file: ./fledgepower-deployment/all-plugins-ubuntu2404/fledge-gui/fledge-gui.dockerfile
+          load: true
+          tags: ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_GUI_IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+          labels: ${{ github.event.inputs.tags || github.ref }}
       
       # Updated version on pmc.yml with the release tag 
-      - name: Upadated version on pmc.yml
+      - name: Updated version on pmc.yml
         run: |
           yq '.application.version = "'${{ github.event.inputs.tags || github.ref_name }}'"' -i fledgepower-deployment/all-plugins-ubuntu2404/fledge/pmc.yml
           
       # Archive configuration for sonar report, generated by previous bash script
       - name: Archive sonar report configuration files
+        if: ${{ always() }}
         uses: actions/upload-artifact@v4
         with:
           name: yml-and-ini-files
@@ -109,7 +111,7 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           image: ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_IMAGE_NAME }}:${{ env.IMAGE_TAG }}
-          args: --sarif-file-output=snyk.sarif
+          args: --file=fledgepower-deployment/all-plugins-ubuntu2404/fledge/fledge.dockerfile
           
       # Tag image with latest image
       - name: Tag image
@@ -125,14 +127,15 @@ jobs:
           cat snyk.sarif
 
       # As of July 22nd 2025, Github does not support uploading Snyk SARIF with multiple runs
-      # # Upload result to GitHub Code Scanning
-      # - name: Snyk results upload
-      #   uses: github/codeql-action/upload-sarif@v3
-      #   with:
-      #     sarif_file: snyk.sarif
+      # Upload result to GitHub Code Scanning
+      - name: Snyk results upload
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: snyk.sarif
 
-      # Push to ghcr.io (Github Image Registry)
+      # Push to ghcr.io (Github Image Registry) only when it's required
       - name: Push images
+        if: ${{ github.event_name == 'push' || inputs.publish }}
         run: |
           sudo -E docker push ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_IMAGE_NAME }}:${{ env.IMAGE_TAG }}
           sudo -E docker push ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ env.FLEDGE_IMAGE_NAME }}:${{ env.LATEST_TAG }}
@@ -161,6 +164,7 @@ jobs:
       # Install dependencies
       - name: Install dependencies
         run: |
+          sudo apt-get update
           sudo apt-get install build-essential
           sudo apt install libcairo2-dev pkg-config python3-dev
           python -m pip install --upgrade pip setuptools wheel
