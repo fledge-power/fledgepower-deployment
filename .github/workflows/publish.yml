@@ -8,8 +8,8 @@ on:
   workflow_dispatch:
     inputs:
       tags:
-        description: 'Define the tag (ex: v2.3.1)'
-        required: true
+        description: 'Define the tag (ex: v2.3.1). If not set, current branch or tag name will be used. If set, the scan will generate the report with this tag.'
+        required: false
         type: string
       publish:
         description: 'Check if you want to publish the image'
@@ -31,7 +31,7 @@ env:
 
 jobs:
   build-and-push-image:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       contents: read
       packages: write
