@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
     inputs:
       tags:
-        description: 'Define the tag (ex: v2.3.1). If not set, current branch or tag name will be used. If set, the scan will generate the report with this tag.'
+        description: 'Define the tag (e.g. v2.3.1). If not set, the current branch or tag name will be used. If set, the scan will generate the report using this tag and run on the specified tag.'
         required: false
         type: string
       publish:
