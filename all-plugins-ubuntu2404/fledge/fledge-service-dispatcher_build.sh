@@ -17,15 +17,18 @@
 ##--------------------------------------------------------------------
 
 ##
-## Author: Mark Riddoch, Akli Rahmoun
+## Author: Niels Boussion
 ##
-FLEDGEDISPATCHVERSION=$1
-RELEASE=$2
-OPERATINGSYSTEM=$3
-ARCHITECTURE=$4
-FLEDGELINK="http://archives.fledge-iot.org/$RELEASE/$OPERATINGSYSTEM/$ARCHITECTURE"
 
-wget --no-check-certificate ${FLEDGELINK}/fledge-service-dispatcher_${FLEDGEDISPATCHVERSION}_${ARCHITECTURE}.deb
-dpkg --unpack ./fledge-service-dispatcher_${FLEDGEDISPATCHVERSION}_${ARCHITECTURE}.deb
-apt-get install -yf
-apt-get clean -y
+GITHEAD=$1
+
+cd /tmp
+wget --no-check-certificate -O ./fledge-service-dispatcher.tar.gz https://github.com/fledge-iot/fledge-service-dispatcher/archive/refs/tags/$GITHEAD.tar.gz
+tar -xf fledge-service-dispatcher.tar.gz
+cd fledge-service-dispatcher-*
+
+mkdir build
+cd build
+cmake -DFLEDGE_INCLUDE=/usr/local/fledge/include/ -DFLEDGE_LIB=/usr/local/fledge/lib/ -DFLEDGE_INSTALL=/usr/local/fledge ..
+make
+make install

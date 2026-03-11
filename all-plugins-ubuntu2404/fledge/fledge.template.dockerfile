@@ -12,15 +12,14 @@ ARG FLEDGEDISPATCHERVERSION=FLEDGEDISPATCHERVERSION
 ARG FLEDGENOTIFVERSION=FLEDGENOTIFVERSION
 ARG FLEDGELINK="http://archives.fledge-iot.org/${RELEASE}/${OPERATINGSYSTEM}/${ARCHITECTURE}"
 
-ENV FLEDGE_ROOT=/usr/local/fledge
-ENV LIB_HNZ="/usr/local/hnz/libhnz"
-
 ENV TASE2_REPO_ACCESS_TOKEN=TASE2_REPO_ACCESS_TOKEN
+ENV LIB_HNZ="/usr/local/hnz/libhnz"
 
 # Avoid interactive questions when installing Kerberos
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get dist-upgrade -y && apt-get install --no-install-recommends --yes \
+    sudo \
     git \
     iputils-ping \
     inetutils-telnet \
@@ -31,41 +30,27 @@ RUN apt-get update && apt-get dist-upgrade -y && apt-get install --no-install-re
     snmp \
     jq \
     cmake g++ make build-essential autoconf automake uuid-dev \
-    libgtest-dev libgmock-dev && \
-    echo '=============================================='
-    
-RUN mkdir ./fledge && \
-    wget -O ./fledge/fledge-${FLEDGEVERSION}-${ARCHITECTURE}.deb --no-check-certificate ${FLEDGELINK}/fledge_${FLEDGEVERSION}_${ARCHITECTURE}.deb && \  
-    dpkg --unpack ./fledge/fledge-${FLEDGEVERSION}-${ARCHITECTURE}.deb && \
-    sed '/^.*_fledge_service$/d' /var/lib/dpkg/info/fledge.postinst > /fledge.postinst && \
-    mv /var/lib/dpkg/info/fledge.postinst /var/lib/dpkg/info/fledge.postinst.save && \
-    apt-get install -yf && \
-    mkdir -p /usr/local/fledge/data/extras/fogbench && \
-    chmod +x /fledge.postinst && \
-    /fledge.postinst && \
-    rm -f /*.tgz && \ 
-    rm -rf -r /fledge && \
-    apt-get autoremove -y && \
-    apt-get clean -y && \
-    rm -rf /var/lib/apt-get/lists/ && \
-    echo '=============================================='
-    
-COPY fledge-install-include.sh /tmp/
-
-RUN chmod +x /tmp/fledge-install-include.sh && \
-    /tmp/fledge-install-include.sh ${GITHEAD} && \
+    libgtest-dev libgmock-dev \
+    libssl-dev \
+    avahi-daemon ca-certificates curl libcurl4-openssl-dev \
+    libtool libboost-dev libboost-system-dev libboost-thread-dev libpq-dev libz-dev \
+    libsqlite3-dev sqlite3 \
+    pkg-config \
+    python-dev-is-python3 python3-dev python3-pip python3-numpy && \
     echo '=============================================='
 
-COPY fledge-install-dispatcher.sh /tmp/
-
-RUN chmod +x /tmp/fledge-install-dispatcher.sh && \
-    /tmp/fledge-install-dispatcher.sh ${FLEDGEDISPATCHERVERSION} ${RELEASE} ${OPERATINGSYSTEM} ${ARCHITECTURE} && \
+COPY fledge_build.sh /tmp/
+RUN bash /tmp/fledge_build.sh ${GITHEAD} && \
     echo '=============================================='
 
-COPY fledge-install-notification.sh /tmp/
+ENV FLEDGE_ROOT=/usr/local/fledge
 
-RUN chmod +x /tmp/fledge-install-notification.sh && \
-    /tmp/fledge-install-notification.sh ${FLEDGENOTIFVERSION} ${RELEASE} ${OPERATINGSYSTEM} ${ARCHITECTURE} && \
+COPY fledge-service-dispatcher_build.sh /tmp/
+RUN bash /tmp/fledge-service-dispatcher_build.sh ${GITHEAD} && \
+    echo '=============================================='
+
+COPY fledge-service-notification_build.sh /tmp/
+RUN bash /tmp/fledge-service-notification_build.sh ${GITHEAD} && \
     echo '=============================================='
 
 # Hotfix for uppercase ssl certificate, can be removed after integrating Fledge >= 2.7.0 (including commit 9d8bc89)
