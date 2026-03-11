@@ -9,16 +9,18 @@ RUN wget -O fledge-gui.tar.gz https://github.com/fledge-iot/fledge-gui/archive/r
 
 WORKDIR /app/fledge-gui
 
-RUN bash build --clean-start
+RUN yarn install && yarn build
 
 RUN mv dist /app
+
+RUN cp docker/nginx-docker.conf ../nginx.conf
 
 # Stage serve
 FROM nginx:latest
 
 COPY --from=builder /app/dist/* /usr/share/nginx/html
 
-RUN mv /usr/share/nginx/html/fledge.html /usr/share/nginx/html/index.html
+COPY --from=builder /app/nginx.conf /etc/nginx/nginx.conf
 
 # Fledge GUI ports
 EXPOSE 8080
