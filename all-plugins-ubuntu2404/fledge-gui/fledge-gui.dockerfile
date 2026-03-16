@@ -18,7 +18,7 @@ RUN cp docker/nginx-docker.conf ../nginx.conf
 # Stage serve
 FROM nginx:latest
 
-COPY --from=builder /app/dist/* /usr/share/nginx/html
+COPY --from=builder /app/dist /usr/share/nginx/html
 
 COPY --from=builder /app/nginx.conf /etc/nginx/nginx.conf
 
