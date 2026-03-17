@@ -11,6 +11,8 @@ WORKDIR /app/fledge-gui
 
 RUN yarn install && yarn build
 
+RUN ln -s dist/assets/favicon.ico dist
+
 RUN mv dist /app
 
 RUN cp docker/nginx-docker.conf ../nginx.conf
