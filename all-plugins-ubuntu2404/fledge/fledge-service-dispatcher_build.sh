@@ -23,7 +23,7 @@
 GITHEAD=$1
 
 cd /tmp
-wget --no-check-certificate -O ./fledge-service-dispatcher.tar.gz https://github.com/fledge-iot/fledge-service-dispatcher/archive/refs/tags/$GITHEAD.tar.gz
+wget --no-check-certificate -O ./fledge-service-dispatcher.tar.gz https://github.com/fledge-power/fledge-service-dispatcher/archive/refs/tags/$GITHEAD.tar.gz
 tar -xf fledge-service-dispatcher.tar.gz
 cd fledge-service-dispatcher-*
 

@@ -34,7 +34,7 @@ make install
 
 # Build and install fledge
 cd /tmp
-wget --no-check-certificate -O ./fledge.tar.gz https://github.com/fledge-iot/fledge/archive/refs/tags/$GITHEAD.tar.gz
+wget --no-check-certificate -O ./fledge.tar.gz https://github.com/fledge-power/fledge/archive/refs/tags/$GITHEAD.tar.gz
 tar -xf fledge.tar.gz
 cd fledge-*
 make
