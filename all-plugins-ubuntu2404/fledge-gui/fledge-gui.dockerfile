@@ -5,7 +5,7 @@ ARG GITHEAD=v3.1.0
 
 WORKDIR /app
 
-RUN wget -O fledge-gui.tar.gz https://github.com/fledge-iot/fledge-gui/archive/refs/tags/$GITHEAD.tar.gz && tar -xf fledge-gui.tar.gz && mv fledge-gui-* fledge-gui
+RUN wget -O fledge-gui.tar.gz https://github.com/fledge-power/fledge-gui/archive/refs/tags/$GITHEAD.tar.gz && tar -xf fledge-gui.tar.gz && mv fledge-gui-* fledge-gui
 
 WORKDIR /app/fledge-gui
 
