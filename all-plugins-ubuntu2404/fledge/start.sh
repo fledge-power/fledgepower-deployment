@@ -16,4 +16,4 @@ fi
 
 sleep 10
 sh importModules.sh $password_token
-tail -f /var/log/syslog
+sleep infinity
