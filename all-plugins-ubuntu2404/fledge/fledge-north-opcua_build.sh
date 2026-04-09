@@ -37,7 +37,7 @@ VERSION=$1
 
 MBEDTLS_REPO_URL="https://github.com/ARMmbed/mbedtls/archive/refs/tags"
 MBEDTLS_VERSION="2.28.1"
-FLEDGE_REPO_URL="https://github.com/fledge-iot/fledge/archive/refs/tags/v2.0.1.zip" 
+FLEDGE_REPO_URL="https://github.com/fledge-power/fledge/archive/refs/tags/v2.0.1.zip" 
 
 rm -rf ${DEV_ROOT}  2>/dev/null
 BUILD_LIB=true
