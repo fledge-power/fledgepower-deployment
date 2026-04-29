@@ -17,15 +17,18 @@
 ##--------------------------------------------------------------------
 
 ##
-## Author: Mark Riddoch, Akli Rahmoun
+## Author: Niels Boussion
 ##
-FLEDGENOTIFVERSION=$1
-RELEASE=$2
-OPERATINGSYSTEM=$3
-ARCHITECTURE=$4
-FLEDGELINK="http://archives.fledge-iot.org/$RELEASE/$OPERATINGSYSTEM/$ARCHITECTURE"
 
-wget --no-check-certificate ${FLEDGELINK}/fledge-service-notification_${FLEDGENOTIFVERSION}_${ARCHITECTURE}.deb
-dpkg --unpack ./fledge-service-notification_${FLEDGENOTIFVERSION}_${ARCHITECTURE}.deb
-apt-get install -yf
-apt-get clean -y
+GITHEAD=$1
+
+cd /tmp
+wget --no-check-certificate -O ./fledge-service-notification.tar.gz https://github.com/fledge-power/fledge-service-notification/archive/refs/tags/$GITHEAD.tar.gz
+tar -xf fledge-service-notification.tar.gz
+cd fledge-service-notification-*
+
+mkdir build
+cd build
+cmake -DFLEDGE_INCLUDE=/usr/local/fledge/include/ -DFLEDGE_LIB=/usr/local/fledge/lib/ -DFLEDGE_INSTALL=/usr/local/fledge ..
+make
+make install
